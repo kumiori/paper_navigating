@@ -1,0 +1,147 @@
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage{xcolor}
+
+
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{dcolumn}
+\usepackage{longtable}
+\usepackage{hyperref}
+% \usepackage{natbib}
+\usepackage{stmaryrd}%
+\usepackage{color}
+\usepackage{wasysym} % for hexagon and star of david in equation
+\usepackage{siunitx}
+\usepackage{enumitem}
+\usepackage{lipsum}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\definecolor{mygreen}{RGB}{98,174,37}
+\definecolor{myred}{RGB}{211,0,45}
+\definecolor{myblue}{RGB}{0,126,148}
+\definecolor{colorMD}{RGB}{60, 179, 113} % medium sea green
+
+
+\def\ep{\varepsilon}
+\def\eps{\varepsilon}
+\def\half{\frac{1}{2}}
+\def\phi{\varphi}
+\def\RR{\mathbb R}
+\def\NN{\mathbb N}
+\def\supp{{\rm supp}}
+\def\di{\displaystyle}
+\def\ri{\rightarrow}
+\def\calx{{\cal X}}
+\def\intom{\int_\Omega}
+\def\huo{H^1_0(\Omega )}
+\def\incep{\left\{\begin{array}{ll}}
+\def\termin{\end{array}\right.}
+\def\intga{\int_\Gamma}
+\def\wik{\widetilde{K}}
+\def\wie{\widetilde{E}}
+%\def\uu{[ u]}
+\def\vu{[ v-u]}
+\def\la2{\lambda^2}
+\def\proof{{\it Proof.}\ }
+\def\endproof{\nolinebreak\hfill\rule{2mm}{2mm}}
+\def\rh{\rightharpoonup}
+\def\dst{\displaystyle}
+\newcommand{\bs}{{\boldsymbol \sigma}}
+\newcommand{\bss}{{\boldsymbol s}}
+\newcommand{\bep}{{\boldsymbol \varepsilon}}
+\newcommand{\bt}{{\boldsymbol \tau}}
+\newcommand{\btt}{{\boldsymbol t}}
+\newcommand{\bnu}{{\boldsymbol \nu}}
+\newcommand{\bu}{{\boldsymbol u}}
+\newcommand{\bmm}{{\boldsymbol m}}
+\newcommand{\br}{{\boldsymbol r}}
+\newcommand{\bR}{{\boldsymbol R}}
+\newcommand{\be}{{\boldsymbol e}}
+\newcommand{\bc}{{\boldsymbol c}}
+\newcommand{\bv}{{\boldsymbol v}}
+\newcommand{\bg}{{\boldsymbol \gamma}}
+\newcommand{\bF}{{\boldsymbol F}}
+\newcommand{\bK}{{\boldsymbol K}}
+\newcommand{\bV}{{\boldsymbol V}}
+%\newcommand{\bni}{{\boldsymbol n}}
+\newcommand{\bn}{{\boldsymbol e}_3}
+\newcommand{\nn}{{\boldsymbol e}_3}
+\newcommand{\bal}{{\boldsymbol \alpha}}
+\newcommand{\bff}{{\boldsymbol f}}
+\newcommand{\ba}{{\boldsymbol a}}
+\newcommand{\bb}{{\boldsymbol b}}
+\newcommand{\bx}{{\boldsymbol x}}
+\newcommand{\U}{{\cal U}}
+\newcommand{\T}{{\cal T}}
+\newcommand{\F}{{\cal F}}
+\newcommand{\E}{{\cal E}}
+\newcommand{\LL}{{\cal L}}
+\newcommand{\N}{{\cal N}}
+\newcommand{\K}{{\cal K}}
+\newcommand{\W}{{\cal W}}
+%\newcommand{\bN}{\boldsymbol {\cal N}}
+\newcommand{\bN}{\boldsymbol  N}
+\newcommand{\bDD}{\boldsymbol  D}
+\newcommand{\bM}{\boldsymbol  M}
+\newcommand{\bE}{{\boldsymbol  E}}
+\newcommand{\bA}{\boldsymbol {\cal A}}
+\newcommand{\bU}{\boldsymbol {\cal U}}
+\newcommand{\bCC}{\boldsymbol {\cal C}}
+\newcommand{\bMM}{\boldsymbol {\cal M}}
+\newcommand{\bAA}{{\boldsymbol A}}
+\newcommand{\bphi}{{\boldsymbol \phi}}
+\newcommand{\bPsi}{{\boldsymbol \Psi}}
+\newcommand{\bPi}{{\boldsymbol \Pi}}
+
+\newcommand{\bni}{{\boldsymbol n}}
+\newcommand{\bI}{{\boldsymbol I}}
+\newcommand{\bS}{{\boldsymbol S}}
+\newcommand{\D}{ {\cal D}}
+\newcommand{\Oo}{ {\cal O}}
+\newcommand{\oo}{{ {\mathcal o}}}
+
+\def\R{\mathbb{R}}
+\newcommand{\I}{{\boldsymbol {\cal I}}}
+\newcommand{\bT}{{\boldsymbol {\cal T}}}
+\newcommand{\bTT}{{\boldsymbol T}}
+\newcommand{\bD}{{\boldsymbol{\cal D}}}
+\newcommand{\bSS}{{\boldsymbol{\cal S}}}
+%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\C}{{\mathbb{C}}}         % \C for C (complex numbers)
+\newcommand{\Q}{{\mathbb{Q}}}         % \Q for Q (rational numbers)
+%\newcommand{\R}{{\mathbb{R}}}         % \R for R (real numbers)
+\newcommand{\Z}{{\mathbb{Z}}}         % \Z for Z (integers)
+%\newcommand{\N}{{\mathbb{N}}}         % \N for N (natural numbers)
+
+
+\newcommand\DD{\mathcal{D}}
+%\newcommand\T{\mathcal{T}}
+%\newcommand\nn{\boldsymbol{n}}
+\newcommand\uu{\boldsymbol{u}}
+\newcommand\vv{\boldsymbol{v}}
+\newcommand\bC{\boldsymbol{C}}
+%\newcommand\bb{\boldsymbol{b}}
+\newcommand\VV{\boldsymbol{V}}
+\newcommand\UU{\boldsymbol{U}}
+\newcommand\SSS{\boldsymbol{S}}
+\newcommand\sig{\boldsymbol{\sigma}}
+\newcommand\vep{\boldsymbol{\varepsilon}}
+\newcommand\val{\boldsymbol{\alpha}}
+\newcommand\vtau{\boldsymbol{\tau}}
+\newcommand\vphi{\boldsymbol{\phi}}
+\newcommand\bpsi{\boldsymbol{\psi}}
+
+\newcommand\bd{\boldsymbol{d}}
+\newcommand\bgg{\boldsymbol{g}}
+
+\newcommand\nor{\boldsymbol{n}}
+\newcommand\ee{\boldsymbol{e}}
+\newcommand\brX{\bar{X}}
+
+\renewcommand{\a}{\alpha}
+\renewcommand{\b}{\beta}
+\renewcommand{\d}{\mathrm{d}}
+\newcommand{\de}{\partial}

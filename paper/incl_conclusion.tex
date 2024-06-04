@@ -1,0 +1,87 @@
+%!TEX root = main.tex
+
+\section{Conclusion} 
+
+\added[id=ALB]{That the branch switching phenomenon is not an automatic feature of approximate numerical methods is not surprising. Indeed, because they rely on approximate information about the Hessian of the energy functional, these methods are not guaranteed to systematically detect transitions between local minima when stability is lost. 
+This requires a careful determination of the zero-eigenmodes that render singular the exact nonlinear Hessian, which is typically not available in general purpose first order numerical algorithms.
+In practice, without such information, critical loads for equilibrium transitions become algorithm-dependant and need not be consistent with the solution of the exact evolution problem.
+% 
+% 
+Further work: characterisation of bifurcation points, conditions for stability exchange, local features of the energy landscape, qualitative features of constrained systems with respect to canonical representations of bifurcations
+% 
+future work: thorough energy blow up and reduction at bifurcation points
+}
+%: (i) compute a descent direction $\mathbf{p}_k$ by solving $B_k \mathbf{p}_k = -\nabla f(\mathbf{x}_k)$, (ii) define a one-dimensional function $h(\alpha_k) = f(\mathbf{X}_k + \alpha_k \mathbf{p}_k)$, representing the function value on the descent direction given the step-size, (iii) find an $\alpha_k$ that minimizes $h$ over $\alpha_k \in \mathbb{R}_+$, (iv) set $\mathbf{s}_k = \alpha_k \mathbf{p}_k$ and update $\mathbf{X}_{k+1} = \mathbf{X}_k + \mathbf{s}_k$, (vi) set $\mathbf{y}_k = \nabla f(\mathbf{X}_{k+1}) - \nabla f(\mathbf{X}_k)$, (vii) set $B_{k+1} = B_k + \frac{\mathbf{y}_k \mathbf{y}_k^T}{\mathbf{y}_k^T \mathbf{s}_k} - \frac{B_k \mathbf{s}_k \mathbf{s}_k^T B_k^T}{\mathbf{s}_k^T B_k \mathbf{s}_k}.$
+%Minimizing the energy functionals given in \eqref{modeld}  and \eqref{model_elastic_substrate}.
+%
+% $W = \int_{\Omega_{0}} \phi  d\Omega_{0}$ is accomplished using a variant of conjugate gradient optimization known as the L-BFGS algorithm [98]. This algorithm seeks solutions to the equilibrium equations $\partial W / \partial \mathbf{u}{ij} = \int_{\Omega_{0}} \mathbf{P} \nabla \mathcal{N}_{ij} , d\Omega_{0} = 0$, where $\mathbf{P} = \partial \phi / \partial \boldsymbol{\nabla} \mathbf{y}$ and $\mathcal{N}_{ij}$ is the shape function at node $(ij)$. 
+
+%unknown constants (cubic Hermite interpolation) (Liu and Quek, 2013). This implies that four shape functions were used in each
+%two-node element (4 degrees of freedom), and we utilized a uniform mesh with an element size h𝑒 = 1∕1000. The discrete solution
+%𝑢′(𝑥𝑖) provided at discrete nodes 𝑥𝑖 by AUTO was first interpolated using B-spline basis function of degree 3 (Grimstad and others,
+%2015) and then used to calculate the integral (10) using a three-point Gauss integration scheme; the fixed boundary conditions were
+%imposed by removing from the stiffness matrix 𝐊 the row and columns at 𝑥 = 0 and 𝑥 = 1.
+
+
+
+%\begin{algorithm}
+%\caption{Monolithic minimization of the energy functional in the strain interval $[\bar\epsilon,\bar\epsilon+\delta\bar\epsilon]$}
+%\LinesNumbered
+%\SetAlgoNlRelativeSize{0}
+%\SetNlSty{textbf}{(}{)}
+%\SetAlgoNlRelativeSize{-1}
+%\SetAlgoNlRelativeSize{1}
+%
+%\textbf{}Given ${\bf X}^n = \{{\bf u}^n, \alpha^n \}$ at $\bar\epsilon$ \\
+%\textbf{}Set $\bar\epsilon$ to $\bar\epsilon+\delta\bar\epsilon$, with $\delta\bar\epsilon=10^{-6}$\\
+%\textbf{}Set ${\bf X}^{n,0} \leftarrow {\bf X}^n$, $a \leftarrow 0$
+%
+%\While{$|\Psi_{\text{total}}^{n,a+1} - \Psi_{\text{total}}^{n,a}| \leq \text{TOL} \ll 1$}{
+%    $\min\limits_{{\bf X}^{n,a+1}} \Psi_{\text{internal}}({\bf X}^{n,a+1}$)\;
+%    %subject to $\alpha^{n,a+1} \geq \alpha^n$\;
+%    \textbf{} Set $a \leftarrow a + 1$
+%}
+%\textbf{}Update solution: ${\bf X}^{n+1} \leftarrow {\bf X}^{n,a}$
+%\end{algorithm}
+
+
+%\begin{algorithm}
+%\caption{Monolithic minimization of the energy functional in the strain interval $[\bar\epsilon,\bar\epsilon+\delta\bar\epsilon]$}
+%\LinesNumbered
+%\SetAlgoNlRelativeSize{0}
+%\SetNlSty{textbf}{(}{)}
+%\SetAlgoNlRelativeSize{-1}
+%\SetAlgoNlRelativeSize{1}
+%
+%\textbf{}Given ${\bf X}^n = \{{\bf u}^n, \alpha^n \}$ at $\bar\epsilon$ \\
+%\textbf{}Set $\bar\epsilon$ to $\bar\epsilon+\delta\bar\epsilon$, with $\delta\bar\epsilon=10^{-6}$\\
+%\textbf{}Set ${\bf X}^{n,0} \leftarrow {\bf X}^n$, $a \leftarrow 0$
+%
+%\While{$|\Psi_{\text{total}}^{n,a+1} - \Psi_{\text{total}}^{n,a}| \leq \text{TOL} \ll 1$}{
+%    $\min\limits_{{\bf X}^{n,a+1}} \Psi_{\text{internal}}({\bf X}^{n,a+1}$)\;
+%    subject to $\alpha^{n,a+1} \geq \alpha^n$\;
+%    \textbf{}Set $a \leftarrow a + 1$
+%}
+%\textbf{}Update solution: ${\bf X}^{n+1} \leftarrow {\bf X}^{n,a}$
+%\end{algorithm}
+%
+%\begin{algorithm}
+%\caption{Alternating minimization of the energy functional in the strain interval $[\bar\epsilon,\bar\epsilon+\delta\bar\epsilon]$}
+%\LinesNumbered
+%\SetAlgoNlRelativeSize{0}
+%\SetNlSty{textbf}{(}{)}
+%\SetAlgoNlRelativeSize{-1}
+%\SetAlgoNlRelativeSize{1}
+%
+%\textbf{}Given ${\bf u}^n$, $\alpha^n$ at $\bar\epsilon$ \\
+%\textbf{}Set $\bar\epsilon$ to $\bar\epsilon+\delta\bar\epsilon$, with $\delta\bar\epsilon=10^{-6}$\\
+%\textbf{}Set ${\bf u}^{n,0} \leftarrow {\bf u}^n$, $\alpha^{n,0} \leftarrow \alpha^n$, $a \leftarrow 0$
+%
+%\While{$|\Psi_{\text{total}}^{n,a+1} - \Psi_{\text{total}}^{n,a}| \leq \text{TOL} \ll 1$}{
+%    $\min\limits_{{\bf u}^{n,a+1}} \Psi_{\text{internal}}({\bf u}^{n,a+1}, \alpha^{n,a}$)\;
+%    $\min\limits_{\alpha^{n,a+1}} \Psi_{\text{internal}}({\bf u}^{n,a+1}, \alpha^{n,a+1})$\;
+%    subject to $\alpha^{n,a+1} \geq \alpha^n$\;
+%    \textbf{}Set $a \leftarrow a + 1$
+%}
+%\textbf{}Update solution: ${\bf u}^{n+1} \leftarrow {\bf u}^{n,a}$, $\alpha^{n+1} \leftarrow \alpha^{n,a}$
+%\end{algorithm}
