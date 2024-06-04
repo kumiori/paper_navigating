@@ -1,0 +1,54 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper, margin=1in]{geometry}
+
+% Encoding and language
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+% Recommended for biblatex
+% \usepackage{csquotes}
+
+% Bibliography management
+% \usepackage[backend=biber,style=alphabetic]{biblatex}
+% \addbibresource{mybibliography.bib} % Add your .bib file
+\usepackage{graphicx} 
+% \usepackage{grffile}
+\usepackage[todonotes={textsize=tiny}]{changes}
+\definechangesauthor[color=orange]{ALB}
+\usepackage{todonotes}
+\input{macros}
+\usepackage[inline]{showlabels}
+
+% For author and affiliation formatting
+\usepackage{authblk}
+
+% Document title, authors, and affiliations
+\title{Navigating Among Local Minima via Numerical Optimization}
+\author[1]{M. M. Terzi}
+\author[1,2]{O. U. Salman}
+\author[1]{D. Faurie}
+\author[3]{A. A. León Baldelli}
+\affil[1]{LSPM, CNRS UPR3407, Universit\'e Sorbonne Paris Nord, 93400, Villateneuse, France}
+\affil[2]{Lund University, Department of Mechanical Engineering Sciences, Lund, Sweden}
+\affil[3]{CNRS, Institut Jean Le Rond d'Alembert, Sorbonne University, UMR 7190, 75005, Paris, France}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    We investigate the behavior of numerical optimization schemes employed to find local minima of nonlinear energy functionals. Our focus is on one-dimensional phase-field fracture models of brittle thin films on an elastic foundation.  Despite their inherent simplicity, allowing for analytical predictions, these models reveal a complex equilibrium landscape with multiple local minima providing an ideal case for assessing the efficacy of numerical solution algorithms. Through an exploration of  line-search-based descent algorithms  reliant on the approximative Hessian of the functional, our study sheds light on their efficacy in detecting branch-switching events among different equilibrium branches.
+\end{abstract}
+
+% \listofchanges[style=list, title=Changes]
+% \listoftodos 
+% \input{incl_intro}
+\input{incl_model}
+\input{incl_numerics}
+% \input{incl_conclusion}
+
+% \printbibliography % Prints the bibliography
+
+\end{document}
