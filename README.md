@@ -4,16 +4,15 @@
 
 ### Authors:
 - M. M. Terzi
-  - Affiliation: LSPM, CNRS UPR3407, Université Sorbonne Paris Nord, 93400, Villetaneuse, France
+  - LSPM, CNRS UPR3407, Université Sorbonne Paris Nord, 93400, Villetaneuse, France
 - O. U. Salman
-  - Affiliation: LSPM, CNRS UPR3407, Université Sorbonne Paris Nord, 93400, Villetaneuse, France
-  - Affiliation: Lund University, Department of Mechanical Engineering Sciences, Lund, Sweden
+  - LSPM, CNRS UPR3407, Université Sorbonne Paris Nord, 93400, Villetaneuse, France
+  - Lund University, Department of Mechanical Engineering Sciences, Lund, Sweden
 - D. Faurie
-  - Affiliation: LSPM, CNRS UPR3407, Université Sorbonne Paris Nord, 93400, Villetaneuse, France
+  - LSPM, CNRS UPR3407, Université Sorbonne Paris Nord, 93400, Villetaneuse, France
 - A. A. León Baldelli
-  - Affiliation: CNRS, Institut Jean Le Rond d’Alembert, Sorbonne University, UMR 7190, 75005, Paris, France
-
-### Abstract:
+  - CNRS, Institut Jean Le Rond d’Alembert, Sorbonne University, UMR 7190, 75005, Paris, France
+bstract:
 This paper investigates the behavior of numerical optimization schemes employed to find local minima of nonlinear energy functionals. The focus is on understanding the underlying mechanisms of navigating among local minima and the efficiency of different optimization strategies.
 
 ### Files:
