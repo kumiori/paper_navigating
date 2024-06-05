@@ -1,16 +1,19 @@
 %!TEX root = main.tex
 
 \section{Conclusion} 
+...
 
-\added[id=ALB]{That the branch switching phenomenon is not an automatic feature of approximate numerical methods is not surprising. Indeed, because they rely on approximate information about the Hessian of the energy functional, these methods are not guaranteed to systematically detect transitions between local minima when stability is lost. 
+\added[id=ALB]{Capturing branch switching phenomena across stability transitions is not an automatic feature of approximate numerical methods. Because they rely on approximate information about the Hessian of the energy functional, these methods do not guarantee to systematically detect transitions between local minima when stability is lost. 
 This requires a careful determination of the zero-eigenmodes that render singular the exact nonlinear Hessian, which is typically not available in general purpose first order numerical algorithms.
-In practice, without such information, critical loads for equilibrium transitions become algorithm-dependant and need not be consistent with the solution of the exact evolution problem.
+In practice, without such information, critical loads for equilibrium transitions become algorithm-dependant and are not consistent with closed-form solutions of the exact evolution problem.
 % 
 % 
 Further work: characterisation of bifurcation points, conditions for stability exchange, local features of the energy landscape, qualitative features of constrained systems with respect to canonical representations of bifurcations
 % 
 future work: thorough energy blow up and reduction at bifurcation points
 }
+
+...
 %: (i) compute a descent direction $\mathbf{p}_k$ by solving $B_k \mathbf{p}_k = -\nabla f(\mathbf{x}_k)$, (ii) define a one-dimensional function $h(\alpha_k) = f(\mathbf{X}_k + \alpha_k \mathbf{p}_k)$, representing the function value on the descent direction given the step-size, (iii) find an $\alpha_k$ that minimizes $h$ over $\alpha_k \in \mathbb{R}_+$, (iv) set $\mathbf{s}_k = \alpha_k \mathbf{p}_k$ and update $\mathbf{X}_{k+1} = \mathbf{X}_k + \mathbf{s}_k$, (vi) set $\mathbf{y}_k = \nabla f(\mathbf{X}_{k+1}) - \nabla f(\mathbf{X}_k)$, (vii) set $B_{k+1} = B_k + \frac{\mathbf{y}_k \mathbf{y}_k^T}{\mathbf{y}_k^T \mathbf{s}_k} - \frac{B_k \mathbf{s}_k \mathbf{s}_k^T B_k^T}{\mathbf{s}_k^T B_k \mathbf{s}_k}.$
 %Minimizing the energy functionals given in \eqref{modeld}  and \eqref{model_elastic_substrate}.
 %

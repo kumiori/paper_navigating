@@ -3,25 +3,35 @@
 
 % Encoding and language
 \usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-
-% Recommended for biblatex
-% \usepackage{csquotes}
+% \usepackage[english]{babel}
 
 % Bibliography management
-% \usepackage[backend=biber,style=alphabetic]{biblatex}
-% \addbibresource{mybibliography.bib} % Add your .bib file
-\usepackage{graphicx} 
-% \usepackage{grffile}
+\usepackage[backend=biber,style=alphabetic]{biblatex}
+\addbibresource{mybibliography.bib} % Add your .bib file
+\usepackage[]{graphicx}
+% \usepackage[draft]{graphicx}
 \usepackage[todonotes={textsize=tiny}]{changes}
-\definechangesauthor[color=orange]{ALB}
-\usepackage{todonotes}
-\input{macros}
-\usepackage[inline]{showlabels}
-
+\definechangesauthor[color=purple]{ALB}
+% \usepackage{todonotes}
+% \input{../macros}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{dcolumn}
+\usepackage{longtable}
+\usepackage{hyperref}
+% \usepackage{natbib}
+\usepackage{stmaryrd}%
+\usepackage{color}
+\usepackage{wasysym} % for hexagon and star of david in equation
+\usepackage{siunitx}
+\usepackage{enumitem}
 % For author and affiliation formatting
 \usepackage{authblk}
-
+\def\ep{\varepsilon}
+\def\eps{\varepsilon}
+\usepackage[inline]{showlabels}
 % Document title, authors, and affiliations
 \title{Navigating Among Local Minima via Numerical Optimization}
 \author[1]{M. M. Terzi}
@@ -42,13 +52,14 @@
     We investigate the behavior of numerical optimization schemes employed to find local minima of nonlinear energy functionals. Our focus is on one-dimensional phase-field fracture models of brittle thin films on an elastic foundation.  Despite their inherent simplicity, allowing for analytical predictions, these models reveal a complex equilibrium landscape with multiple local minima providing an ideal case for assessing the efficacy of numerical solution algorithms. Through an exploration of  line-search-based descent algorithms  reliant on the approximative Hessian of the functional, our study sheds light on their efficacy in detecting branch-switching events among different equilibrium branches.
 \end{abstract}
 
-% \listofchanges[style=list, title=Changes]
-% \listoftodos 
-% \input{incl_intro}
+% \listofchanges
+% [style=list, title=Changes]
+% \listoftodos
+\input{incl_intro}
 \input{incl_model}
 \input{incl_numerics}
-% \input{incl_conclusion}
+\input{incl_conclusion}
 
-% \printbibliography % Prints the bibliography
+\printbibliography % Prints the bibliography
 
 \end{document}
