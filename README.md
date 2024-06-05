@@ -17,8 +17,10 @@
 This paper investigates the behavior of numerical optimization schemes employed to find local minima of nonlinear energy functionals. The focus is on understanding the underlying mechanisms of navigating among local minima and the efficiency of different optimization strategies.
 
 ### Files:
+- `paper`: The paper folder.
 - `paper/mybibliography.bib`: The bibliography file containing all references cited in the paper.
-- `figures/`: A directory containing figures used in the paper.
+- `data/`: A directory containing data used in the paper.
+- `paper_plots.ipynb`: Jupyter notebook for plots and final figures.
 
 ### Contact:
 For questions or issues related to this paper, please contact the authors.
