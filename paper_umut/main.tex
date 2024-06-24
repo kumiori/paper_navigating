@@ -3,35 +3,25 @@
 
 % Encoding and language
 \usepackage[utf8]{inputenc}
-% \usepackage[english]{babel}
+\usepackage[english]{babel}
+
+% Recommended for biblatex
+% \usepackage{csquotes}
 
 % Bibliography management
-\usepackage[backend=biber,style=alphabetic]{biblatex}
-\addbibresource{mybibliography.bib} % Add your .bib file
-\usepackage[]{graphicx}
-% \usepackage[draft]{graphicx}
+% \usepackage[backend=biber,style=alphabetic]{biblatex}
+% \addbibresource{mybibliography.bib} % Add your .bib file
+\usepackage{graphicx} 
+% \usepackage{grffile}
 \usepackage[todonotes={textsize=tiny}]{changes}
-\definechangesauthor[color=purple]{ALB}
+\definechangesauthor[color=orange]{ALB}
 \usepackage{todonotes}
-% \input{../macros}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{array}
-\usepackage{dcolumn}
-\usepackage{longtable}
-\usepackage{hyperref}
-% \usepackage{natbib}
-\usepackage{stmaryrd}%
-\usepackage{color}
-\usepackage{wasysym} % for hexagon and star of david in equation
-\usepackage{siunitx}
-\usepackage{enumitem}
+% \input{macros}
+\usepackage[inline]{showlabels}
+
 % For author and affiliation formatting
 \usepackage{authblk}
-\def\ep{\varepsilon}
-\def\eps{\varepsilon}
-\usepackage[inline]{showlabels}
+
 % Document title, authors, and affiliations
 \title{Navigating Among Local Minima via Numerical Optimization}
 \author[1]{M. M. Terzi}
@@ -53,12 +43,12 @@
 \end{abstract}
 
 % \listofchanges[style=list, title=Changes]
-\listoftodos
-\input{incl_intro}
+% \listoftodos 
+% \input{incl_intro}
 \input{incl_model}
 \input{incl_numerics}
-\input{incl_conclusion}
+% \input{incl_conclusion}
 
-\printbibliography % Prints the bibliography
+% \printbibliography % Prints the bibliography
 
 \end{document}
