@@ -1,7 +1,6 @@
 %!TEX root = main.tex
 
 \section{Conclusion} 
-...
 
 \added[id=ALB]{Capturing branch switching phenomena across stability transitions is not an automatic feature of approximate numerical methods. Because they rely on approximate information about the Hessian of the energy functional, these methods do not guarantee to systematically detect transitions between local minima when stability is lost. 
 Indeed, this requires a careful determination of the zero-eigenmodes that render singular the exact nonlinear Hessian, which is typically not available in general purpose first order numerical algorithms.
@@ -88,3 +87,57 @@ future work: thorough energy blow up and reduction at bifurcation points
 %}
 %\textbf{}Update solution: ${\bf u}^{n+1} \leftarrow {\bf u}^{n,a}$, $\alpha^{n+1} \leftarrow \alpha^{n,a}$
 %\end{algorithm}
+
+
+
+\paragraph{Figures}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics*[width=.45\textwidth]{../images/model_stiff_energy.png}
+    \includegraphics*[width=.45\textwidth]{../images/model_compliant_energy.png}
+    \caption{
+        Energy diagram of equilibrium branches in the phase-field model of an elastic bar on stiff (left) and compliant (right) elastic foundation. In the figure, the difference $\Delta \Psi = \Psi(y_t)-\Psi_h$ between the energy of the state $y_t$ on the current branch and the homogeneous solution. Stability of solutions is indicated by colors: blue and orange indicate, respectively, stable and unstable states, by numerical evaluation of the sign of the smallest eigenvalue of the stiffness matrix $\mathbf{K}^1$. According to the local energy minimality protocol, arrows indicate the anticipated branch switching events associated with the loss of stability at load values denoted $\bar \epsilon_j, j \in \mathbb N$, where $j$ indicates the instability mode, cf. Equation~\eqref{}. Letters correspond to the states depicted in Figure XXX.\todo[inline]{maybe change letters into numbers, indicating the number of the mode}%
+    }
+    \label{fig:}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics*[width=.45\textwidth]{../images/model_stiff_energy_kick.png}
+    \includegraphics*[width=.45\textwidth]{../images/model_compliant_energy_kick.png}
+    \caption{Quasi-static evolutions computed with L-BFGS fail to satisfy a local minimality criterion. The evolutions are displayed with a thick black line for the stiff substrate (left) and compliant substrate (right) models. The figures display the energy difference $\Delta \Psi = \Psi(y_t)-\Psi_h$ between the quasi-Newton solutions $y_t$ and the homogeneous state corresponding to the same load. At the bottom with a thin black line, the minimum eigenvalue $\lambda_t$ for the current state and the regions (highlighted in red) of instability.}
+    \label{fig:}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics*[width=.45\textwidth]{../images/model_stiff_kick_profiles.png}
+    \includegraphics*[width=.45\textwidth]{../images/model_compliant_kick_profiles.png}
+    \caption{
+        Profile of damage field showing the effect of the kick algorithm to transition from unstable to stable states. Branch switching events correspond to load values indicated by $\bar \epsilon_j$ with $j\in \mathbb N$ in Figure XXX, for the stiff substrate model (left column) and for the compliant substrate model (right column). %
+        In the figures, the light (orange) line indicates the unstable damage field $\alpha^*$, the eigenvector associated to the smallest eigenvalue, $p$, is displayed in green highlighting its positive and negative values, the dashed line represents the perturbed damage field  $\alpha^*+p$ used as initial guess for the state transition, the solid black line displays the solution $\alpha$ returned by the quasi-Newton algorithm after convergence.}
+    \label{fig:}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics*[width=.45\textwidth]{../images/model_stiff_profiles.png}
+    \includegraphics*[width=.45\textwidth]{../images/model_compliant_profiles.png}
+    \caption{The damage profiles of the minimum energy configurations on each branch for the stiff (left) and compliant (right) substrate models. \todo[inline]{add markers}.}
+    \label{fig:}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics*[width=.45\textwidth]{../images/model_stiff_spectrum.png}
+    \includegraphics*[width=.45\textwidth]{../images/model_compliant_spectrum.png}
+    \caption{<caption>}
+    \label{fig:}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics*[width=.45\textwidth]{../images/model_stiff_fields.png}
+    \includegraphics*[width=.45\textwidth]{../images/model_compliant_fields.png}
+    \caption{The damage and strain profiles computed along the evolution, for the stiff (left) and compliant (right) substrate models. The profiles correspond to the states marked $...$ in Figure XXX. Notice the peaks of strain in correspondence with the peaks of damage, and the localization of the strain in bands that are narrower than for the dmage field. Strain relaxes across a wider region in the compliant substrate model.}
+    \label{fig:}
+\end{figure}

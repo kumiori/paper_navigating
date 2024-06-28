@@ -12,7 +12,7 @@ Suppose that the scalar damage variable $\alpha(x)$ is \replaced[id=ALB]{normali
 \end{equation}
 where $\epsilon(x)=u'(x)$ the continuum strain variable and $u(x)$ is the corresponding displacement field, \added[id=ALB]{$\lambda_1, \lambda_2$\comment[id=ALB]{Notation: $\ell, \ell_1$} are two nondimensional lengthscales, the former identifying the peak material stress as well as the typical scale of damage localisation bands and the latter quantifying the film's stiffness relative to the substrate.
 }. 
-\added[id=ALB]{Denoting by $H^1((0, 1))$ the  (Sobolev) space of scalar functions defined on the unit interval which are square integrable with square integrable first (weak) derivatives, the energy $\Psi$ makes sense for pairs $(u, \alpha)$ laying in the Cartesian vector product space $V:=H^1((0,1))\times  H^1((0,1))$.}
+\added[id=ALB]{Denoting by $H^1((0, 1))$ the space of scalar functions defined on the unit interval which are square integrable with square integrable first (weak) derivatives, the energy $\Psi$ makes sense for pairs $(u, \alpha)$ laying in the Cartesian vector product space $V:=H^1((0,1))\times  H^1((0,1))$.}
 We make the standard assumptions for constitutive functions  $g(\alpha) =(1-\alpha)^2$ and $h(\alpha) =\alpha^2$ and thus our model corresponds to the  phase field fracture model proposed  in  \cite{Bourdin2000-pc,Miehe2010-sj,Miehe2010-ja} referred to as the Ambrosio and Tortorelli (AT2) model (first introduced in~\cite{at}). 
 We also choose the boundary conditions in the form: $u(0)=-\bar\epsilon_t/2$, $u(1)=\bar\epsilon_t/2$\comment[id=ALB]{`natural' bcs moved down} and we impose the displacement field  of the substrate as \added[id=ALB]{a loading mode parametrised by $t$,} $u^s(x, t)=\bar \epsilon_t/2 (2x-1)$.
 \comment[id=ALB]{it would be practical to introduce a loading parameter $t$, scalar}
@@ -24,7 +24,7 @@ intuitive idea that a state is stable (hence observable) if it is a local minimu
     \Psi(y_t) \leq \Psi(y_t + z),\quad \forall \text{ admissible } z.
 \end{equation}
 % 
-In the expression above the admissibility of perturbations accounts for kinematic boundary conditions as well as possible additional constraints. 
+In the expression above the admissibility of perturbations accounts for zero boundary conditions as well as possible additional constraints if irreversibility is taken into account. 
 % Define $X_t = H^1((0, 1))$
 % Provided a given initial condition $y_0$ at $t=0$, the quasi-static, incremental, evolutionary problem we address is to find a parametrised map $t \mapsto y_t \in X_t$, such that~\eqref{eq:variational_global_ineq} is satisfied.
 Solutions to the incremental problem are sought by solving first and second order necessary conditions for optimality.
@@ -34,7 +34,7 @@ $$
 \Psi(y)-\Psi(y_t)= \delta\Psi(y_t)(y-y_t)+\frac{1}{2}(y-y_t)^T \delta^2\Psi(y_t)(y-y_t)+o(\|y-y_t\|^2)
     \label{eqn:energy-expansion}
 $$
-\added[id=ALB]{and is valid for any $y$ that verifies kinematic boundary conditions, its damage component $\alpha$ being either unconstrained or such that $\alpha\geq\alpha_t$, if irreversibility is taken into account.}
+\added[id=ALB]{and is valid for any $y$ whose displacement component verifies kinematic boundary conditions and its damage component $\alpha$ is unconstrained or such that $\alpha\geq\alpha_t$ if irreversibility is taken into account.}
 % 
 The first order variation of the energy functional \added[id=ALB]{in the direction $(v, w)$} is given \added[id=ALB]{by the following linear form}  
 \begin{equation}
@@ -53,10 +53,10 @@ By using standard arguments of the calculus of variations, we can localise the i
 \label{auto1}
 \end{eqnarray}
 \added[id=ALB]{
-    The differential system above is equipped with kinematic (essential) boundary conditions $u(0) = u^s(0, t), u(1) = u^s(1, t)$ and natural conditions on the internal field $\alpha'(0)=\alpha'(1)=0$.
+    This differential system is equipped with kinematic (essential) boundary conditions $u(0) = u^s(0, t), u(1) = u^s(1, t)$ and natural conditions on the internal field $\alpha'(0)=\alpha'(1)=0$.
 When the order parameter is reversible, the space of admissible perturbations is the homogeneous space associated to $X_t$, that is $V_0:= H^1_0((0,1))\times  H^1((0,1))$.
 Notice that the choice of boundary conditions for displacements compatible with the substrate's deformation implies that the pair $(u_h(x), \alpha_h)$ given by $u_h(x)\equiv u^s(x, t)$\comment[id=ALB]{notation $
-\bar u_t$} and $\alpha_t(x) = \alpha_h$ a load-dependent constant to identify, is always a solution to the elastic equilibrium equations. This makes it immediate to identify the fundamental (homogeneous) solution branch $y_h$ which allows to decouple the elasticity problem from the  evolution of damage. 
+\bar u_t$} and $\alpha_t(x) = \alpha_h$ a load-dependent constant to identify, is always a solution to the elastic equilibrium equations. This makes it immediate to identify the fundamental (homogeneous) solution branch $y_h$ and to decouple the elasticity problem from the  evolution of damage. 
 %  driving stress softening.
 }
 Therefore, solving~\eqref{auto1} for states such that $u''(x)=\alpha'(x)= 0, \, \forall x\in (0, 1)$ identifies the homogeneous solution $y_h = (u_h, \alpha_h)$ which reads \deleted[id=ALB]{solution to~\eqref{auto1} is becomes for the damage  field}, 
@@ -66,17 +66,17 @@ u_h(x) =  \bar \epsilon_t/2 (2x-1),\qquad\alpha_h = \frac{\Bar{\epsilon_t}^2}{2 
 and the effective \replaced[id=ALB]{total}{elastic} energy along the \replaced[id=ALB]{homogeneous}{trivial} branch  
 \begin{equation}
     \label{eq:energy_homogeneous}
-    f_h(\bar\epsilon) :=\Psi(\alpha_h, u_h) = \frac{\Bar{\epsilon}^2}{2 + \Bar\epsilon^2}
+    \Psi_h(\bar\epsilon) :=\Psi(\alpha_h, u_h) = \frac{\Bar{\epsilon}^2}{2 + \Bar\epsilon^2}
 \end{equation}
 
 \added[id=ALB]{
 Notice that, by our choice to model the material through a quadratic term dissipation term $h(\alpha)$, damage necessarily starts as soon as $t>0$.    
-We distinguish two scenarios for the study of stability of equilibria: i) that in which all small perturbations are admissible and belong to a (linear) vector space, and ii) the case where damage is subject to an irreversibility constraint, which results in a (nonlinear) system of inequalities. Tje first scenario corresponds to the case in which damage is free to evolve and is reversible, so that negative variations of damage are allowed and indeed may occur - if convenient from an energetic viewpoint. The second setting, instead, considers damage as an irreversible process by enforcing an irreducible one-directional pointwise growth constraint.}
+We distinguish two scenarios for the study of stability of equilibria: i) that in which damage is reversible and all small perturbations are admissible, and ii) the case where damage is subject to an irreversibility constraint, which results in a constrained perturbation space. The first scenario corresponds to the case in which negative variations of damage are allowed and indeed may occur - if convenient from an energetic viewpoint. The second setting, instead, considers damage as an irreversible process by enforcing an irreducible one-directional pointwise growth constraint.}
 
 
 \subsection{Linear stability}
 \comment[id=ALB]{How to understand linear/nonlinear}
-An equilibrium configuration $y_t:=(u,\alpha)_t$, is a state such that the first variation $\delta \Psi(u,\alpha)\added[id=ALB]{(v, w)}$ vanishes for all admissible test fields \added[id=ALB]{in $V_0$} \comment[id=ALB]{for admissible $(v, w)$'s}. 
+An equilibrium configuration $y_t:=(u,\alpha)_t$, is a state such that the first variation $\delta \Psi(u,\alpha)\added[id=ALB]{(v, w)}$ vanishes for all admissible test fields \added[id=ALB]{in the vector space $V_0$} \comment[id=ALB]{for admissible $(v, w)$'s}. 
 To assess the incremental stability of the homogeneous solution in the reversible (linear) case, we examine the \added[id=ALB]{positivity of the} second variation, requiring\comment[id=ALB]{Notation suggestion: $w\mapsto \beta, y:=(u, \alpha), z:=(v, \beta)$}
 \begin{equation}
 \delta^2 \Psi(y_t)(v,w)>0, \qquad  \forall (v,w)\in V_0,
@@ -102,7 +102,7 @@ g(\alpha)(n\pi)^2+\lambda_2^{-2}  & \frac{\partial g}{\partial \alpha}\bar\epsil
 By substituting the homogeneous solution $\alpha_h$ into \eqref{hessian1}, we compute  the $\det \mathcal{H}$, as depicted  in Fig. \ref{fig:hessian1}. The calculations are performed for the parameter values \replaced[id=ALB]{$\lambda_1=0.16$}{$\lambda_1=0.158114$} and $\lambda_2=0.34$.
 \added[id=ALB]{
     % Interpretation of the image: 
-The figure represents, for a given load $\bar \epsilon$, the wavenumber $n(\bar \epsilon)\in \mathbb N$ of possible energy-decreasing damage perturbations. For an increasing loading history $\bar \epsilon(t)\nearrow$, the wavenumber increases, indicating the tendency to nucleate a network of cracks with higher spatial frequency.}
+The figure represents, for a given load $\bar \epsilon$, the wavenumber $n(\bar \epsilon)\in \mathbb N$ of possible energy-decreasing damage bifurcations. For an increasing loading history $\bar \epsilon(t)\nearrow$, the wavenumber is non monotonic.}
 In Fig. \ref{fig:hessian1}(a), we observe the formation of closed loops, indicative of an elastic background's influence. Notably, a re-entry behavior of the affine configuration is discernible, marked by the emergence of two critical strains denoted as $\bar\epsilon^*$ and $\bar\epsilon^{**}$, representing the lower and upper stability limits for the homogeneous state. These critical points are highlighted by red and green dots in Fig. \ref{fig:hessian1}(a). The critical wavenumber $n_c$ for the lower limit $n_c(\bar{\epsilon}^*)$    differs from the critical wavenumber for  upper limit $n_c(\bar{\epsilon}^{**})$. Finally, we remark that closed-form analytical solutions can be provided for the critical wavenumber and critical strains and the parametric dependence of the corresponding bifurcation thresholds can be obtained, as detailed in \cite{Salman2021-mn}.
 
 
@@ -238,7 +238,7 @@ From the numerical standpoint, the bifurcation eigen-problem in the vector space
 \section{Model: thin film  on \replaced[id=ALB]{a compliant}{non-stiff}  substrate }
 \label{sec:non-rigid}
 
-Now, we examine a scenario where the foundation is not entirely rigid and can undergo non-uniform deformations. The energy functional of the second model incorporates an extra term compared to the previous model, describing the elasticity of the substrate. It is defined as follows:
+Now, we examine a scenario where the foundation is not entirely rigid and can undergo non-uniform deformations. The energy functional of the second model incorporates an extra term compared to the previous model, describing the elasticity of the substrate. \added[id=ALB]{Here the state of the system is identified by the triplet $(u, \alpha, u_s)=: y$.}, the energy is defined as follows
 \begin{equation}
 \label{model_elastic_substrate}
 \Psi(\alpha, u,u_s) = \int_{0}^1 \left[ \frac{1}{2} \ g(\alpha)(u')^2 + h(\alpha) + \frac{\lambda_1^2}{2}(\alpha')^2 
@@ -254,10 +254,10 @@ where $r_{\rm s}$\comment[id=ALB]{check notation} is the ratio between elastic c
 \end{cases}
 \label{auto2}
 \end{eqnarray}
-It is easy to show that the homogeneous solution on the trivial branch remains the same as in the case of the rigid substrate, such that $\alpha_h = \frac{\bar{\epsilon}^2}{2 + \bar{\epsilon}^2}\label{eq:homo11}$, whereas the effective elastic energy along the trivial branch now reads $\tilde f_h(\bar{\epsilon}) = \frac{\bar{\epsilon}^2}{2 + \bar{\epsilon}^2} + \frac{r_s}{2}\bar{\epsilon}^2$.\comment[id=ALB]{check notation} 
+It is easy to show that the homogeneous solution on the trivial branch remains the same as in the case of the rigid substrate, that is $\alpha_h = \frac{\bar{\epsilon}^2}{2 + \bar{\epsilon}^2}\label{eq:homo11}$, whereas the effective elastic energy along the homogeneous branch now reads $\tilde \Psi_h(\bar{\epsilon}) = \frac{\bar{\epsilon}^2}{2 + \bar{\epsilon}^2} + \frac{r_s}{2}\bar{\epsilon}^2$.\comment[id=ALB]{why there is no damage part?, CHECK} 
 
 \subsection{Linear stability}
-We once more seek the incremental stability of an equilibrium configuration $u$, $\alpha$, and $u_s$, such that the first variation $\delta \Psi(u,\alpha,u_s)\added[id=ALB]{(y-y_t)}=0$ \added[id=ALB]{for all ...} with
+We once more seek the incremental stability of an equilibrium configuration $u$, $\alpha$, and $u_s$ satisfying that the first variation $\delta \Psi(u,\alpha,u_s)\added[id=ALB]{(y-y_t)}=0$ \added[id=ALB]{for all admissible $y$} by examining the positivity of the second variation, namely
 \begin{equation*}
 \delta^2 \Psi(u,\alpha,u_s)(v,w,z)>0.
 \end{equation*}
@@ -265,12 +265,12 @@ The first variation of the energy functional is given by
 \begin{equation}
 \delta \Psi(u,\alpha,u_s)(v,w,z)=\int_0^1 [(1-\alpha)^2u'v'+\frac{1}{\lambda_2^2} (u-u_s) v-\frac{1}{\lambda_2^2} (u-u_s) z+r_su'_sz'+\frac{1}{2}u'^2 (g'(\alpha)+h'(\alpha))w+\lambda_1^2\alpha'w' ]dx,\label{firstvar}
 \end{equation}
-where $v$, $w$ and $z$ are  test functions. And the second variation is  expressed as the  following:
+where $v$, $w$ and $z$ are  test functions. The second variation is given by the following bilinear form 
 \begin{equation}
 \delta^2 \Psi(u,\alpha,u_s)(v,w,z)=\int_0^1 [(1-\alpha)^2v'^2 
 %+ \lambda_2^{-2}v^2
 - 4(1-\alpha)u' v'w+(2+ u'^2)w^2+\lambda_1^2w'^2 +\frac{1}{\lambda_2^2} v^2 -\frac{1}{\lambda_2^2} z^2+r_sz'^2]dx.\label{hessian222}\end{equation}
-We again proceed to extract information on the onset of instability expanding in Fourier series the fields $v$, $w$ and $z$ appearing in \eqref{hessian222} such that $v(x)=\sum_{n=1}^{\infty} a_{n} \sin \left(n \pi x+\phi_{n}\right), \quad w(x)=\sum_{n=1}^{\infty} b_{n} \cos \left(n \pi x+\psi_{n}\right),\quad z(x)=\sum_{n=1}^{\infty} c_{n} \sin \left(n \pi x+\theta_{n}\right)$\comment[id=ALB]{check notation}. Exactly as in the previous section, we claim that the system is stable iff $\delta^2 \Psi(u,\alpha,u_s)(v,w,z)>0$. The stability condition  takes the form:
+We again proceed to extract information on the onset of instability expanding in Fourier series the fields $v$, $w$ and $z$ appearing in \eqref{hessian222} such that $v(x)=\sum_{n=1}^{\infty} a_{n} \sin \left(n \pi x+\phi_{n}\right), \quad w(x)=\sum_{n=1}^{\infty} b_{n} \cos \left(n \pi x+\psi_{n}\right),\quad z(x)=\sum_{n=1}^{\infty} c_{n} \sin \left(n \pi x+\theta_{n}\right)$\comment[id=ALB]{check notation}. Exactly as in the previous section, we claim that the system is stable if and only if $\delta^2 \Psi(u,\alpha,u_s)(v,w,z)>0$ for all sufficiently smooth test fields $(v, w, z)$ which satisfy the boundary conditions. The stability condition  takes the form
 \begin{align}\left[ a_n \quad b_n \quad c_n  \right] \mathcal{H} \left[ \begin{array}{c} a_n \\ b_n  \\ c_n\end{array} \right]=\left[ a_n \quad b_n \quad c_n \right]\left(
 \begin{array}{ccc}
 g(\alpha)(n\pi)^2+\lambda_2^{-2}& \frac{\partial g}{\partial \alpha}\bar\epsilon(n\pi) &  -\lambda_2^{-2} \\
@@ -278,4 +278,4 @@ g(\alpha)(n\pi)^2+\lambda_2^{-2}& \frac{\partial g}{\partial \alpha}\bar\epsilon
  -\lambda_2^{-2} & 0 & \lambda_2^{-2} +r_s(n\pi)^2\\
 \end{array}
 \right)\left[ \begin{array}{c} a_n \\ b_n \\c_n \end{array} \right]>0.\label{hessian3}\end{align}
-By substituting the homogeneous solution $\alpha_h$ into \eqref{hessian3}, we compute  the $\det \mathcal{H}$, as depicted  in Fig. \ref{fig:hessian1}(b). The calculations are performed for the parameter values \replaced[id=ALB]{$\lambda_1=0.16$}{$\lambda_1=0.158114$}, $\lambda_2=0.34$ and $r_s=0.5$.  In Fig. \ref{fig:hessian1}(b), we again observe the formation of closed loops and a re-entry behavior of the affine configuration is discernible, marked by the emergence of two critical strains denoted as $\bar\epsilon^*$ and $\bar\epsilon^{**}$, representing the lower and upper stability limits for the homogeneous state. These critical points are highlighted by red and green dots in Fig. \ref{fig:hessian1}(b). The critical wavenumber $n_c$ for the lower limit $n_c(\bar{\epsilon}^*)$    differs from the critical wavenumber for  upper limit $n_c(\bar{\epsilon}^{**})$. The overall behavior of the system remains the same while the first critical wavenumber $n_c=2$ is now smaller suggesting a different number of cracks will appear under loading.
+By substituting the homogeneous solution $\alpha_h$ into \eqref{hessian3}, we compute  the $\det \mathcal{H}$, as depicted  in Fig. \ref{fig:hessian1}(b). The calculations are performed for the parameter values \replaced[id=ALB]{$\lambda_1=0.16$}{$\lambda_1=0.158114$}, $\lambda_2=0.34$ and $r_s=0.5$.  In Fig. \ref{fig:hessian1}(b), we again observe the formation of closed loops and a re-entry behavior of the affine configuration is discernible, marked by the emergence of two critical strains denoted as $\bar\epsilon^*$ and $\bar\epsilon^{**}$, representing the lower and upper stability limits for the homogeneous state. These critical points are highlighted by red and green dots in Fig. \ref{fig:hessian1}(b). The critical wavenumber $n_c$ for the lower limit $n_c(\bar{\epsilon}^*)$    differs from the critical wavenumber for the upper limit $n_c(\bar{\epsilon}^{**})$. The overall behavior of the system remains the same while the first critical wavenumber $n_c=2$ is now smaller suggesting a different number of cracks will appear under loading.
