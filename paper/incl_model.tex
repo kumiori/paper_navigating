@@ -2,17 +2,19 @@
 \section{Model: thin film on stiff substrate}
 \label{sec:rigid}
 
-In this work, we consider the phase-field theory of fracture to describe the crack formation of \replaced[id=ALB]{a thin elastic membrane}{an elastic bar} attached to a substrate. The evolution equation for the phase-field is determined by the minimization of an energy functional based on Griffith's theory of brittle fracture.
-In phase-field theories of fracture, elasticity of the breaking solid is usually assumed to be linear with stiffness degrading with damage. The latter is described by a scalar order parameter with the square of the gradient of this parameter controlling the energy cost of the damage non-affinity\comment[id=ALB]{Suggest: spatial damage variations}.
-Suppose that the scalar damage variable $\alpha(x)$ is \replaced[id=ALB]{normalised such that}{with} $\alpha=0$ and $\alpha=1$ respectively correspond to the unbroken an fully broken states, \added[id=ALB]{and that the system's evolution is parametrised by a positive scalar control parameter, henceforth noted $t$, which can be thought of as a kinematic time}. We can write the energy of the system in the \added[id=ALB]{nondimensional} form\comment[id=ALB]{Suggest: a hint on nondimensional rescalings}
+In this work, we consider the phase-field theory of fracture to describe the crack formation of {a thin elastic membrane} attached to a substrate. The evolution equation for the phase-field is determined by the minimization of an energy functional based on the variational theory of brittle fracture~\cite{bourdin:2008-the-variational}.
+In phase-field theories of fracture, elasticity of the brittle solid is usually assumed to be linear with a stiffness degrading with damage. The latter is described by a scalar order parameter which features in the total energy functional with one term that accounts for the energy dissipation associated to homogeneous damage, and with a term that is proportional to the square of its gradient which controls the energy cost of spatial damage variations.
+Suppose that the scalar damage variable $\alpha(x)$ is \replaced[id=ALB]{normalised such that}{with} $\alpha=0$ and $\alpha=1$ respectively correspond to the unbroken an fully broken states, \added[id=ALB]{and that the system's evolution is parametrised by a positive scalar control parameter, henceforth noted $t$, which can be thought of as a kinematic time and with respect to which loads are indexed}. We can write the energy of the system in the \added[id=ALB]{nondimensional} form\comment[id=ALB]{Suggest: a hint on nondimensional rescalings}
 \begin{equation}
 \label{modeld}
-\Psi(\alpha, u) = \int_{0}^{1} \left[ \frac{1}{2} \ g(\alpha)(u')^2 + h(\alpha) + \frac{\lambda_1^2}{2}(\alpha')^2 
-+ \frac{1}{2 \lambda_2^2} (u-u^s)^2 \right] dx,
+\Psi(\alpha, u) = \int_{0}^{1} \left[ \frac{1}{2} \ g(\alpha)(u')^2 
++ \frac{1}{2 \lambda_2^2} (u-u^s)^2
++ h(\alpha) + \frac{\lambda_1^2}{2}(\alpha')^2 
+ \right] dx,
 \end{equation}
-where $\epsilon(x)=u'(x)$ the continuum strain variable and $u(x)$ is the corresponding displacement field, \added[id=ALB]{$\lambda_1, \lambda_2$\comment[id=ALB]{Notation: $\ell, \ell_1$} are two nondimensional lengthscales, the former identifying the peak material stress as well as the typical scale of damage localisation bands and the latter quantifying the film's stiffness relative to the substrate.
-}. 
-\added[id=ALB]{Denoting by $H^1((0, 1))$ the space of scalar functions defined on the unit interval which are square integrable with square integrable first (weak) derivatives, the energy $\Psi$ makes sense for pairs $(u, \alpha)$ laying in the Cartesian vector product space $V:=H^1((0,1))\times  H^1((0,1))$.}
+where $u(x)$ is the displacement field of the brittle membrane and 
+$\epsilon(x)=u'(x)$ the corresponding continuum strain variable, \added[id=ALB]{$\lambda_1, \lambda_2$\comment[id=ALB]{Notation: $\ell, \ell_1$} are two nondimensional lengthscales. The former identifies the peak material stress (in a one dimensional test) as well as the typical scale of the damage localisation bands. The latter, quantifies the film's stiffness relative to the substrate}. 
+\added[id=ALB]{Denoting by $H^1((0, 1))$ the space of scalar functions defined on the unit interval which are square integrable and have square integrable first derivatives, the energy $\Psi$ is finite for pairs $(u, \alpha)$ laying in the Cartesian product space $V:=H^1((0,1))\times  H^1((0,1))$ (a vector space).}
 We make the standard assumptions for constitutive functions  $g(\alpha) =(1-\alpha)^2$ and $h(\alpha) =\alpha^2$ and thus our model corresponds to the  phase field fracture model proposed  in  \cite{Bourdin2000-pc,Miehe2010-sj,Miehe2010-ja} referred to as the Ambrosio and Tortorelli (AT2) model (first introduced in~\cite{at}). 
 We also choose the boundary conditions in the form: $u(0)=-\bar\epsilon_t/2$, $u(1)=\bar\epsilon_t/2$\comment[id=ALB]{`natural' bcs moved down} and we impose the displacement field  of the substrate as \added[id=ALB]{a loading mode parametrised by $t$,} $u^s(x, t)=\bar \epsilon_t/2 (2x-1)$.
 \comment[id=ALB]{it would be practical to introduce a loading parameter $t$, scalar}
