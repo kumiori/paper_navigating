@@ -11,13 +11,23 @@
       \hline
       Energy stiff     & $\Psi$ & $\Psi$ & - \\
       Energy compliant & $\Psi$ & $\widetilde \Psi$ & - \\
+      Energy homogeneous & $\Psi_h(\bar\epsilon)$ &  & total? \\
       & & $\mathsf E(\alpha), w(\alpha)$ & 1D Young, homog. damage\\
       & & $\alpha$ & \\
       & & $u$ & \\
       & & $v$ & \\
-      & & $V, V_0, K^+_0$ & \\
-      & $\lambda_1$ & $\ell$ & \\
-      & $\lambda_2$ & $\ell_e$ & \\
+      & & $(u,\alpha), (v, w)$ & $(u,\alpha), (v, \beta)$ \\
+      & & $V, V_0, K^+_0$ & $H^1((0,1))\times  H^1((0,1))$\\
+      & & $V_0$ & $H^1_0((0,1))\times  H^1((0,1))$\\
+      & & $K^+_0$ & $H^1_0((0, 1))\times \{w \in H^1((0, 1)): w(x) \geq 0 \text{ a.e. }x\in (0, 1)\}$\\
+      & $(\lambda, w^*)$ &  & \\
+      & $(\kappa, z^*)$ &  & \\
+      & $\bar \epsilon^c$ &  & first critical load, stiff\\
+      & $\epsilon_c^*$ &  & first critical load, compliant \\
+      & ${\bf R}^1, {\bf R}^2$ & ${\bf R}1, \widetilde{\bf R}$ & \\
+      & $\mathbf{X}^{(k)}$ & $.$ & \\
+      & $\mathbf{X}^{(k)}$ & $.$ & \\
+      & $\mathbf{X}^{(k)}$ & $.$ & \\
     \end{tabular}
     \caption{Notation and Definitions}
 \label{table:notation}
@@ -57,7 +67,10 @@ The absence of analytical solutions in strongly non-linear settings requires res
 
 This work centers on the numerical computation of evolutionary solutions for phase-field fracture models. Notably, in the phase-field theory of fracture, the initiation of a crack is preceded by a localization of the damage field, indicative of the loss of stability of the unfractured solution~\cite{Baldelli2014-ho,Kuhn2015-rt,Baldelli2021-gc,Harandi2023-cd}. Within this study, we will consider two one-dimensional phase-field fracture models for a brittle thin film on two types of substrates. The first model describes a brittle thin film deposited on a stiff (rigid) substrate, while the second model involves a compliant yet unbreakable substrate that can undergo non-uniform deformations. The fracture phenomenon of thin films bonded to substrates unveils a myriad of complex crack patterns, as evidenced by numerical studies \cite{Baldelli2014-ho,Alessi2019-bx,Hu2020-nt,Salman2021-mn,Baldelli2021-gc}, resembling those observed in natural contexts such as sand or dried mud \cite{Goehring2010-xz}, and even in biological structures like animal skin \cite{Qin2014-wz}. These observations hold particular relevance in the domain of stretchable and flexible electronics \cite{Faurie2019-to,Godard2022-ss} including  self-healing metal thin films on a flexible substrates \cite{Trost2024-ca}.  Despite the one-dimensional setting we adopt here, which allows for analytical predictions, these models reveal a complex landscape of equilibrium states with multiple local minima, eliminating the need for two-dimensional analysis\comment[id=ALB]{Unclear}. Moreover, in the absence of irreversibility constraint, bifurcation points from homogeneous solution can be calculated analytically and by employing continuation techniques, all solutions connected to the homogeneous branch and their stability can be identified. 
 In this simple setting, we can then monitor the solutions returned from  the different  numerical optimization techniques. Our findings indicate that under quasi-static conditions, line-search-based descent algorithms not relying on full Hessian can fail to detect expected branch-switching events and may return solutions that persist on \added[id=ALB]{unstable} branches, thus lacking physical relevance. 
-We propose a remedy to this situation which involves utilizing information from the Hessian of the functional when it becomes singular. To highlight the role of the constraint of irreversibility, we discuss this scenario case separately.
+We propose a remedy to this situation which involves utilizing information from the Hessian of the functional when it becomes singular. 
+\added[id=ALB]{OPEN SYSTEMS, BIOLOGICAL APPLICATION, HEALING, REVERSIBLE DAMAGE} 
+To highlight the role of the constraint of irreversibility, we discuss this scenario case separately.
+We study of stability of equilibria in two settings, namely i) that in which damage is reversible and all small perturbations are admissible, and ii) the case where damage is subject to an irreversibility constraint, which results in a constrained perturbation space. The first scenario corresponds to the case in which negative variations of damage are allowed and indeed may occur - if convenient from an energetic viewpoint. The second setting, instead, considers damage as an irreversible process by enforcing an irreducible one-directional pointwise growth constraint.
 
 The rest of the paper is organized as follows. In Sections \ref{sec:rigid} and \ref{sec:non-rigid}, we present one-dimensional phase-field fracture models with both rigid and non-rigid elastic foundations, focusing on the analysis  of linear stability regarding trivial solutions. In Section \ref{sec:numerics}, we investigate the nonlinear regime and discuss the selection of equilibrium branches using various numerical optimization algorithms. In the final Section  summarize our results.
 
