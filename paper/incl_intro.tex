@@ -2,6 +2,18 @@
 
 
 
+\newcommand{\Estiff}{\Psi}
+\newcommand{\Ecompl}{\widetilde\Psi}
+% \newcommand{\subsu}{\bar u}
+\newcommand{\subsu}{v}
+\newcommand{\homogdiss}{\mathsf{w}}
+\newcommand{\soften}{\mathsf{a}}
+\newcommand{\damagell}{\ell}
+\newcommand{\elastell}{\Lambda}
+\newcommand{\stiffratio}{\rho}
+\newcommand{\yhom}{y^{\text{hom}}}
+
+
 
 \begin{table}[h!]
     \centering
@@ -9,14 +21,12 @@
       \hline
       \textbf{Description} & \textbf{Symbol} & \textbf{Alt. Symbol} & \textbf{Remarks} \\
       \hline
-      Energy stiff     & $\Psi$ & $\Psi$ & - \\
-      Energy compliant & $\Psi$ & $\widetilde \Psi$ & - \\
+      Energy stiff     & $\Psi$ & $\Estiff$ & - \\
+      Energy compliant & $\Psi$ & $\Ecompl$ & - \\
       Energy homogeneous & $\Psi_h(\bar\epsilon)$ &  & total? \\
-      & & $\mathsf E(\alpha), w(\alpha)$ & 1D Young, homog. damage\\
-      & & $\alpha$ & \\
-      & & $u$ & \\
-      & & $v$ & \\
-      & & $(u,\alpha), (v, w)$ & $(u,\alpha), (v, \beta)$ \\
+      & & $\mathsf E(\alpha), \homogdiss(\alpha)$ & 1D Young, homog. damage\\
+      & & $u, \alpha, v$ & \\
+      & & $(u,\alpha), (v, \beta)$ & $(u,\alpha, v), (\cdot, \beta, \cdot)$ \\
       & & $V, V_0, K^+_0$ & $H^1((0,1))\times  H^1((0,1))$\\
       & & $V_0$ & $H^1_0((0,1))\times  H^1((0,1))$\\
       & & $K^+_0$ & $H^1_0((0, 1))\times \{w \in H^1((0, 1)): w(x) \geq 0 \text{ a.e. }x\in (0, 1)\}$\\
