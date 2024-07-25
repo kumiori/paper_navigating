@@ -13,11 +13,11 @@ In order to find the equilibrium branches we make use of a pseudo-arclength cont
 \includegraphics[width=.7\textwidth]{../images/model_stiff_fields.pdf}
     \caption{
 % \todo[inline]{Add marker for $\ep_c$ in a), }
-Equilibrium branches in the phase-field model of an elastic bar on rigid elastic foundation: (a) the energy difference $\Delta E$ between the affine and non-affine configurations. Stability of solutions is indicated by colors: blue denotes stability, while green indicates instability   via the numerical evaluation of the smallest eigenvalue of the stiffness matrix $\mathbf{K}^1$. Arrows indicate the anticipated branch switching events associated with the loss of stability; (b) the damage and strain profiles of the minimum energy configurations on each branch.}
+Equilibrium branches in the phase-field model of an elastic bar on rigid elastic foundation: (a) the energy difference $\Delta E$ between the affine and non-affine configurations. Stability of solutions is indicated by colors: blue denotes stability, while green indicates instability   via the numerical evaluation of the smallest eigenvalue of the stiffness matrix $\stiffmat$. Arrows indicate the anticipated branch switching events associated with the loss of stability; (b) the damage and strain profiles of the minimum energy configurations on each branch.}
     \label{fig:branches-stiff}
 \end{figure}
 In order to asses the stability of equilibrium branches, we use  the numerical evaluation of the smallest eigenvalue of the second variation by discretizing the integrals \eqref{hessian22} and   \eqref{hessian222} to construct the stiffness matrix
-${\bf K}$ and investigating numerically the sign of the minimal eigenvalue $\kappa$ of the corresponding discrete quadratic form \cite{Sanderson2016-ht}.  The finite element discretization of the displacement and damage field $(u, \alpha )$     with \( n_u \) displacement degrees-of-freedom 
+$\stiffmat$ and investigating numerically the sign of the minimal eigenvalue $\kappa$ of the corresponding discrete quadratic form \cite{Sanderson2016-ht}.  The finite element discretization of the displacement and damage field $(u, \alpha )$     with \( n_u \) displacement degrees-of-freedom 
 $
 \mathbf{u} = \{ u_1, \ldots, u_{n_u} \}^T 
 $
@@ -31,10 +31,10 @@ and $\alpha(\mathbf{x}) \approx \alpha_{\text{FE}} (\mathbf{x}) := \sum_{i=1}^{n
 $
 where $\mathcal{N}^{(u)}(\mathbf{x}) $ and $\mathcal{N}^{(\alpha)}(\mathbf{x}) $ are the finite element basis functions and  $u_h$ and  $\alpha_h$ are nodal values for the displacement and damage fields, respectively. We used quadratic one-dimensional finite elements with 3 nodes  whose   shape functions   ${\mathcal N}_i(x)$ at a node $i$  are given by ${\mathcal N}_1(\xi)=-0.5\xi(1-\xi)$, ${\mathcal N}_2(\xi)=-0.5\xi(1+\xi)$ and ${\mathcal N}_3(\xi)=-(1-\xi)(1+\xi)$, where $\xi$ is the isoparameteric coordinate. The discrete solution $u(x_i)$ provided at discrete nodes $x_i$ by AUTO was first interpolated using B-spline basis functions of degree 3 \cite{Grimstad2016-cq}, and then utilized to calculate the integrals \eqref{hessian22} and   \ref{hessian222} employing a three-point Gauss integration scheme. The fixed boundary conditions were enforced by removing the rows and columns corresponding to $x = 0$ and $x = 1$ from the stiffness matrices 
 % $\mathbf{K}^i, i = 1, 2$
-${\bf K}$ and $\widetilde{\bf K}$. The explicit form of the stiffness matrix for the stiff substrate model is given by
+$\stiffmat$ and $\widetilde\stiffmat$. The explicit form of the stiffness matrix for the stiff substrate model is given by
 \begin{equation}
-    {\bf K} = 
-    % {\bf K}^1=
+    \stiffmat = 
+    % \stiffmat^1=
     \begin{bmatrix}
 \int_0^1[ \frac{1}{\lambda_2^2}{\mathcal N}_i{\mathcal N}_j + (1-\alpha)^2{\mathcal N}'_i{\mathcal N}'_j
 %+\frac{1}{\lambda_2^2}{\mathcal N}_i {\mathcal N}_j
@@ -48,8 +48,8 @@ ${\bf K}$ and $\widetilde{\bf K}$. The explicit form of the stiffness matrix for
 and in the compliant substrate model it reads
 
 \begin{equation}
-    \widetilde{{\bf K}}=
-    % /{\bf K}^2=
+    \stiffmatcompl=
+    % /\stiffmat^2=
     \begin{bmatrix}
     \int_0^1[ \frac{1}{\lambda_2^2}{\mathcal N}_i{\mathcal N}_j + (1-\alpha)^2{\mathcal N}'_i{\mathcal N}'_j] dx&
 -2\int_0^1(1-\alpha)u' {\mathcal N}'_i {\mathcal N}_j  dx&
@@ -76,11 +76,11 @@ Our objective is to establish a branch switching strategy as part of our model's
     Add marker for $\ep_c, H$ in Fig (a)
     Add marker for $n=1, 2, ...$ in Fig (a)
     }
-Equilibrium branches in the phase-field model of an elastic bar on non-rigid elastic foundation: (a) the energy difference $\Delta E$ between the affine and non-affine configurations. Stability of solutions is indicated by colors: blue denotes stability, while green indicates instability   via the numerical evaluation of the smallest eigenvalue of the stiffness matrix $\mathbf{K}^2$; (b) the damage and strain profiles of the minimum energy configurations on each branch.}
+Equilibrium branches in the phase-field model of an elastic bar on non-rigid elastic foundation: (a) the energy difference $\Delta E$ between the affine and non-affine configurations. Stability of solutions is indicated by colors: blue denotes stability, while green indicates instability   via the numerical evaluation of the smallest eigenvalue of the stiffness matrix $\stiffmatcompl$; (b) the damage and strain profiles of the minimum energy configurations on each branch.}
     \label{fig:branches-compliant}
 \end{figure}
 
-We display the equilibrium branches that solve the nonlinear equations~\ref{auto1} in Fig. \ref{fig:branches-stiff}. These branches are represented in Figure~\ref{fig:branches-compliant} by plotting the energy difference $\Delta \Psi$, which represents the energy difference between the energy of the current non-affine solution and the energy of the homogeneous solution $\Psi_h(\bar{\epsilon})$ at the current value of the loading parameter $\bar\epsilon_t$. The stability of solutions is color-coded, XXXX and YYYY representing stable and unstable solutions, respectively.\comment{check palette and colour names} Stability is discerned through numerical evaluation of the smallest eigenvalue $\kappa$ of the stiffness matrix $\mathbf{K}^1$ defined in \eqref{eq:stifness1}. Eigenvalues represent the local curvatures of the energy functional, so the sign of the smallest  $\kappa$ determines the stability of the solution, with $\kappa > 0$ indicating stability and $\kappa < 0$ indicating instability.
+We display the equilibrium branches that solve the nonlinear equations~\ref{auto1} in Fig. \ref{fig:branches-stiff}. These branches are represented in Figure~\ref{fig:branches-compliant} by plotting the energy difference $\Delta \Psi$, which represents the energy difference between the energy of the current non-affine solution and the energy of the homogeneous solution $\Psi_h(\bar{\epsilon})$ at the current value of the loading parameter $\bar\epsilon_t$. The stability of solutions is color-coded, XXXX and YYYY representing stable and unstable solutions, respectively.\comment{check palette and colour names} Stability is discerned through numerical evaluation of the smallest eigenvalue $\kappa$ of the stiffness matrix $\stiffmat$ defined in \eqref{eq:stifness1}. Eigenvalues represent the local curvatures of the energy functional, so the sign of the smallest  $\kappa$ determines the stability of the solution, with $\kappa > 0$ indicating stability and $\kappa < 0$ indicating instability.
 
 Under the LEM protocol, the system explores the fundamental branch where the homogeneous solution is stable until $\bar\epsilon^c$, identified using linear stability analysis. At the critical load $\bar\epsilon^c$  at the point H, following the first instability, a branch switching transition occurs from the trivial branch with $n = 0$ to the nontrivial equilibrium branch with $n = 3$. The ensuing non-homogeneous configuration is linearly stable, as seen in Fig. \ref{fig:branches-stiff}. We depict the lowest energy configuration on this equilibrium branch in Fig.~\ref{fig:branches-stiff} at point A, consisting of two simultaneously nucleated localized cracks, one inside the domain and one on the boundary. 
 
@@ -88,7 +88,9 @@ When the loading parameter $\bar{\epsilon}$ is further increased, the equilibriu
 
 Further increasing the load, the stability of the branch with $n=4$ is lost at point $B'$, a single available transition leads the system to the branch with $n=5$. While the branch with $n=6$ appears accessible due to its lower energy compared to the current state, it is unstable at the current value of $\bar\epsilon$. The lowest energy configurations on the branches with $n=5$ and $n=6$ are illustrated in Fig. \ref{fig:branches-stiff}(C-D). Increasing the load along the branch with $n=5$ which loses linear stability at point $C'$, a branch switching event occurs towards the branch with $n=7$, the corresponding minimum energy configuration on this branch is depicted in Fig.~\ref{fig:branches-stiff}(b). Finally, this branch reconnects to the homogeneous branch with $n=0$ at point $F$.
 
-In the case of the compliant substrate model, the equilibrium branches that solve the nonlinear equations (Eq.~\ref{auto2}) are shown in Fig.~\ref{fig:branches-compliant}. We again plot the energy difference $\Delta \widetilde\Psi$ between the energy of the current solution and the energy of the homogeneous solution $f^0(\bar{\epsilon}, \alpha^0(\bar{\epsilon}))$ at the current value of the loading parameter $\bar\epsilon$. The stability of solutions is indicated by XXXXX and YYYYYY colors, representing stable and unstable solutions, respectively. Stability is now discerned through numerical evaluation of the smallest eigenvalue of the stiffness matrix $\mathbf{K}^2$, defined in \eqref{eq:stifness2}.
+In the case of the compliant substrate model, the equilibrium branches that solve the nonlinear equations (Eq.~\ref{auto2}) are shown in Fig.~\ref{fig:branches-compliant}. 
+We again plot the energy difference $\Delta \widetilde\Psi$ between the energy of the current solution and the energy of the homogeneous solution $f^0(\bar{\epsilon}, \alpha^0(\bar{\epsilon}))$ at the current value of the loading parameter $\bar\epsilon$. 
+The stability of solutions is indicated by XXXXX and YYYYYY colors, representing stable and unstable solutions, respectively. Stability is now discerned through numerical evaluation of the smallest eigenvalue of the stiffness matrix $\stiffmatcompl$, defined in \eqref{eq:stifness2}.
 
 According to the LEM protocol with a loading history starting in the unloaded and sound configuration, the initial transition from the trivial solution to the only available branch with $n=2$ occurs at $\epsilon_c^*$, marked as point H. As illustrated in Fig. \ref{fig:branches-compliant}(b), the damage and strain profiles of the lowest energy configuration at point A is characterised by two boundary cracks. As the loading increases, the system persists on the $n=2$ branch until point $A'$ which marks an instability. The system can now access two equilibrium branches: $n=3$ and $n=4$ shown in gray and black arrows. Fig. \ref{fig:branches-compliant}(b) shows the typical damage and strain profiles on these branches. Branches $n=3$ and $n=4$ show one bulk crack plus one boundary crack, and one bulk crack plus two boundary cracks, respectively. 
 

@@ -5,13 +5,16 @@
 \newcommand{\Estiff}{\Psi}
 \newcommand{\Ecompl}{\widetilde\Psi}
 % \newcommand{\subsu}{\bar u}
-\newcommand{\subsu}{v}
+\newcommand{\subsu}{\tilde u}
+\newcommand{\subsutest}{\tilde v}
 \newcommand{\homogdiss}{\mathsf{w}}
 \newcommand{\soften}{\mathsf{a}}
 \newcommand{\damagell}{\ell}
 \newcommand{\elastell}{\Lambda}
 \newcommand{\stiffratio}{\rho}
 \newcommand{\yhom}{y^{\text{hom}}}
+\newcommand{\stiffmat}{\mathbf{H}}
+\newcommand{\stiffmatcompl}{\widetilde{\mathbf{H}}}
 
 
 
@@ -27,6 +30,7 @@
       & & $\mathsf E(\alpha), \homogdiss(\alpha)$ & 1D Young, homog. damage\\
       & & $u, \alpha, v$ & \\
       & & $(u,\alpha), (v, \beta)$ & $(u,\alpha, v), (\cdot, \beta, \cdot)$ \\
+      & & $(u,\alpha), (v, \beta)$ & $(u,\alpha, \subsu), (\cdot, \beta, \cdot)$ \\
       & & $V, V_0, K^+_0$ & $H^1((0,1))\times  H^1((0,1))$\\
       & & $V_0$ & $H^1_0((0,1))\times  H^1((0,1))$\\
       & & $K^+_0$ & $H^1_0((0, 1))\times \{w \in H^1((0, 1)): w(x) \geq 0 \text{ a.e. }x\in (0, 1)\}$\\
@@ -58,7 +62,9 @@ During an isolated switching event, new equilibrium branches can be determined u
 \added[id=ALB]{
 The study of bifurcation and stability of equilibrium configurations in dynamic systems without constraints has led to a systematic investigation of the possible local behaviors at bifurcations points in terms of linearised (canonical) representations, allowing for easier classification and analysis of the bifurcation types~\cite{}. 
 For systems of ODEs the criterion  of bifurcation (from a fundamental solution) amounts to the study of the existence of solutions different than the fundamental one in an arbitrary neighborhood of the control parameters. Conditions of failure of the implicit function theorem describe the scenario under which a system of equations can realise more than one smooth solution.
-Less clear is the picture in presence of nonconvexities and nonlinear constraints associated with internal variables, where quasi-static evolutionary problems defined by optimality conditions take the form of variational inequalities which model the trajectory of a system in phase space. In these scenarios, as noted in the seminal work~\cite{}, the study of bifurcation and stability is not equivalent to the existence of solutions infinitesimally near critical points in an arbitrary neighborhoods of the control parameters.
+Less clear is the picture in presence of nonconvexities and nonlinear constraints associated with internal variables, where quasi-static evolutionary problems defined by optimality conditions take the form of variational inequalities which model the trajectory of a system in phase space. In these scenarios, as noted in the seminal work~\cite{hill}, the study of bifurcation and stability is not equivalent to the existence of solutions infinitesimally near critical points in an arbitrary neighborhoods of the control parameters.
+bazant, ....
+
 Here, 
 % instead of seeking existence of solutions  (which amounts to the invertibility of equilibrium system), 
 a bifurcation condition along the system's evolution parametrised by the control parameter(s) is associated to the uniqueness of a field of vectors tangent to the trajectory in phase space.
@@ -69,6 +75,8 @@ In this work, we aim at characterising the stability (or observability) of stati
 % bifurcation points are the critical loadings at which there is a multiplicity of solutions to the rate problem 
 % ----------
 }
+
+STABILITY IS A DIFFERENT BUSINESS
 
 The loss of stability of energy-minimizing states which are stationary points of a corresponding energy functional is of paramount importance in materials science and engineering. Illustrative in this sense are Euler buckling~\cite{Bettiol2020-ey}, wrinkling in thin films~\cite{Hutchinson2013-jk}, homogeneous nucleation of dislocations in a crystal~\cite{Carpio2005-bv,Plans2007-cx,Baggio2019-rs,Mayer2022-km,Baggio2023-qu}, buckling of lattice structures~\cite{Combescure2016-dy,Bertoldi2008-au}, nucleation of cracks in soft solids or in pantographic structures \cite{Riccobelli2023-fc,Salman2021-mn}, plastic  avalanches in crystals or amorphous materials \cite{Zhang2020-ax,Weiss2021-db,Yang2020-zm}.
 
@@ -85,3 +93,4 @@ We study of stability of equilibria in two settings, namely i) that in which dam
 The rest of the paper is organized as follows. In Sections \ref{sec:rigid} and \ref{sec:non-rigid}, we present one-dimensional phase-field fracture models with both rigid and non-rigid elastic foundations, focusing on the analysis  of linear stability regarding trivial solutions. In Section \ref{sec:numerics}, we investigate the nonlinear regime and discuss the selection of equilibrium branches using various numerical optimization algorithms. In the final Section  summarize our results.
 
 \paragraph{Notation.} \added[id=ALB]{Standard notation for Sobolev spaces, derivtives, indices, ..., subscripted $t$ means $t$-parametrised quantities, superscripted $k$ means $k$-th iterate of an iterative algorithm. States $y_t, X, X^*$, vectors, matrices, ..., Sobolevs spaces of scalar functions on unit interval $H^1(0, 1)$}
+PRIME SIGN, SPATIAL DERIVATIVE WHEN APPLIED TO FIEELDS OR QUANTITY RELATED TO THE SUBSTRATE WHEN APPENDED TO MATERIAL CONSTANTS

@@ -121,14 +121,14 @@ With the assumption that the loading process is slow enough for inertia and dyna
 
 % In this work, 
 Specifically, we consider an evolution during the loading interval $t\in [0, T]$ as a time-parametrised mapping $t\mapsto y_t$  such that, for all $t\in [0, T]$ the actual state of the system $y_t$ is a local energy minimum among all admissible state perturbations, or with respect to all admissible competitor states. %
-In practice, given an initial condition $y_0$ at $t=0$ we seek a state $y_t:=(u, \alpha)_t$ (and $y_t:=(u, \alpha, v)_t$ respectively, for the compliant model) such that, for a given value of the control parameter $t$, it satisfies time-dependent kinematic boundary conditions on the displacement variable and is locally energy minimal. 
+In practice, given an initial condition $y_0$ at $t=0$ we seek a state $y_t:=(u, \alpha)_t$ (and $\widetilde{y_t}:=(u, \alpha, v)_t$ respectively, for the compliant model) such that, for a given value of the control parameter $t$, it satisfies time-dependent kinematic boundary conditions on the displacement variable and is locally energy minimal. 
 For definiteness, denoting by $X_t = \{\varphi\in H^1(0, 1):\varphi=\subsu(x, t),\text{ for } x=0\text{ and } x=1\}\times H^1(0,1)$ the affine vector space of (kinematically) admissible states for the stiff model, (respectively $\widetilde{X_t} = X_t\times H^1(0, 1)$, for the compliant model) 
 we seek 
 % $y_t\in X_t$ such that
 \begin{equation}
     \label{eq:variational_global_ineq}
     % \Estiff(y_t) \leq \Estiff(y_t + z),\quad \forall \text{ admissible } z,
-    y_t\in X_t: \qquad \Estiff(y_t) \leq \Estiff(z),\quad \forall \text{ admissible competitors } z,
+    y_t\in X_t: \qquad \Estiff(y_t) \leq \Estiff(y),\quad \forall \text{ admissible competitors } y,
 \end{equation}
 and similarly for the compliant model substituting $\Estiff$ with $\Ecompl$ and $X_t$ with $\widetilde{X_t}$.
 % for the stiff model, and  $y_t\in \widetilde{X_t}$ such that
@@ -160,7 +160,6 @@ $$
 In the subsequent section, we exploit the energy-stability statement for both the mechanical models models introduced above, exploring the equilibrium configurations and identifying the conditions under which the system transitions between different equilibrium branches. 
 This analysis will involve both analytical and numerical methods, with a focus on understanding equilibrium bifurcations and stability properties of these phase-field fracture models.
 
-=====================================================
 
 
 %  we consider the phase-field theory of fracture to describe the crack formation of {a thin elastic membrane} attached to a substrate. The evolution equation for the phase-field is determined by the minimization of an energy functional based on the variational theory of brittle fracture~\cite{bourdin:2008-the-variational}.
@@ -170,13 +169,12 @@ This analysis will involve both analytical and numerical methods, with a focus o
 
 
 % 
-The damage field is left free at the boundaries so that natural boundary conditions $\alpha'=0$ follow. 
 
 \section{Linear and nonlinear stability}
 
 Solutions to the incremental evolutionary problem are sought by solving first and second order necessary conditions for optimality encoded in the global variational inequality~\eqref{eq:variational_global_ineq} which reduces to a \emph{linear} stability problem in a linear vector space for the case of fully reversible damage, and constitutes an instance of a \emph{nonlinear} stability problem in a convex cone in the presence of irreversibility.
 
-\paragraph{Stability in the reversible case - stiff substrate}
+\paragraph{Linear stability in the reversible case - stiff substrate}
 
 % In the expression above $z$ is a state perturbation, its admissibility requires zero boundary conditions for the displacement component as well as additional constraints on its damage component when irreversibility is taken into account. 
 % Define $X_t = H^1(0, 1)$
@@ -212,7 +210,7 @@ By using standard arguments of the calculus of variations, localising the integr
 \end{eqnarray}
 % proceeding with the evaluation of the equilibrium configuration via the Euler-Lagrange equations
 \added[id=ALB]{
-    This differential system is equipped with kinematic (essential) boundary conditions $u(0) = \subsu(0, t), u(1) = \subsu(1, t)$ and natural conditions on the internal field $\alpha'(0)=\alpha'(1)=0$.
+    This differential system is equipped with essential kinematic boundary conditions $u(0) = \subsu(0, t), u(1) = \subsu(1, t)$, whereas conditions on the internal field $\alpha'(0)=\alpha'(1)=0$ naturally follow by minimality.
 % When the order parameter is reversible, the space of admissible perturbations is the homogeneous space associated to $X_t$, that is $V_0:= H^1_0((0,1))\times  H^1((0,1))$.
 Notice that the choice of boundary conditions for displacements compatible with the substrate's deformation implies that the pair $\yhom:=(u_h(x), \alpha_h)$ given by $u_h(x)\equiv \subsu(x, t)$\comment[id=ALB]{notation $
 \bar u_t$} and $\alpha_h$ a load-dependent constant to identify, is always (the unique homogenous) solution to the first order equilibrium equations. This makes it immediate to identify the fundamental homogeneous solution branch $t \mapsto \yhom$ and to decouple the elasticity problem from the  evolution of damage. 
@@ -277,14 +275,14 @@ Computation of the determinant $\det \mathcal{H}$ for the homogeneous solution $
      \label{fig:hessian1}
  \end{figure}
 
- \paragraph{Stability in the reversible case - compliant substrate}
+ \paragraph{Linear stability in the reversible case - compliant substrate}
 
 
 
-Denoting by $z:=(w, \beta, ...)\in \widetilde{X}_0$ a test function for the state triplet  $y_t:=(u, \alpha, v)_t$ at time $t$, the first order variation of the energy functional $\Ecompl$ is given by the following linear form 
+Denoting by $z:=(v, \beta, \subsutest)\in \widetilde{X}_0$ a test function for the state triplet  $y_t:=(u, \alpha, \subsu)_t$ at time $t$, the first order variation of the energy functional $\Ecompl$ is given by the following linear form 
 % The first variation of the energy functional is given by
 \begin{equation}
-\delta \Ecompl(u, \alpha, v)(v,\beta,z)=\int_0^1 [(1-\alpha)^2u'v'+\frac{1}{\elastell^2} (u- v) (v- v)+\stiffratio \subsu'z'+\frac{1}{2}u'^2 (\soften'(\alpha)+\homogdiss'(\alpha))w+\damagell^2\alpha'w' ]dx,\label{firstvar}
+\delta \Ecompl(u, \alpha, \subsu)(v,\beta,\subsutest)=\int_0^1 [(1-\alpha)^2u'v'+\frac{1}{\elastell^2} (u- v) (v- \subsutest)+\stiffratio \subsu'\subsutest'+\frac{1}{2}u'^2 (\soften'(\alpha)+\homogdiss'(\alpha))\beta+\damagell^2\alpha'\beta' ]dx,\label{firstvar}
 \end{equation}
 % where $v$, $\beta$ and $z$ are  test functions. 
 The Euler-Lagrange equations read
@@ -293,21 +291,23 @@ The Euler-Lagrange equations read
 \begin{cases}
   2(1-\alpha)\alpha' u' +(1-\alpha)^2 u'' -  \frac{1}{\elastell^2}(u-\subsu) &= 0, \\
   -\damagell^2\alpha'' - (1-\alpha)( u')^2 + 2\alpha   &= 0,\\
-    \stiffratio  v''  +  \frac{1}{\elastell^2}(u-\subsu) &= 0. \\
+    \stiffratio  \subsu''  +  \frac{1}{\elastell^2}(u-\subsu) &= 0. \\
 \end{cases}
 \label{auto2}
 \end{eqnarray}
 It is easy to show that the homogeneous solution on the trivial branch remains the same as in the case of the rigid substrate, that is $\alpha_h = \frac{\bar{\epsilon}^2}{2 + \bar{\epsilon}^2}\label{eq:homo11}$, whereas the effective elastic energy along the homogeneous branch now reads $\Ecompl_\homogdiss(\bar{\epsilon}) = \frac{\bar{\epsilon}^2}{2 + \bar{\epsilon}^2} + \frac{r_s}{2}\bar{\epsilon}^2$.\comment[id=ALB]{why there is no damage part?, CHECK} 
 
-We once more seek the linear incremental stability of an equilibrium configuration $y_t := (u, \alpha,  v)_t$ which satisfying that the first order condition $\delta \Ecompl(y_t)(y-y_t)=0$ \added[id=ALB]{for all admissible state perturbations $z:=y-y_t\in X_0$} by examining the positivity of the second variation, namely
+We once more seek the linear incremental stability of an equilibrium configuration $y_t := (u, \alpha,  v)_t$ satisfying that the first order condition $\delta \Ecompl(y_t)(y-y_t)=0$ \added[id=ALB]{for all admissible state perturbations $z:=y-y_t\in X_0$} by examining the positivity of the second variation, namely
 \begin{equation*}
-    (y-y_t)^T\delta^2 \Ecompl(y_t)(y-y_t)>0, \qquad \forall y-y_t\in \widetilde V_0,
+    (y-y_t)^T\delta^2 \Ecompl(y_t)(y-y_t)>0, \qquad \forall y-y_t\in \widetilde X_0,
 \end{equation*}The second variation is given by the following bilinear form 
 \begin{equation}
-\delta^2 \Ecompl(y_t)(z)(z)=\int_0^1 \left[(1-\alpha)^2v'^2 
+\delta^2 \Ecompl(y_t)(y)(y)=\int_0^1 \left[(1-\alpha)^2v'^2 
 %+ \elastell^{-2}v^2
-- 4(1-\alpha)u' v'\beta+(2+ u'^2)\beta^2+\damagell^2\beta'^2 +\frac{1}{\elastell^2}( v^2 + z^2)+\stiffratio z'^2\right]dx.\label{hessian222}\end{equation}
-We again proceed to extract information on the onset of instability expanding in Fourier series the fields $v$, $w$ and $z$ appearing in \eqref{hessian222} such that $v(x)=\sum_{n=1}^{\infty} a_{n} \sin \left(n \pi x+\phi_{n}\right), \quad w(x)=\sum_{n=1}^{\infty} b_{n} \cos \left(n \pi x+\psi_{n}\right),\quad z(x)=\sum_{n=1}^{\infty} c_{n} \sin \left(n \pi x+\theta_{n}\right)$\comment[id=ALB]{check notation}. Exactly as in the previous section, we claim that, whenever the first order term vanishes, the system is stable only if $\delta^2 \Ecompl(u,\alpha, v)(v,w,z)(v,w,z)>0$ for all sufficiently smooth admissible test fields $(v, w, z)$. The stability condition  takes the form
+- 4(1-\alpha)u' v'\beta+(2+ u'^2)\beta^2+\damagell^2\beta'^2 +\frac{1}{\elastell^2}( v^2 + \subsutest^2)+\stiffratio z'^2\right]dx.\label{hessian222}\end{equation}
+We again proceed to extract information on the onset of instability expanding in Fourier series the fields $v$, $w$ and $z$ appearing in \eqref{hessian222} such that $v(x)=\sum_{n=1}^{\infty} a_{n} \sin \left(n \pi x+\phi_{n}\right), \quad \beta(x)=\sum_{n=1}^{\infty} b_{n} \cos \left(n \pi x+\psi_{n}\right),\quad \subsutest(x)=\sum_{n=1}^{\infty} c_{n} \sin \left(n \pi x+\theta_{n}\right)$. Exactly as in the previous section, we claim that, whenever the first order term vanishes, the system is stable only if $\delta^2 \Ecompl
+% (u,\alpha, v)(v,\beta,\subsutest)(v,\beta,\subsutest)
+>0$ for all sufficiently smooth admissible test fields $(v, \beta, \subsutest)$ in the vector space $\widetilde{ X_0}$. The stability condition  takes the form
 \begin{align}\left[ a_n \quad b_n \quad c_n  \right] \mathcal{H} \left[ \begin{array}{c} a_n \\ b_n  \\ c_n\end{array} \right]=\left[ a_n \quad b_n \quad c_n \right]\left(
 \begin{array}{ccc}
 \soften(\alpha)(n\pi)^2+\elastell^{-2}& \frac{\partial g}{\partial \alpha}\bar\epsilon(n\pi) &  -\elastell^{-2} \\
@@ -322,7 +322,7 @@ By substituting the homogeneous solution $\alpha_h$ into \eqref{hessian3}, we co
 
 % 
 
-\paragraph{Stability with irreversibility constraints}
+\paragraph{Nonlinear stability with irreversibility constraints}
 
 Irreversibility is introduced in the variational formulation of the evolution problem as a pointwise inequality constraint. Intuitively, irreversibility plays two distinct roles along an evolution: (i) as a \emph{local} constraint which prevents the damage field at a given location to decrease between two subsequent loads values (both during monotonic and non-monotonic load programs), and (ii) as a global restriction of the space of admissible variations in such a way that \emph{negative} perturbations of the current damage state are no longer allowed. This effectively changes the structure of the set of admissible perturbations from a linear vector space to a convex cone. 
 To enforce irreversibility we consider only non-decreasing damage evolutions that are sufficiently smooth with respect to the loading parameter, and seek maps $t\mapsto y_t = (u_t, \alpha_t)$ such that $\dot \alpha_t \geq 0$ and that satisfy the minimality condition~\eqref{eq:variational_global_ineq}.
@@ -454,16 +454,20 @@ A sufficient condition for the stability of the homogeneous state $y_h$ is given
 % Indeed, the critical load for loss of stability is conceptually different from the critical load at which the uniqueness of the (rate) response is lost, they are determined by two different problems which can be related by a (singular) asymptotic process.
 \begin{equation}
      \label{eq:variational_stability}
-     \delta^2 \Psi(y_h)(\zeta - y_h,  \zeta - y_h)  > 0, \quad \forall \zeta-y_h \in \conespace,
+     \delta^2 \Psi(y_h)(y - y_h,  y - y_h)  > 0, \quad \forall y-y_h \in \conespace,
  \end{equation}
 and similarly for the compliant substrate model, by replacing $\Estiff$ with $\Ecompl$ and $\conespace$ with $\widetilde{\conespace}$.
 The variational ineqality above is a constrained eigenvalue problem characterising the stability of the state $y_h$. Its solution yields either a positive eigenpair $(\kappa, z^*)\in \mathbb{R}^+\times K^+_0$ as a sufficient condition for the stability of current state, or a pair $(\kappa, z^*)\in \mathbb{R}^-\times K^+_0$ where $\kappa$ is the local (negative) energy curvature and the eigenmode $z^*$ indicates the direction of maximum energy decrease, interpreted as the \emph{instability mode} which points the system towards an optimal direction of energy descent. 
 From the numerical standpoint, the bifurcation eigen-problem in the vector space~\eqref{eq:variational_bifurcation} may be regarded as an approximated version of the stability problem, in the time-discrete setting. As suggested in~\cite{Baldelli2021-gc} through the notion of `incremental-stability', the irreversibility constraint in the stability problem can be relaxed to a pointwise inequality with respect to the state at the previous time-step $y_-$.
-This allows to replace the \emph{current} state $y_h$ in the definition of the space of perturbations, with $y_-$. As a consequence, assuming that $\alpha_t$ is the equilibrium damage field solving first order optimality conditions at $t$ and that $\alpha_-$ is the solution at the previous load step, admissible perturbations for the second order problem~\eqref{eq:variational_stability} are all $\zeta-y_-\in \conespace$. In this way, the set of perturbations is enlarged to include all sufficiently smooth functions $\beta$ (which cancel the first order term) without restriction on the sign provided that $\alpha_t(x) + \beta(x) - \alpha_-(x)\geq 0$ for all $x\in (0, 1)$.
+This allows to replace the \emph{current} state $y_h$ in the definition of the space of perturbations, with $y_-$. As a consequence, assuming that $\alpha_t$ is the equilibrium damage field solving first order optimality conditions at $t$ and that $\alpha_-$ is the solution at the previous load step, admissible perturbations for the second order problem~\eqref{eq:variational_stability} are all $y-y_-\in \conespace$. In this way, the set of perturbations is enlarged to include all sufficiently smooth functions $\beta$ (which cancel the first order term) without restriction on the sign provided that $\alpha_t(x) + \beta(x) - \alpha_-(x)\geq 0$ for all $x\in (0, 1)$.
 % 
 % $\alpha$ is admissible at $t$ only if $\alpha \in H^1(0, 1)$ and $\alpha \geq \alpha_{-}$ where $\alpha_{-}$ is the damage state at the previous load step. 
 In this way, the space of perturbation allows for (small) perturbations $\beta$ which can be negative where $\alpha_t(x)>\alpha_-(x)$. Despite the constraint, such space is a vector space and the stability problem can be solved by standard methods of linear algebra by restricting the Hessian to the set of active constraints, cf~\cite{Nocedal1999-zr}.
-In practice, the stability problem~\eqref{eq:variational_stability} is a constrained eigenvalue problem in a convex cone solved by finding ....
+In practice, the stability problem~\eqref{eq:variational_stability} is a constrained eigenvalue problem in a convex cone, numerically solved by exploiting the orthogonality between the set $\conespace$ and its dual $K^*:=\{y \in H^1(0,1): \langle x,y \rangle \leq 0, \forall x \in \conespace\}$, cf.~\cite{moreau, pinto-da-costa}.
+
+% \begin{equation}
+    % H_{\conespace} = \{z\in X_0: \delta^2 \Psi(y_h)(z, z) \geq 0\}.
+% \end{equation}
 
 
 
