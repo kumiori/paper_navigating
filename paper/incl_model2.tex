@@ -239,11 +239,11 @@ The effective {total} energy along the {homogeneous} branch reads
 
 % \comment[id=ALB]{How to understand linear/nonlinear}
 An equilibrium configuration $y_t:=(u,\alpha)_t$ is a state such that the first variation $\delta \Estiff(y_t)(z)$ vanishes for all admissible test fields \added[id=ALB]{in the vector space $X_0$}. 
-To assess the incremental stability of the homogeneous solution in the reversible (linear) case, we examine the \added[id=ALB]{positivity of the} second variation, requiring\comment[id=ALB]{Notation suggestion: $w\mapsto \beta, y:=(u, \alpha), z:=(v, \beta)$}
+To assess the incremental stability of the homogeneous solution in the reversible (linear) case, we examine the \added[id=ALB]{positivity of the} second variation, requiring
 \begin{equation}
-\delta^2 \Estiff(y_t)(v,w)>0, \qquad  \forall z\in X_0,
+\delta^2 \Estiff(y_t)(y_t-z, y_t-z)>0, \qquad  \forall z\in X_0,
 \label{eqn:linear_second_order_stability}
-\end{equation} 
+\end{equation} \comment[id=ALB]{check }
 {The second directional derivative of the energy is given by the following bilinear form}
 \begin{equation}
 \delta^2 \Estiff(u,\alpha)(v,\beta)=\int_0^1 \left[(1-\alpha)^2v'^2 
@@ -257,8 +257,8 @@ which is well defined for perturbations $(v, \beta)\in X_0$.
 {We} extract information on the onset of instability by seeking a solution given by a Fourier series expansion of the fields $v$ and $w$ in \eqref{hessian22}, such that $v(x)=\sum_{n=1}^{\infty} a_{n} \sin \left(n \pi x+\phi_{n}\right), \quad w(x)=\sum_{n=1}^{\infty} b_{n} \cos \left(n \pi x+\psi_{n}\right)$. Then, we observe that, thanks to boundary conditions, $\psi_{n}=\phi_{n}=0$ for all natural $n$. The stability condition~\eqref{eqn:linear_second_order_stability}  takes the form:
 \begin{align}\left[ a_n \quad b_n \right] \mathcal{H} \left[ \begin{array}{c} a_n \\ b_n \end{array} \right]=\left[ a_n \quad b_n \right]\left(
 \begin{array}{cc}
-\soften(\alpha)(n\pi)^2+\elastell^{-2}  & \frac{\partial g}{\partial \alpha}\bar\epsilon(n\pi)  \\
-\frac{\partial g}{\partial \alpha}\bar\epsilon(n\pi)  &   \frac{\partial g^2}{\partial \alpha^2}\bar\epsilon^2+ \frac{\partial h^2}{\partial \alpha^2}+\damagell^2(n\pi)^2  \\
+\soften(\alpha)(n\pi)^2+\elastell^{-2}  & \frac{\partial \soften}{\partial \alpha}\bar\epsilon(n\pi)  \\
+\frac{\partial \soften}{\partial \alpha}\bar\epsilon(n\pi)  &   \frac{\partial^2 \soften}{\partial \alpha^2}\bar\epsilon^2+ \frac{\partial h^2}{\partial \alpha^2}+\damagell^2(n\pi)^2  \\
 \end{array}
 \right)\left[ \begin{array}{c} a_n \\ b_n \end{array} \right]>0.\label{hessian1}\end{align}
 % 
@@ -305,7 +305,7 @@ We once more seek the linear incremental stability of an equilibrium configurati
     (y-y_t)^T\delta^2 \Ecompl(y_t)(y-y_t)>0, \qquad \forall y-y_t\in \widetilde X_0,
 \end{equation*}The second variation is given by the following bilinear form 
 \begin{equation}
-\delta^2 \Ecompl(y_t)(y)(y)=\int_0^1 \left[(1-\alpha)^2v'^2 
+\delta^2 \Ecompl(y_t)(y, y)=\int_0^1 \left[(1-\alpha)^2v'^2 
 %+ \elastell^{-2}v^2
 - 4(1-\alpha)u' v'\beta+(2+ u'^2)\beta^2+\damagell^2\beta'^2 +\frac{1}{\elastell^2}( v^2 + \subsutest^2)+\stiffratio z'^2\right]dx.\label{hessian222}\end{equation}
 We again proceed to extract information on the onset of instability expanding in Fourier series the fields $v$, $w$ and $z$ appearing in \eqref{hessian222} such that $v(x)=\sum_{n=1}^{\infty} a_{n} \sin \left(n \pi x+\phi_{n}\right), \quad \beta(x)=\sum_{n=1}^{\infty} b_{n} \cos \left(n \pi x+\psi_{n}\right),\quad \subsutest(x)=\sum_{n=1}^{\infty} c_{n} \sin \left(n \pi x+\theta_{n}\right)$. Exactly as in the previous section, we claim that, whenever the first order term vanishes, the system is stable only if $\delta^2 \Ecompl
