@@ -65,7 +65,7 @@ and in the compliant substrate model it reads
 \end{bmatrix}.
 \label{eq:stifness2}
 \end{equation}
-Our objective is to establish a branch switching strategy as part of our model's dynamic expansion\comment[id=ALB]{Unclear}. This extension must ensure the system's re-stabilization following an instability in a dissipative manner. In a quasi-static scenario, it should involve the selection of a new locally stable equilibrium branch with inherently lower energy.  Considering applications in structural mechanics, our approach to selecting the new equilibrium branch involves utilizing a criterion of local energy minimization (LEM)\comment[id=ALB]{Acronyms, imho, make it harder to read by requiring extra mental buffer.}  which emulates the zero viscosity limit of overdamped viscous dynamics. This approach disregards the global energy minimizing (GEM) strategy, which may be relevant in biomechanical applications~\cite{Salman2021-mn}. According to LEM protocol, during quasi-static loading, the system will remain in a metastable state (a local minimum of energy) until it becomes unstable. Subsequently, during an isolated switching event, the new equilibrium branch will be chosen using a descent algorithm \cite{Puglisi2005-lg}.
+Our objective is to establish a branch switching strategy as part of our model's DEFINITION\comment[id=ALB]{Unclear}. This extension must ensure the system's re-stabilization following an instability in a dissipative manner. In a quasi-static scenario, it should involve the selection of a new locally stable equilibrium branch with inherently lower energy.  Considering applications in structural mechanics, our approach to selecting the new equilibrium branch involves utilizing a criterion of local energy minimization (LEM)\comment[id=ALB]{Acronyms, imho, make it harder to read by requiring extra mental buffer.}  which emulates the zero viscosity limit of overdamped viscous dynamics. This approach SETS ASIDE A global energy minimizing (GEM) strategy, which may be relevant in biomechanical applications~\cite{Salman2021-mn}. According to LEM protocol, during quasi-static loading, the system will remain in a metastable state (a local minimum of energy) until it becomes unstable. Subsequently, during an isolated switching event, the new equilibrium branch will be chosen using a descent algorithm \cite{Puglisi2005-lg}.
 \begin{figure}
     %\centering
 % \includegraphics[scale=0.1]{./final_images/fig3.pdf}
@@ -82,7 +82,7 @@ Equilibrium branches in the phase-field model of an elastic bar on non-rigid ela
 
 We display the equilibrium branches that solve the nonlinear equations~\ref{auto1} in Fig. \ref{fig:branches-stiff}. These branches are represented in Figure~\ref{fig:branches-compliant} by plotting the energy difference $\Delta \Psi$, which represents the energy difference between the energy of the current non-affine solution and the energy of the homogeneous solution $\Psi_h(\bar{\epsilon})$ at the current value of the loading parameter $\bar\epsilon_t$. The stability of solutions is color-coded, XXXX and YYYY representing stable and unstable solutions, respectively.\comment{check palette and colour names} Stability is discerned through numerical evaluation of the smallest eigenvalue $\kappa$ of the stiffness matrix $\stiffmat$ defined in \eqref{eq:stifness1}. Eigenvalues represent the local curvatures of the energy functional, so the sign of the smallest  $\kappa$ determines the stability of the solution, with $\kappa > 0$ indicating stability and $\kappa < 0$ indicating instability.
 
-Under the LEM protocol, the system explores the fundamental branch where the homogeneous solution is stable until $\bar\epsilon^c$, identified using linear stability analysis. At the critical load $\bar\epsilon^c$  at the point H, following the first instability, a branch switching transition occurs from the trivial branch with $n = 0$ to the nontrivial equilibrium branch with $n = 3$. The ensuing non-homogeneous configuration is linearly stable, as seen in Fig. \ref{fig:branches-stiff}. We depict the lowest energy configuration on this equilibrium branch in Fig.~\ref{fig:branches-stiff} at point A, consisting of two simultaneously nucleated localized cracks, one inside the domain and one on the boundary. 
+Under the LEM protocol, the system explores the fundamental branch where the homogeneous solution is stable until $\bar\epsilon^c$, identified using linear stability analysis. SEE FIGURE XXX, DISPLAYING EVOLUTION XXXX. At the critical load $\bar\epsilon^c$  at point $H$, following the first instability, a branch switching transition occurs from the trivial branch with $n = 0$ to the nontrivial equilibrium branch with $n = 3$. The ensuing non-homogeneous configuration is linearly stable, as seen in Fig. \ref{fig:branches-stiff}. We depict the lowest energy configuration on this equilibrium branch in Fig.~\ref{fig:branches-stiff} at point A, consisting of two simultaneously nucleated localized cracks, one inside the domain and one on the boundary. 
 
 When the loading parameter $\bar{\epsilon}$ is further increased, the equilibrium configuration with $n=3$ loses linear stability at point $A'$. In Fig. \ref{fig:branches-stiff} we represent state transitions by arrows, it can be observed that under the LEM protocol, the only available transition from point $A'$ is to the branch with $n=4$, which is locally stable within at the corresponding applied strain $\bar{\epsilon}$. The minimum energy configuration on the branch with $n=4$, depicted in Fig.~\ref{fig:branches-stiff} at point $B$, consists of two cracks: one inside the domain and two on the right and left boundaries.
 
@@ -96,7 +96,7 @@ According to the LEM protocol with a loading history starting in the unloaded an
 
 The choice of the subsequent branch transition at point $A'$ will dictate the ensuing crack growth. On branches with $n=3$ and $n=4$, at the instability points $B'$ and $C'$, the system will once again encounter two available equilibrium branches. From $n=3$ branch  at point $B'$, the system can transition to either the $n=4$ or $n=5$ branch. Opting for the $n=4$ branch, the subsequent branch selection occurs at point $C'$, offering branches with $n=6$ or $n=5$. Notably, the $n=5$ branch smoothly reconnects with the trivial solution at point $F$. However, the $n=6$ branch experiences another instability at point $D'$ before rejoining the trivial solution. 
 
-Finally, we can conclude that the overall behavior of the compliant substrate model reveals, for the current choice of material parameters, additional complexity with more branch switching events and non-uniqueness of the overall response. In the stiff substrate model, the LEM strategy identifies a single evolution path before, while in the compliant substrate model the system can follow 8 different paths. This additional complexity provides a good case to test numerical optimization methods, which we will discuss in the following.
+The overall behavior of the compliant substrate model reveals, for the current choice of material parameters, additional complexity with more branch switching events and non-uniqueness of the overall response.\comment{asd}  In the stiff substrate model, the LEM strategy identifies a UNIQUE evolution path, while in the compliant substrate model the system can follow 8 different paths, GIVEN BY THE COMBINATION OF XXX DECISION-MAKING GAME. This additional complexity provides a good case to test numerical optimization methods, which we will discuss in the following.
 
 \subsection{Equilibrium branch selection in overdamped viscous dynamic}
 We consider now the equilibrium solutions reachable through the line-search based quasi-Newton algorithms such as  conjugate gradient or the BFGS optimization, which effectively  mimic the zero viscosity limit of overdamped viscous dynamics~\cite{SALMAN2012219}. Quasi-Newton methods serve as alternatives to Newton's method for locating roots or local extrema of functions. Particularly advantageous in scenarios where computing the Hessian at each iteration is impractical or computationally expensive, these methods circumvent the need for explicit computation \replaced[id=ALB]{of energy derivatives}{Hessian}. Instead, they rely on evaluating the function value and its gradient and updating the Hessian by analyzing successive gradient vectors.
@@ -115,7 +115,7 @@ Quasi-static loading simulations with L-BFGS: (a) the energy difference $\Delta 
     \label{fig:tempo1}
 \end{figure}
 
-To proceed further, we recall that quasi-Newton algorithms only evaluate the function value and its gradient to reach equilibrium configurations. This implies that in our case, we need to evaluate integrals \eqref{modeld} and \eqref{model_elastic_substrate}, along with their first variations given by \eqref{firstvar1} and \eqref{firstvar}, in the first and second models, respectively. We   discretized the integrals \eqref{firstvar1} and \eqref{firstvar} to construct the residuals vectors using finite elements to obtain 
+Recall that quasi-Newton algorithms only evaluate the function value and its gradient to reach equilibrium configurations. This implies that in our case, we need to evaluate integrals \eqref{modeld} and \eqref{model_elastic_substrate}, along with their first variations given by \eqref{firstvar1} and \eqref{firstvar}, in the first and second models, respectively. We   discretized the integrals \eqref{firstvar1} and \eqref{firstvar} to construct the residuals vectors using finite elements to obtain 
 \begin{equation}
     {\bf R} =
     %  {\bf R}^1=
@@ -211,12 +211,12 @@ We again observe that, \added[id=ALB]{even before the first branch-changing even
 \added[id=ALB]{These perturbations of the equilibrium profiles are negligible from the global energetic standpoint, as it can be inferred in Figure~\ref{fig:tempo2}(a), by the superposition between the energy of the computed evolution and the exact total energy of the homogeneous solution.} 
 As the load increases the system moves along the branch with $n=2$ until the stability transition at load XXX, indicated by point A'. Energy minimization brings the system to the branch $n=4$ although the branch with $n=3$ is also accessible and has lower energy. Figure~\ref{fig:tempo2}(c), displays the corresponding damage profiles before and after \added[id=ALB]{the branch} switching event  at points B' and C. The final \replaced[id=ALB]{transition}{event} before the reconnection to the homogeneous branch takes place at point C', which is also an unstable configuration. The transition brings the system to the branch $n=6$ as seen in Fig.~\ref{fig:tempo2}(b), the corresponding stable damage profile at point D is shown in Fig. \ref{fig:tempo2}(c). 
 
-In summary, while the results of the quasi-Newton minimization simulations exhibit overall similarities in both models, the trajectory taken by the system in the second model more closely aligns with the LEM protocol outlined above. This alignment can be attributed to the specific energy landscape within the second model.
+In summary, while the results of the quasi-Newton minimization simulations exhibit overall similarities in both models, the trajectory taken by the system in the second model more closely COMPARES with the LEM protocol outlined above. This alignment can be attributed to the specific energy landscape within the second model. HOWEVER, IN CASE OF INDETERMINACY SUCH AS WHEN MULTIPLE STABLE SOLUTIONS EXIST AT A LOSS OF STABILITY, WHERE SHOULD THE SYSTEM GO?
 
 %: the states accessible to the system when the smallest eigenvalue vanishes remain unchanged compared to when the "delayed" branch switching occurs.
 
 \subsection{Hybrid algorithm \added[id=ALB]{(kick) for branch switching}}
-Our investigation reveals that the solutions generated by the quasi-Newton algorithms deviate from the prescribed LEM protocol outlined in the preceding sections. We observed a delayed bifurcation phenomenon and the persistence of unstable solutions, \replaced[id=ALB]{both affecting}{affect} branch selection events along the evolution.  This is indeed related to the fact that the energy landscape becomes extremely flat when the determinant Hessian gets close to zero~\textbf{comment more}
+Our investigation reveals that the solutions generated by the quasi-Newton algorithms deviate from the prescribed LEM protocol outlined in the preceding sections. We observed a delayed bifurcation phenomenon and the persistence of unstable solutions, \replaced[id=ALB]{both affecting}{affect} branch selection events along the evolution.  This is indeed related to the fact that the energy landscape IS ALREADY flat when the determinant Hessian gets close to zero~\textbf{comment more}
 \added[id=ALB]{
     Testing the energy expansion~\eqref{eqn:energy-expansion} 
     along a the direction of a bifurcation mode, that is setting $y-y_t=h w_n$, where $w_n:=(v_n, \alpha_n)(x)$ is the $n$-th eigenmode associated to the Hessian and $0<h\in \mathbb R$, we obtain that, for admissible states $y$ $\delta$-close to the equilibrium $y_t$ we can write the following lower bound}
@@ -229,7 +229,7 @@ $$
 When the smallest eigenvalue continuously approaches zero, the energy landscape morphs from being locally flat (at first order) and locally convex in all admissible directions including, in particular, the directions associated to the eigenmodes, to loosing local convexity in the one non-trivial direction associated to the eigenvalue that has changed sign. 
 In the numerical practice, 
 the convergence of quasi-Newton algorithms depends on the construction of an (approximate) strictly positive Hessian matrix.
-As a consequence, such approximation systematically impairs the ability to capture the change of sign (of the smallest eigenvalue) of the Hessian, that is its singularity, thus the onset of instability and the instability mode. 
+As a consequence, such approximation systematically RULES OUT the ability to capture the change of sign (of the smallest eigenvalue) of the Hessian, that is its singularity, thus the onset of instability and the instability mode. 
 This can justify the systematic (and algorithm-dependent) delay of the bifurcation events via the quasi-Newton solver, observed in figures~\ref{fig:tempo1} and~\ref{fig:tempo2}.}
 To address this challenge, we introduce a hybrid approach \added[id=ALB]{that explicitly takes into account the singular mode of the Hessian}. In this method, we continuously monitor the smallest eigenvalue of the complete \replaced[id=ALB]{Hessian}{stiffness} matrix for the equilibrium solutions obtained from the quasi-Newton algorithm.\comment[id={ALB}]{why the notation capital bold $X$?}
 When this eigenvalue significantly diminishes, indicating potential instability, we calculate the corresponding eigenvector, denoted as \(\mathbf{p}\). We then use this eigenvector to perturb the current solution $\mathbf{X^*}$. This perturbation sets the initial guess for the next minimization step in the quasi-Newton algorithm as $\mathbf{\tilde X}^{(0)} = \mathbf{X^*} + \eta \mathbf{p},
@@ -239,16 +239,16 @@ $ where \(\eta\) is the step size.\comment[id=ALB]{I removed the k indices}
 This step size can, in principle, be determined through a line-search algorithm by minimizing the one-dimensional energy slices along the energy descent mode given by the function 
 $$f(\eta) = \Psi(\mathbf{X} + \eta \mathbf{p})
 \label{eqn:energy-slice}$$
- to find an optimal value \(\eta\), such that $\eta \in \arg \min_{\eta} f$. Instead, we \deleted[id=ALB]{initially}  set \(\eta = 1\)  (this choice is further discussed in the following) \added[id=ALB]{and run the quasi-Newton step to obtain a new critical point $\mathbf{\tilde X}$.}
+ to find an optimal value \(\eta\), such that $\eta \in \arg \min_{\eta} f$. One can Spectrum \(\eta = 1\)  \comment{is this still relevant?} (this choice is further discussed in the following) \added[id=ALB]{and run the quasi-Newton step to obtain a new critical point $\mathbf{\tilde X}$.}
 
-We first discuss the outcome of this hybrid algorithm for the three anticipated branch-switching events identified for the first model previously reported in Fig. \ref{fig:branches-stiff}. For each of these three cases, the snapshots of the damage fields, the associated \replaced[id=ALB]{instabilty mode}{ eigenvectors} \(\mathbf{p}\), \deleted[id=ALB]{and} the perturbed states \(\mathbf{\tilde X}^{(0)}\), and the converged solutions $\mathbf{\tilde X}$ are shown in Figs. \ref{fig:kick}(a,c,e).
+The outcome of this hybrid algorithm ARE the three anticipated branch-switching events identified for the first model previously reported in Fig. \ref{fig:branches-stiff}. For each of these three cases, the snapshots of the damage fields, the associated \replaced[id=ALB]{instabilty mode}{ eigenvectors} \(\mathbf{p}\), \deleted[id=ALB]{and} the perturbed states \(\mathbf{\tilde X}^{(0)}\), and the converged solutions $\mathbf{\tilde X}$ are shown in Figs. \ref{fig:kick}(a,c,e).
 
 When the quasi-Newton algorithm is initiated using the perturbed state \(\mathbf{\tilde X^{(0)}}\)
 % \comment[id=ALB]{shouldn't the perturbed state read \(\mathbf{X}\)?} 
 as the initial guess, \replaced[id=ALB]{a state transition}{ bifurcation} occurs which leads the system into a qualitatively different state, cf. the final  converged solutions returned from the quasi-Newton minimization are shown in Figs. \ref{fig:kick}(b,d,f). For the stiff substrate model, the \replaced[id=ALB]{instability mode}{ smallest eigenmode} which corresponds to the bifurcation from the trivial branch has the form \(\cos(n\pi x)\) with \(n=3\), as identified through the linear stability analysis (see Fig. \ref{fig:kick}(a)). 
-The perturbad quasi-Newton minimization returns a state with two boundary cracks and one interior crack, as shown in Fig. \ref{fig:kick}(b), which corresponds to the solution found using the arc-length continuation algorithm on the branch with \(n=3\) (see Fig. \ref{fig:branches-stiff}(b), inset A).  The hybrid algorithm is also successful in capturing the next two anticipated branch   switching events: from the  branch with \(n=3\)  to the branch  with \(n=4\) (see Fig. \ref{fig:kick}(d)) and  from branch with \(n=4\)  to the branch  with \(n=5\) (see Fig. \ref{fig:kick}(f)). We conclude that the hybrid algorithm is able to capture the unique path dictated by the LEM protocol shown in Fig. \ref{fig:branches-stiff}.   
+The perturbad quasi-Newton minimization returns a state with two boundary cracks and one interior crack, as shown in Fig. \ref{fig:kick}(b), which corresponds to the solution found using the arc-length continuation algorithm on the branch with \(n=3\) (see Fig. \ref{fig:branches-stiff}(b), inset A).  The hybrid algorithm is also successful in capturing the next two anticipated branch   switching events: from the  branch with \(n=3\)  to the branch  with \(n=4\) (see Fig. \ref{fig:kick}(d)) and  from branch with \(n=4\)  to the branch  with \(n=5\) (see Fig. \ref{fig:kick}(f)). The hybrid algorithm is able to capture the unique path dictated by the LEM protocol shown in Fig. \ref{fig:branches-stiff}.   
 
-We now continue our numerical investigations by focusing on the compliant substrate model. In this case, according to the LEM protocol, the path through which the system may evolve under quasi-static loading is not unique due to the multiplicity of (stable) solutions at critical loads.
+LET'S focus on the compliant substrate model. In this case, according to the LEM protocol, the path through which the system may evolve under quasi-static loading is not unique due to the multiplicity of (stable) solutions at critical loads.
 %  i.e., external strain at which the stability of a branch is lost,  and, will be determined by the minimization algorithm.
 Note that this is not the case for the first model wherein there is a single equilibrium branch accessible to the system for all given critical loads.\comment[id=ALB]{double check}
 Despite the fact that quasi-Newton algorithm was able to reproduce one of the possible paths predicted by the LEM protocol for the compliant substrate model, the \replaced[id=ALB]{the branch switching events}{ optimal path may be different due to the delays  in} \added[id=ALB]{are delayed with respect to the} anticipated bifurcations. 
@@ -312,8 +312,8 @@ Despite the occurrence of negative eigenvalues for the bifurcation problem, the 
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics*[width=.7\textwidth]{../images/spectra-7f4361886184f3c6791fe16bf4f4b3f2.pdf}
-    \includegraphics*[width=.7\textwidth]{../images/spectra-zoom-7f4361886184f3c6791fe16bf4f4b3f2.pdf}
+    % \includegraphics*[width=.7\textwidth]{../images/spectra-7f4361886184f3c6791fe16bf4f4b3f2.pdf}
+    % \includegraphics*[width=.7\textwidth]{../images/spectra-zoom-7f4361886184f3c6791fe16bf4f4b3f2.pdf}
     \caption{Spectrum of the Hessian $\Psi''(y_t)$ at equilibrium for the rate bifurcation problem (circles) and irreversible stability problem (losanges), rescaled with respect to the minimum eigenvalue of the purely elastic phase at $\bar \epsilon = 0$. At load $\bar \epsilon_b$, the bifurcation problem is singular and the trajectory in phase space looses its uniqueness. 
     Corresponding to the gray shaded area, the detail of the inf-spectra are shown in the right figure. The transition from the uniqueness of the homogeneous branch to the existence of a multiplicity of equilibrium curves passing through the current homogeneous state is shown by the change of sign of the inf-eigenvalue and the existence of multiple negative eigenvalues. For $\bar \epsilon \geq \bar \epsilon_b$ multiple equilibrium paths cross the current state. The inf-eigenvalue of the stability problem in the restricted space $K^+_0$ is positive, indicating a sufficient condition for stability of the computed evolution. The tolerance for the numerical computation of the inf-eigenvalue is $10^{-6}$.}
     \label{fig:irreversibility}
@@ -326,3 +326,33 @@ Despite the occurrence of negative eigenvalues for the bifurcation problem, the 
     \label{fig:irreversibility}
     \caption{Profiles of the damage field at the bifurcation load $\bar \epsilon_b$ and of the inf-eigenvector for the bifurcation (left) and stability (right) problems. The bifurcation profile coincides with the eigenmode $n=...$ alredy found, cf.~\eqref{}, its associated eigenvalue is $\kappa = -9\cdot 10^{-4}$. The inf-eigenvector of the stability problem is a smooth non-negative function corresponding to $\kappa=2\cdot 10^{-2}$.}
 \end{figure}
+
+------
+
+
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics*[width=.7\textwidth]{../images/irreversibility_inf_eig.png}
+    \caption{The right solver should'nt give you a crack.
+    SECOND ORDER ANALYSIS OF THE HOMOGENEOUS SOLUTIONS. UNIQUENESS, LOSS OF UNIQUENESS, STABILITY. NOTICE THAT THE STABILITY-OBSERVABLE (MARKER) IS \emph{DISCONTINUOUS}.
+    % (THE MARKET SHOUDN'T GIVE YOU A CRACK. THE MARKET DOESN'T GIVE A FUCK.) 
+    }
+    \label{fig:shouldnt}
+\end{figure}
+
+We have compared the performance of the algorithm proposed in this paper with aN continuation method, DEFINED AS FOLLOWS (EXPERIMENTAL). 
+
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics*[width=.7\textwidth]{../images/VSA*.png}
+    \caption{STABILITY (DIS)CONTNIUATION ALGORITHM, THE OUTER LOOP IDENTIFIES ONE TIMESTEP, THE ITERATIVE K-PERTURBATIONS ARE PERFORMED AT FIXED LOAD.}
+    \label{fig:shouldnt}
+\end{figure}
+
+FROM NUMERICAL EXPERIENCE, SOLUTIONS TO XXX (The former) exhibit SENSITIVITY TO numerical bifurcation artifacts, while SOLUTIONS TO [DEF], consistently maintain the THE OBSERVABILITY OF homogeneous solution. (SINGULAR PROBLEM)
+
+In Figure~\ref{fig:shouldnt}, we EXHIBIT THE CONSEQUENCES OF a NUMERICAL EFFECTS that emphasiSes the role of the irreversibility constraint in our STABILITY-DRIVEN optimiSation approach. THE NUMERICAL SETTING IS THAT OF THE FIRST the PART OF THE paper, where OSCILLATIONS AROUND the homogeneous solution WERE INVESTIGATED AS THE RESULTS OF A BIFURCATION ANALYSIS. Specifically, DESPITE slight numerical fluctuations MANIFESTING AS wavy (SINUSOIDAL) patternS, AND DESPITE THAT THE INF-EIG-CONE EVOLVES DISCONTINUOUSLY, the homogeneous solution IS INDEED stable AND SHOULD BE OBSERVED.
+
+IN FACT, Applying a standard Newton-Raphson monolithic solver to this  wavy-PERTURBED TEST solutionS, the expected nucleation of cracks does not occur, WHICH IS IN AGREEMENT TO THE STATEMENT IN [DEF]. This lack of crack nucleation contrasts with our NUMERICAL RESULTS OBTAINED using the conjugate gradient method combined with an active-set irreversibility approach. To the best of our knowledge, this discrepancy is aN INTERESTING numerical artifact rather than a physical phenomenon.

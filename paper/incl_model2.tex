@@ -7,15 +7,15 @@ In this section, we introduce two one-dimensional fracture models for a brittle 
 \paragraph{Material Model}
 We consider a one-dimensional brittle material modelled by a state function $W(e, \alpha, \alpha')$ which, at any point $x$,%
 % The displacement field of the thin film is denoted by $u(x)$ and the corresponding strain field is $\epsilon(x) = u'(x)$.
-depends on the local membrane strain associated to in-plane displacements $e = u'(x)$, the local damage $\alpha(x)$, and the local gradient of the damage $\alpha'(x)$. Here, the damage variable $\alpha$ is a scalar field driving material softening, bounded between zero and one where zero indicates the undamaged material and one indicating the cracked material. Thus, at points where $\alpha=0$ the material is elastic with a stiffness $\mathsf{E}$ (its Young modulus), at points where $\alpha=1$ the material has a crack and zero residual stiffness, whereas for intermediate damage values the material's stiffness is $0<\mathsf{E}\soften(\alpha)< \mathsf{E}$.  
+depends on the local membrane strain associated to in-plane displacements $e = u'(x)$, the local damage $\alpha(x)$, and the local gradient of the damage $\alpha'(x)$. Here, the damage variable $\alpha$ is a scalar field driving material softening, bounded between zero and one, where $0$ indicates the undamaged material and $1$, the cracked material. Thus, at points where $\alpha=0$ the material is elastic with a stiffness $\mathsf{E}$ (its Young modulus), at points where $\alpha=1$ the material has a crack and zero residual stiffness, whereas for intermediate damage values the material's stiffness is $0<\mathsf{E}\soften(\alpha)< \mathsf{E}$.  
 The state function $W$ is defined as 
 \begin{equation}
     \label{def:energy_material}
-    W(e, \alpha, \alpha'):= \frac{1}{2} \mathsf{E} \soften(\alpha)e^2 + \homogdiss(\alpha) + \frac{\damagell^2}{2}\alpha'^2,
+    W(e, \alpha, \alpha'):= \frac{1}{2} \mathsf{E} \soften(\alpha)e^2 + W_1\homogdiss(\alpha) + \frac{\damagell^2}{2}\alpha'^2,
 \end{equation}
-where $\homogdiss(\alpha)$ can be interpreted as the energy dissipated during an homogeneous damaging process, which combines with term that is proportional to the square of its gradient and controls the energy cost of spatial damage variations. In the first summand, $\soften(\alpha)$ is the function that describes the material softening. %
-For physical consistency, $\soften(\alpha)$ is a non-negative function that is one when $\alpha=0$ and monotonically decreases as $\alpha\to 1$, reaching zero for $\alpha=1$, identifying the damage-dependent stress $\sigma(\alpha):=\mathsf{E}a(\alpha) e$. 
-On the other hand, $\homogdiss(\alpha)$ is a non-negative function that is zero when $\alpha=0$ and monotonically increases with $\alpha$, reaching $\homogdiss(1)=1$. The parameter $\damagell$ is a characteristic length that controls the competition between localisation and homogeneous damage, effectively controlling the width of damage localisations. The (positive) parameter $\elastell$ is a characteristic length of the underlying material that also controls the peak stress of the material in one-dimensional traction experiments.
+where $\homogdiss(\alpha)$ can be interpreted as the energy dissipated during an homogeneous damaging process, COMPUNDS A term that is proportional to the square of its gradient and controls the energy cost of spatial damage variations. In the first summand, $\soften(\alpha)$ is the function that describes the material softening. %
+For physical consistency, $\soften(\alpha)$ is a non-negative function that is one when $\alpha=0$ and monotonically decreases as $\alpha\to 1$, reaching zero for $\alpha=1$ The damage-dependent stress IS $\sigma(\alpha):=\mathsf{E}a(\alpha) e$. 
+On the other hand, $\homogdiss(\alpha)$ is a non-negative function that is zero ONLY IF $\alpha=0$ and monotonically increases with $\alpha$, reaching $\homogdiss(1)=1$. The parameter $\damagell$ is a characteristic length that controls the competition between localisation and homogeneous damage, effectively controlling the width of damage localisations. The (positive) parameter $\ell$ is a characteristic length of the underlying material that controls the peak stress of the material in one-dimensional traction experiments.
 Specifically, the function $\soften(\alpha)$ is chosen to be a quadratic function of the form $\soften(\alpha) = (1-\alpha)^2$, and $\homogdiss(\alpha)$ to be a quadratic, namely $\homogdiss(\alpha) = \mathsf{w_1}\alpha^2$. Both are common choices in phase-field fracture models (cf.~\cite{Bourdin2000-pc,Miehe2010-sj,Miehe2010-ja}), bearing consequences on the damage nucleation threshold.
 
 
@@ -24,11 +24,11 @@ Specifically, the function $\soften(\alpha)$ is chosen to be a quadratic functio
 \paragraph{Structural Model}
 The structure under consideration is a multilayer composite constituted by a brittle thin film  made of the material characterised by the state function $W$, attached to an underlying substrate which is either rigid or elastically compliant. The thin film is modelled as a one-dimensional membrane with thickness $h$ and length $L$ with $L\gg h$, and is subject to a monotonic, uniform, imposed inelastic tensile strain $\bar\epsilon_t$. 
 % 
-The substrate is modelled as a one-dimensional elastic foundation with displacement field $v(x)$ whose strain field is $e(v) = v'(x)$. 
+The substrate is modelled as a one-dimensional elastic foundation WHOSE displacement field IS $v(x)$ AND strain field is $e(v) = v'(x)$. 
 % 
-The displacement field of the substrate elastically compatible to its strain is the linear function $v(x, t) = \bar\epsilon/2 (2x-1) t$, where $\bar\epsilon$ is the applied tensile strain rate and $t$ plays the role of a loading time parameter. 
+The displacement field of the substrate WHICH IS elastically compatible to its strain, is the linear function $v(x, t) = \bar\epsilon/2 (2x-1) t$, where $\bar\epsilon$ is the applied tensile strain rate and $t$ plays the role of a loading time parameter. 
 % 
-The structure's reference configuration is the interval $(0, L)$. The film is subjected to a tensile imposed strain load and (compatible) imposed displacements at its free ends $x = 0, L$, so that for all $t$, $u(0)=v(0, t)$ and $u(L)=v(L, t)$
+The structure's reference configuration is the interval $(0, L)$. The film is subjected to a DISTRIBUTED ELASTICALLY  compatible  tensile imposed LOAD $v(x, t)$ AND displacements at its free ends $x = 0, L$, so that for all $t$, $u(0)=v(0, t)$ and $u(L)=v(L, t)$
 % 
 Our first model describes a brittle thin film deposited on a stiff, non-deformable substrate. This model assumes the substrate is rigid, meaning it does not undergo any deformations regardless of the loading conditions, so that $v$ is a given datum. The elastic interaction is modelled by a distributed linear elastic foundation of stiffness $K$, thus
 % , so that the energy of the structure is given by
@@ -41,8 +41,8 @@ the total energy of the structure is a functional $\Estiff$ constructed by consi
     + \homogdiss(\alpha) + \frac{\damagell^2}{2}(\alpha')^2 
      \right] dx,
 \end{equation}
-
-Our second model involves the same brittle thin film but a \emph{compliant} elastic substrate that undergoes deformation alongside the film. Unlike for the rigid substrate, here the substrate's deformation is an additioanl unknown which affects the overall energy landscape of the system, incorporating an extra term accounting for the strain energy of the substrate. 
+WHERE $\Lambda^2 = \frac{E_{\text{eff}}}{K}$, $E_{\text{eff}}$ being the effective stiffness of the membrane.
+Our second model involves the same brittle thin film but a \emph{compliant} elastic substrate that undergoes deformation alongside the film. Unlike for the rigid substrate, the substrate's deformation is an additional unknown which affects the overall energy landscape of the system, incorporating an extra term accounting for the strain energy of the substrate. AS IT WILL BE SEEN LATER, AFFECTING THE UNIQUENESS OF THE EVOLUTION PATHS. 
 The state of this structure is identified by the triplet $y:=(u, \alpha, v)$, and the nondimensional energy of the compliant system  $\Ecompl(\alpha, u, v)$ reads
 
 \begin{equation}
@@ -61,10 +61,10 @@ Thus, denoting by $\mathsf{E_\text{2d}}$ the two-dimensional stiffness of the th
 \begin{equation}
     \label{def:dimensional_parameters}
     \bar\damagell := \frac{\bar\damagell}{L}, \quad
-    \Lambda := \frac{\mathsf{E_{\text{2d}}}}{\mathsf{E'_{\text{2d}}}}\frac{h \homogdiss'}{L^2}, \quad
-    \stiffratio := \frac{\mathsf{E_{\text{2d}}}}{\mathsf{E'_{\text{2d}}}}\frac{\homogdiss'}{h}, \quad
+    \Lambda := \frac{\mathsf{E_{\text{2d}}}}{\mathsf{E'_{\text{2d}}}}\frac{h W_1}{L^2}, \quad
+    \stiffratio := \frac{\mathsf{E_{\text{2d}}}}{\mathsf{E'_{\text{2d}}}}\frac{W_1}{h}, \quad
 \end{equation}
-while spatial variables and physical displacements are respectively normalised with respect to the film's length $L$ and the displacement scale $u_0 := \frac{\mathsf{w_1}L}{\mathsf{E_{\text{2d}} h}}$.
+while spatial variables and physical displacements are respectively normalised with respect to the film's length $L$ and the displacement scale $u_0 := \frac{\mathsf{w_1}L}{\mathsf{E_{\text{2d}} h}}$, WHICH FIXES SCALE OF THE NON-DIMENSIONAL DISSIPATED ENERGY.
 
 
 
@@ -110,12 +110,12 @@ Denoting for brevity $y:=(u, \alpha)$ (and $y:=(u, \alpha, v)$) the mechanical s
 Assuming small enough loading rates, 
 the evolution problem of the structure can be cast in an energetic variational formulation as an incremental rate-indipendent quasi-static process driven by an energy-minimality principle.
 Optimality conditions defining this problem are derived from the
-intuitive idea that a state is observable (if and) only if it is stable, and in turn, a state is stable only if it is a local minimum of the energy among admissible state perturbations. 
+intuitive idea that a state is observable (if and) only if it is stable, and in turn, a state is stable only if it is a local minimum of the energy among admissible state perturbations, FOR EACH GIVEN LOADING CONDITION. 
 
 Differently from dissipative evolutions driven by an energy gradient flow whereby a system \emph{reaches} equilibrium conditions through a gradient descent process parametrised by an internal timescale, the quasi-static evolution we consider is a sequence of \emph{attained} equilibrium states as a necessary condition for local energy minimality. 
 The rate-indipendency further implies that the system does not exhibit internal timescales.
 As such, energy minimisation is performed at any given value of the load, and at each increment of the external load its configuration evolves subject to imposed boundary conditions and possible internal constraints.
-With the assumption that the loading process is slow enough for inertia and dynamic effects to be negligible, this evolutionary model not only leads to identyfing a sequence of equilibrium configurations as critical states, but also to the determination of the stability of these configurations, and to identify the trajectories through which the system transitions between different equilibrium branches.
+With the assumption that the loading process is slow enough for inertia and dynamic effects to be negligible, this evolutionary model not only leads to identyfing a sequence of equilibrium configurations as critical states, also to the determination of the stability of these configurations, and to THE IDENTIFICATION OF the trajectories through which the system transitions between different equilibrium branches.
 % 
 % so that the damage process is quasi-static, and the evolution of the damage variable is governed by the principle incremental energy minimality, stating that the state of the system evolves in such a way that the total energy of the system is minimised, subject to the imposed loads, among admissible configurations (or, equivalently, with respect to admissible perturbations).
 
@@ -140,7 +140,7 @@ and similarly for the compliant model substituting $\Estiff$ with $\Ecompl$ and 
 The admissibility of state competitors explicitly depends on the loading parameter through the kinematic boundary conditions (on displacement) and on internal constraints, namely whether damage (and hence the softening material behaviour) is allowed to evolve in a reversible or irreversible manner.
 In the first case, as damage can evolve freely within the interval $[0, 1]$, all admissible states in $X_t$  (respectively, in $\widetilde{X_t}$) are also admissible competitors. 
 In the second case, the damage field is subject to the pointwise irreversibility constraint $\dot \alpha(x)\geq 0, \forall x\in [0, 1]$, requiring that the damage can only increase or stay constant. 
-As a consequence, irreversibility restricts the admissible set of competitors to the set $K^+_{\alpha_t}:=H^1(0, 1) \times \{\beta\in H^1(0, 1): \beta\geq \alpha_t\}$ (respectively, $\widetilde{K^+_{\alpha_t}}:=K^+_{\alpha_t}\times H^1(0, 1)$), where $\alpha_t$ is the damage field at time $t$. In the irreversible case the set of admissible competitor states depends explicitly on the entire history of the evolution through the current damage field.
+As a consequence, irreversibility restricts the admissible set of competitors to the set $K^+_{\alpha_t}:=H^1(0, 1) \times \{\beta\in H^1(0, 1): \beta\geq \alpha_t\}$ (respectively, $\widetilde{K^+_{\alpha_t}}:=K^+_{\alpha_t}\times H^1(0, 1)$), where $\alpha_t$ is the damage field at time $t$, IN TURN, UNKNOWN AT TIME $t$. In the irreversible case the set of admissible competitor states depends explicitly on the entire history of the evolution through the current damage field.
 To draw the attention to the consequences of irreversibility on the system's transitions between different equilibrium states, both in the fully reversible case and in the presence of irreversible damage, we develop the global variational inequality~\eqref{eq:variational_global_ineq} (and the analogous for the compliant model) by expanding the energy around the state $y_t$ by the  introduction of admissible perturbations. 
 In the fully reversible case they belong to the linear space $X_0$ associated to $X_t$ (respectively, $\widetilde{X_t}$), whereas in the irreversible case they are bound to the closed, pointed, convex cone $K^+_0$ (respectively, $\widetilde{K^+_0}$).
 
@@ -157,7 +157,7 @@ $$
 
 % Irreversible Processes: The principle is often used to model processes with irreversible changes, such as damage and fracture, where the damage variable (e.g., ($\alpha$)) can only increase or stay constant.
 
-In the subsequent section, we exploit the energy-stability statement for both the mechanical models models introduced above, exploring the equilibrium configurations and identifying the conditions under which the system transitions between different equilibrium branches. 
+In the subsequent section, we exploit the energy-stability statement~\eqref{} for both the mechanical models models introduced above, exploring the equilibrium configurations and identifying the conditions under which the system transitions between different equilibrium branches. 
 This analysis will involve both analytical and numerical methods, with a focus on understanding equilibrium bifurcations and stability properties of these phase-field fracture models.
 
 
@@ -223,7 +223,10 @@ u_h(x) =  \frac{\bar \epsilon_t}{2}(2x-1),\qquad\alpha_h = \frac{\Bar{\epsilon_t
 \end{equation}
 % \comment[id=ALB]{notation $\bar \epsilon_t$}
 \added[id=ALB]{
-Notice that, by our choice to model the material through a quadratic term dissipation term $\homogdiss(\alpha)$, damage necessarily starts as soon as $t>0$.}
+Notice that,  
+THE CRITICAL DAMAGE LOAD COMPUTED IS A CONSEQUENCE OF FIRST ORDER CONDITIONS, NAMELY.
+by our choice to model the material through a quadratic term dissipation term $\homogdiss(\alpha)$, IN OUR MODELS
+damage necessarily starts as soon as $t>0$.}
 The effective {total} energy along the {homogeneous} branch reads  
 \begin{equation}
     \label{eq:energy_homogeneous}
@@ -263,7 +266,7 @@ By substituting the homogeneous solution $\alpha_h$ into \eqref{hessian1}, we co
 \added[id=ALB]{
     % Interpretation of the image: 
 The figure represents, for a given load $\bar \epsilon$, the wavenumber $n(\bar \epsilon)\in \mathbb N$ of possible energy-decreasing damage bifurcations. For an increasing loading history $\bar \epsilon_t\nearrow$, the wavenumber is non monotonic.}
-In Fig. \ref{fig:hessian1}(a), the locus $\det \mathcal H=0$ forms closed loops, indicative of an elastic background's influence\comment[id=ALB]{Expand}. Notably, a re-entry behavior of the affine configuration is discernible, marked by the emergence of two critical strains denoted as $\bar\epsilon^*$ and $\bar\epsilon^{**}$, representing the lower and upper stability limits for the homogeneous state. These critical points are highlighted by red and green dots in Fig. \ref{fig:hessian1}(a). The critical wavenumber $n_c$ for the lower limit $n_c(\bar{\epsilon}^*)$    differs from the critical wavenumber for  upper limit $n_c(\bar{\epsilon}^{**})$. Finally, we remark that closed-form analytical solutions can be provided for the critical wavenumber and critical strains and the parametric dependence of the corresponding bifurcation thresholds can be obtained, as detailed in \cite{Salman2021-mn}.
+In Fig. \ref{fig:hessian1}(a), the locus $\det \mathcal H=0$ forms closed loops, indicative of an elastic background's influence\comment[id=ALB]{Expand}. Notably, a re-entry behavior of the affine configuration is discernible, marked by the emergence of two critical strains denoted as $\bar\epsilon^*$ and $\bar\epsilon^{**}$ (WITH $\bar\epsilon^* < \bar\epsilon^{**}$), representing the lower and upper stability limits for the homogeneous state. These critical points are highlighted by red and green dots in Fig. \ref{fig:hessian1}(a). The critical wavenumber $n_c$ for the lower limit $n_c(\bar{\epsilon}^*)$    differs from the critical wavenumber for  upper limit $n_c(\bar{\epsilon}^{**})$. Finally, we remark that closed-form analytical solutions can be provided for the critical wavenumber and critical strains and the parametric dependence of the corresponding bifurcation thresholds can be obtained, as detailed in \cite{Salman2021-mn}.
 
 
 \begin{figure}
@@ -324,7 +327,7 @@ By substituting the homogeneous solution $\alpha_h$ into \eqref{hessian3}, we co
 
 \paragraph{Nonlinear stability with irreversibility constraints}
 
-Irreversibility is introduced in the variational formulation of the evolution problem as a pointwise inequality constraint. Intuitively, irreversibility plays two distinct roles along an evolution: (i) as a \emph{local} constraint which prevents the damage field at a given location to decrease between two subsequent loads values (both during monotonic and non-monotonic load programs), and (ii) as a global restriction of the space of admissible variations in such a way that \emph{negative} perturbations of the current damage state are no longer allowed. This effectively changes the structure of the set of admissible perturbations from a linear vector space to a convex cone. 
+Irreversibility is introduced in the variational formulation of the evolution problem as a pointwise inequality constraint. Intuitively, irreversibility plays two distinct roles along an evolution: (i) as a \emph{local} constraint which prevents the damage field at a given location to decrease between two subsequent loads values (both during monotonic and non-monotonic load programs), and (ii) as a global restriction of the space of admissible variations in such a way that \emph{negative} perturbations of the current damage state are no longer allowed. This effectively changes the TOPOLOGICAL structure of the set of admissible perturbations from a linear vector space to a convex cone. 
 To enforce irreversibility we consider only non-decreasing damage evolutions that are sufficiently smooth with respect to the loading parameter, and seek maps $t\mapsto y_t = (u_t, \alpha_t)$ such that $\dot \alpha_t \geq 0$ and that satisfy the minimality condition~\eqref{eq:variational_global_ineq}.
 Because the current state can only be compared to those of with equal or higher damage, the convex cone of admissible perturbations strictly contained in the vector space of admissible unconstrained perturbations, namely $K^+_0\subset X_0$. Indeed, for $(v, \beta)\in K^+_0$, then $-(v, \beta) \in X_0$ but $-(v, \beta)\notin K^+_0$. This restriction has a profound impact on the variational characterisation of local minima and bears consequences on both for the first order (equilibrium) conditions and the second order (stability) problem which become \emph{unilateral} conditions.
 % namely such that $\dot \alpha_t(x) \geq 0 \text{ a.e. } x\in (0, 1)$,
@@ -381,7 +384,7 @@ $\mathcal{R}(\alpha):=\{e: \mathsf{E}e^2 \leq -\frac{2 \mathsf{w}'(\alpha)}{\mat
 % 
 % The inequality $-\phi_t(\alpha_t) \leq 0$ 
 As a first order optimality condition,~\eqref{eq:variational_equilibrium}.2 states that the local elastic energy release is either smaller than or equal to the (marginal) cost of damage, whereas the complementarity condition $\phi_t(\alpha_t)\dot \alpha_t = 0$ ensures that the damage field evolves only if the energy release rate is critical.
-The three conditions above, established as necessary first order condition for constrained optimality, encode the pointwise non-negativity of the damage rate, the boundedness of the elastic domain and its dependence upon damage, and the complementarity between the attainment of the damage criterion and the conditions for the evolution of the internal order parameter. }
+The three conditions above, established as necessary first order condition for constrained optimality, encode the pointwise non-negativity of the damage rate, the boundedness of the elastic domain, its dependence upon damage, and the complementarity between the attainment of the damage criterion and the conditions for the evolution of the internal order parameter. }
 
 \added[id=ALB]{
 In the current one-dimensional setup with homogeneous initial conditions $y_0=(0, 0)$ and compatible kinematic boundary conditions, the existence of a homogeneous solution implies that the damage criterion is attained everywhere throughout the bar at the same load. This greatly simplifies the analysis of the energetic properties of the system. 
@@ -410,7 +413,7 @@ In our setup, the existence of nontrivial homogeneous solutions simplifies the a
 
 \added[id=ALB]{
 Assume now that a state $y_t$ is known as a function of $t$ such that it solves~\eqref{eq:eq_variational_inequality_full} and is sufficienty smooth so that the (right) derivative with respect to $t$ is well defined. 
-As $t$ varies, $y_t$ describes a (smooth) curve in the phase space identified by its right tangent vector $\dot y_t =: \lim_{\tau\to 0^+}\frac{y_{t+\tau} - y_t}{\tau}$.
+As $t$ varies, $y_t$ describes a (smooth) curve in the phase space identified by its right tangent vector $\dot y_t =: \lim_{\tau\to 0^+}\frac{y_{t+\tau} - y_t}{\tau}$, THE RATE OF EVOLUTION.
 A fundamental question is to discern whether $y_t$ is an isolated equilibrium state tracing a unique evolution path, or conversely if it lays at the intersection of multiple equilibrium curves.
 % two curves can intersect transversally or tangentially, there is an an- gular or tangent bifurcation following from the fact that the tangent directions to these curves are different or not at a bifurcation point.multiplicity
 % The problem of finding all equilibrium curves going through a given equilibrium point is ... due to the nonlinearities of the problem. 
@@ -435,14 +438,14 @@ Thus, the non-bifurcation condition for the homogeneous evolution reads
     \label{eq:bifurcation_uniqueness}
     \delta^2 \Psi(y_h)(\zeta, \zeta) > 0, \quad \forall \zeta \in X_0,
 \end{equation}
-which formally coincides with the classical \emph{linear stability} problem~\eqref{eqn:linear_second_order_stability} in the reversible case, yet has a different mechanical interpretation in terms of evolution rates for the determination of the uniqueness of equilibrium branches.
+which formally coincides with the classical \emph{linear stability} problem~\eqref{eqn:linear_second_order_stability} in the reversible case, yet has a different mechanical interpretation in terms of evolution rates AND uniqueness of equilibrium branches.
 Remark that, in the general case in which the damage criterion is not attained everywhere, the space of admissible perturbations for the (second order) bifurcation problem is $X_0':=H^1_0(0, 1) \times \{ \beta \in H^1(0, 1) : \delta\Psi(y_t)(0, \beta) = 0 \}$ for the stiff substrate model, and $\widetilde{X_0'}:=X_0'\times H^1_0(0,1)$ for the compliant substrate model. 
-The first load at which the bifurcation inequality~\eqref{eq:bifurcation_uniqueness} fails, namely $t_b:=\inf_t \{\delta^2 \Psi(y_h)(\zeta, \zeta) =0, \forall \zeta \in X_0 \}$ corresponds to the first  bifurcation load, namely, the load for which there exist (multiple) equilibrium curves intersecting the homogeneous branch. As a consequence, for $t\geq t_b$  the possibility exists of bifurcating away from homogeneous branch. The study of the bifurcation problem is functional to infer a partial response on the stability of the state. Indeed, if the current equilibrium branch is unique then the current state is necessarily stable. The converse is not true, however, as the existence multiple possible of bifurcation paths is not a sufficient condition to ensure or exclude the stability of the current state. This holds true for the irreversible case, due to the conceptual difference between the bifurcation and the stability problems.
+The first load at which the bifurcation inequality~\eqref{eq:bifurcation_uniqueness} fails, namely $t_b:=\inf_t \{\delta^2 \Psi(y_h)(\zeta, \zeta) =0, \forall \zeta \in X_0 \}$ corresponds to the first  bifurcation load, namely, the load for which there exist (multiple) equilibrium curves intersecting the homogeneous branch. As a consequence, for $t\geq t_b$  the possibility exists of bifurcating away from homogeneous branch. The study of the bifurcation problem is functional to infer a partial response on the stability of the state. Indeed, if the current equilibrium branch is unique then the current state is necessarily stable. The converse is not true, however, as the existence multiple possible of bifurcation paths is not a sufficient condition exclude the stability of the current state. This holds true for the irreversible case, due to the conceptual difference between the bifurcation and the stability problems.
 
 \added[id=ALB]{
 The question of the stability of the homogeneous solution in the irreversible case, according to our energetic viewpoint, is governed by the positivity of $\delta^2 \Psi(y_t)$ on the constrained space of admissible state perturbations $K^+_0$.
 % , yet the converse is not true.
-Denoting $t_s$ the load at which the homogeneous solution looses stability by analogy to the bifurcation load, namely $t_s: = \inf_t \{\delta^2 \Psi(y_t)(\zeta, \zeta) =0, \forall \zeta \in K^+_0 \}$, the set inclusion $K^+_0 \subset X_0$ implies that necessarily $t_b \leq t_s$.
+Denoting $t_s$ the load at which the homogeneous solution looses stability by analogy to the bifurcation load, namely $t_s: = \inf_t \{\delta^2 \Psi(y_t)(\zeta, \zeta) =0, \forall \zeta \in K^+_0 \}$, the set inclusion $K^+_0 \subset X_0$ implies that necessarily $t_b \leq t_s$. (EQUALITY OCCURS WHEN THE FIRST BIFURCATION MODE IS NONNEGATIVE)
 }
 \added[id=ALB]{
 This indicates a qualitative conceptual distinction between the bifurcation and the stability thresholds in the constrained case. As a consequence, a system can persist along a critical non-unique equilibrium branch, yet be stable. 
@@ -457,13 +460,13 @@ A sufficient condition for the stability of the homogeneous state $y_h$ is given
      \delta^2 \Psi(y_h)(y - y_h,  y - y_h)  > 0, \quad \forall y-y_h \in \conespace,
  \end{equation}
 and similarly for the compliant substrate model, by replacing $\Estiff$ with $\Ecompl$ and $\conespace$ with $\widetilde{\conespace}$.
-The variational ineqality above is a constrained eigenvalue problem characterising the stability of the state $y_h$. Its solution yields either a positive eigenpair $(\kappa, z^*)\in \mathbb{R}^+\times K^+_0$ as a sufficient condition for the stability of current state, or a pair $(\kappa, z^*)\in \mathbb{R}^-\times K^+_0$ where $\kappa$ is the local (negative) energy curvature and the eigenmode $z^*$ indicates the direction of maximum energy decrease, interpreted as the \emph{instability mode} which points the system towards an optimal direction of energy descent. 
+The variational ineqality above is a constrained eigenvalue problem AND A TOOL TO characterisE the stability of the state $y_h$. Its solution yields either a positive eigenpair $(\kappa, z^*)\in \mathbb{R}^+\times K^+_0$ as a sufficient condition for the stability of current state, or a pair $(\kappa, z^*)\in \mathbb{R}^-\times K^+_0$ where $\kappa$ is the local (negative) energy curvature and the eigenmode $z^*$ indicates the direction of maximum energy decrease, interpreted as the \emph{instability mode} which points the system towards an optimal direction of energy descent. 
 From the numerical standpoint, the bifurcation eigen-problem in the vector space~\eqref{eq:variational_bifurcation} may be regarded as an approximated version of the stability problem, in the time-discrete setting. As suggested in~\cite{Baldelli2021-gc} through the notion of `incremental-stability', the irreversibility constraint in the stability problem can be relaxed to a pointwise inequality with respect to the state at the previous time-step $y_-$.
 This allows to replace the \emph{current} state $y_h$ in the definition of the space of perturbations, with $y_-$. As a consequence, assuming that $\alpha_t$ is the equilibrium damage field solving first order optimality conditions at $t$ and that $\alpha_-$ is the solution at the previous load step, admissible perturbations for the second order problem~\eqref{eq:variational_stability} are all $y-y_-\in \conespace$. In this way, the set of perturbations is enlarged to include all sufficiently smooth functions $\beta$ (which cancel the first order term) without restriction on the sign provided that $\alpha_t(x) + \beta(x) - \alpha_-(x)\geq 0$ for all $x\in (0, 1)$.
 % 
 % $\alpha$ is admissible at $t$ only if $\alpha \in H^1(0, 1)$ and $\alpha \geq \alpha_{-}$ where $\alpha_{-}$ is the damage state at the previous load step. 
 In this way, the space of perturbation allows for (small) perturbations $\beta$ which can be negative where $\alpha_t(x)>\alpha_-(x)$. Despite the constraint, such space is a vector space and the stability problem can be solved by standard methods of linear algebra by restricting the Hessian to the set of active constraints, cf~\cite{Nocedal1999-zr}.
-In practice, the stability problem~\eqref{eq:variational_stability} is a constrained eigenvalue problem in a convex cone, numerically solved by exploiting the orthogonality between the set $\conespace$ and its dual $K^*:=\{y \in H^1(0,1): \langle x,y \rangle \leq 0, \forall x \in \conespace\}$, cf.~\cite{moreau, pinto-da-costa}.
+In practice, the stability problem~\eqref{eq:variational_stability}, a constrained eigenvalue problem in a convex cone, is OF A DIFFERENT NATURE ALTOGETHER DUE TO THE TOPOLOGICAL DIFFERENCE OF THE UNDERLYING ENERGY SPACE. THE ASSOCIATED DISCRETE PROBLEM CAN BE numerically solved by exploiting the orthogonality between the set $\conespace$ and its dual $K^*:=\{y \in H^1(0,1): \langle x,y \rangle \leq 0, \forall x \in \conespace\}$, cf.~\cite{moreau, pinto-da-costa}.
 
 % \begin{equation}
     % H_{\conespace} = \{z\in X_0: \delta^2 \Psi(y_h)(z, z) \geq 0\}.
