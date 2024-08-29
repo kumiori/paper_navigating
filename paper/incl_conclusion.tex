@@ -1,103 +1,53 @@
 %!TEX root = main.tex
 
-\section{Conclusion} 
+\section{Discussion} 
 
-\added[id=ALB]{Capturing branch switching phenomena across stability transitions is not an automatic feature of approximate numerical methods. They rely on approximate information about the Hessian of the energy functional, as a consequence these methods do not guarantee to systematically detect transitions between local minima when stability is lost. 
+% \added[id=ALB]{
+    Capturing branch switching phenomena across stability transitions is not an automatic feature of approximate numerical methods. If they rely on approximate information about the Hessian of the energy functional, these methods do not guarantee to systematically detect transitions between critical equilbrium states, when stability is lost. 
 Indeed, this requires a careful determination of the zero-eigenmodes that render singular the exact nonlinear Hessian, which is typically not available in general purpose first order numerical algorithms.
 In practice, without such information, critical loads for equilibrium transitions become algorithm-dependant and are not consistent with closed-form solutions of the exact evolution problem.
+% }
 % 
-% 
-Further work: characterisation of bifurcation points, conditions for stability exchange, local features of the energy landscape, qualitative features of constrained systems with respect to canonical representations of bifurcations
-% 
-future work: thorough energy blow up and reduction at bifurcation points
-}
+% -------
 
-...
-%: (i) compute a descent direction $\mathbf{p}_k$ by solving $B_k \mathbf{p}_k = -\nabla f(\mathbf{x}_k)$, (ii) define a one-dimensional function $h(\alpha_k) = f(\mathbf{X}_k + \alpha_k \mathbf{p}_k)$, representing the function value on the descent direction given the step-size, (iii) find an $\alpha_k$ that minimizes $h$ over $\alpha_k \in \mathbb{R}_+$, (iv) set $\mathbf{s}_k = \alpha_k \mathbf{p}_k$ and update $\mathbf{X}_{k+1} = \mathbf{X}_k + \mathbf{s}_k$, (vi) set $\mathbf{y}_k = \nabla f(\mathbf{X}_{k+1}) - \nabla f(\mathbf{X}_k)$, (vii) set $B_{k+1} = B_k + \frac{\mathbf{y}_k \mathbf{y}_k^T}{\mathbf{y}_k^T \mathbf{s}_k} - \frac{B_k \mathbf{s}_k \mathbf{s}_k^T B_k^T}{\mathbf{s}_k^T B_k \mathbf{s}_k}.$
-%Minimizing the energy functionals given in \eqref{modeld}  and \eqref{model_elastic_substrate}.
-%
-% $W = \int_{\Omega_{0}} \phi  d\Omega_{0}$ is accomplished using a variant of conjugate gradient optimization known as the L-BFGS algorithm [98]. This algorithm seeks solutions to the equilibrium equations $\partial W / \partial \mathbf{u}{ij} = \int_{\Omega_{0}} \mathbf{P} \nabla \mathcal{N}_{ij} , d\Omega_{0} = 0$, where $\mathbf{P} = \partial \phi / \partial \boldsymbol{\nabla} \mathbf{y}$ and $\mathcal{N}_{ij}$ is the shape function at node $(ij)$. 
+Our evidence is that certain numerical methods can introduce non-physical artifacts which should be distinguished from genuine physical phenomena. Our ongoing work aims to refine numerical techniques to provide more reliable algorithms for analysing irreversible processes in variational evolutionary problems with multiple local minima and a high number of degrees of freedom.
 
-%unknown constants (cubic Hermite interpolation) (Liu and Quek, 2013). This implies that four shape functions were used in each
-%two-node element (4 degrees of freedom), and we utilized a uniform mesh with an element size h𝑒 = 1∕1000. The discrete solution
-%𝑢′(𝑥𝑖) provided at discrete nodes 𝑥𝑖 by AUTO was first interpolated using B-spline basis function of degree 3 (Grimstad and others,
-%2015) and then used to calculate the integral (10) using a three-point Gauss integration scheme; the fixed boundary conditions were
-%imposed by removing from the stiffness matrix 𝐊 the row and columns at 𝑥 = 0 and 𝑥 = 1.
+From our numerical experience, first order solutions to strongly nonlinear, nonconvex, and singular problems, like those of interest in the applications exhibit strong sensitivity to numerical errors, possibly leading to spurious bifurcations and artificial state transitions. On the other hand, solutions which inegrate second order information are robust and their observability can be fully characterised.
 
+More than numerical perturbations (which can always arise,) the use of numerical methods relying only on (conjugate) gradients (in lieu of exact Hessians) is prone to introducing non-physical crack nucleation.
 
+This is an important observation, which highlights the need for a thorough investigation of the stability of solutions. 
+If only physical factors are considered, an energetic selection mechanism is already encapsulated in the stability statement in the evolution law. As a consequence, equilibrium solutions under increasing load should be maintained as observable only if stable, assuming that no nucleation should occur otherwise.
 
-%\begin{algorithm}
-%\caption{Monolithic minimization of the energy functional in the strain interval $[\bar\epsilon,\bar\epsilon+\delta\bar\epsilon]$}
-%\LinesNumbered
-%\SetAlgoNlRelativeSize{0}
-%\SetNlSty{textbf}{(}{)}
-%\SetAlgoNlRelativeSize{-1}
-%\SetAlgoNlRelativeSize{1}
-%
-%\textbf{}Given ${\bf X}^n = \{{\bf u}^n, \alpha^n \}$ at $\bar\epsilon$ \\
-%\textbf{}Set $\bar\epsilon$ to $\bar\epsilon+\delta\bar\epsilon$, with $\delta\bar\epsilon=10^{-6}$\\
-%\textbf{}Set ${\bf X}^{n,0} \leftarrow {\bf X}^n$, $a \leftarrow 0$
-%
-%\While{$|\Psi_{\text{total}}^{n,a+1} - \Psi_{\text{total}}^{n,a}| \leq \text{TOL} \ll 1$}{
-%    $\min\limits_{{\bf X}^{n,a+1}} \Psi_{\text{internal}}({\bf X}^{n,a+1}$)\;
-%    %subject to $\alpha^{n,a+1} \geq \alpha^n$\;
-%    \textbf{} Set $a \leftarrow a + 1$
-%}
-%\textbf{}Update solution: ${\bf X}^{n+1} \leftarrow {\bf X}^{n,a}$
-%\end{algorithm}
+We present two main options for discussing these considerations in view of the importance of using accurate and robust algorithms in real scenarios.
+
+\begin{itemize}
+    \item 
+    Ignore the Numerical Artifact: focussing solely on first order considerations and acknowledging that the observed computed nucleations may be purely numerical and should not be considered in physical terms.
+    \item 
+    Highlight the Numerical Artifact: Alternatively, emphasising that homogeneous solutions should be observable, despite 
+    the sensitivity to numerical parameters (artifacts, in the quasi-Newton approach) and the abundance of admissible solutions (in the nonconvex scenario).
+    \item 
+    Otherwise.
+\end{itemize}
+
+Suggesting that state transitions in complex scenarios should be carefully interpreted, the connection between observability and stability is functional to understanding real patterns that emerge, e.g., in higher dimensions or in other physical systems.
+
+In either case, our computations show that, unless second order analysis is performed, observed nucleations are not \emph{necessarily} indicative of physical cracks but rather of an interplay between purely phisical phenomena, inherent to the nature of natural processes, and numerical biases inherent to the computational methods employed. This distinction is crucial for understanding the limitations and proper application of numerical techniques as predictive tools in contexts where cracks are a real concern for structures.
+
+Future work will include a more detailed exploration of evolutionary algorithms and their implementation for stability analysis of fracture in thin films. Two notable instances are craquelures artistic paintings and brittle stability of the cryosphere.
+
+% PERFORMING AN THOROUGH characterisation of bifurcation points, conditions for stability exchange, local features of the energy landscape, qualitative features of constrained systems with respect to canonical representations of bifurcations, thorough TECHNIQUES OF energy blow up and reduction at bifurcation points.
 
 
-%\begin{algorithm}
-%\caption{Monolithic minimization of the energy functional in the strain interval $[\bar\epsilon,\bar\epsilon+\delta\bar\epsilon]$}
-%\LinesNumbered
-%\SetAlgoNlRelativeSize{0}
-%\SetNlSty{textbf}{(}{)}
-%\SetAlgoNlRelativeSize{-1}
-%\SetAlgoNlRelativeSize{1}
-%
-%\textbf{}Given ${\bf X}^n = \{{\bf u}^n, \alpha^n \}$ at $\bar\epsilon$ \\
-%\textbf{}Set $\bar\epsilon$ to $\bar\epsilon+\delta\bar\epsilon$, with $\delta\bar\epsilon=10^{-6}$\\
-%\textbf{}Set ${\bf X}^{n,0} \leftarrow {\bf X}^n$, $a \leftarrow 0$
-%
-%\While{$|\Psi_{\text{total}}^{n,a+1} - \Psi_{\text{total}}^{n,a}| \leq \text{TOL} \ll 1$}{
-%    $\min\limits_{{\bf X}^{n,a+1}} \Psi_{\text{internal}}({\bf X}^{n,a+1}$)\;
-%    subject to $\alpha^{n,a+1} \geq \alpha^n$\;
-%    \textbf{}Set $a \leftarrow a + 1$
-%}
-%\textbf{}Update solution: ${\bf X}^{n+1} \leftarrow {\bf X}^{n,a}$
-%\end{algorithm}
-%
-%\begin{algorithm}
-%\caption{Alternating minimization of the energy functional in the strain interval $[\bar\epsilon,\bar\epsilon+\delta\bar\epsilon]$}
-%\LinesNumbered
-%\SetAlgoNlRelativeSize{0}
-%\SetNlSty{textbf}{(}{)}
-%\SetAlgoNlRelativeSize{-1}
-%\SetAlgoNlRelativeSize{1}
-%
-%\textbf{}Given ${\bf u}^n$, $\alpha^n$ at $\bar\epsilon$ \\
-%\textbf{}Set $\bar\epsilon$ to $\bar\epsilon+\delta\bar\epsilon$, with $\delta\bar\epsilon=10^{-6}$\\
-%\textbf{}Set ${\bf u}^{n,0} \leftarrow {\bf u}^n$, $\alpha^{n,0} \leftarrow \alpha^n$, $a \leftarrow 0$
-%
-%\While{$|\Psi_{\text{total}}^{n,a+1} - \Psi_{\text{total}}^{n,a}| \leq \text{TOL} \ll 1$}{
-%    $\min\limits_{{\bf u}^{n,a+1}} \Psi_{\text{internal}}({\bf u}^{n,a+1}, \alpha^{n,a}$)\;
-%    $\min\limits_{\alpha^{n,a+1}} \Psi_{\text{internal}}({\bf u}^{n,a+1}, \alpha^{n,a+1})$\;
-%    subject to $\alpha^{n,a+1} \geq \alpha^n$\;
-%    \textbf{}Set $a \leftarrow a + 1$
-%}
-%\textbf{}Update solution: ${\bf u}^{n+1} \leftarrow {\bf u}^{n,a}$, $\alpha^{n+1} \leftarrow \alpha^{n,a}$
-%\end{algorithm}
+\clearpage
 
 
-
-\paragraph{Figures}
 
 \begin{figure}[htbp]
     \centering
-    % \includegraphics*[width=.45\textwidth]{../images/model_stiff_energy.png}
-    % \includegraphics*[width=.45\textwidth]{../images/model_compliant_energy.png}
     \caption{
-        Energy diagram of equilibrium branches in the phase-field model of an elastic bar on stiff (left) and compliant (right) elastic foundation. In the figure, the difference $\Delta \Psi = \Psi(y_t)-\Psi_h$ between the energy of the state $y_t$ on the current branch and the homogeneous solution. Stability of solutions is indicated by colors: blue and orange indicate, respectively, stable and unstable states, by numerical evaluation of the sign of the smallest eigenvalue of the stiffness matrix $\mathbf{K}^1$. According to the local energy minimality protocol, arrows indicate the anticipated branch switching events associated with the loss of stability at load values denoted $\bar \epsilon_j, j \in \mathbb N$, where $j$ indicates the instability mode, cf. Equation~\eqref{}. Letters correspond to the states depicted in Figure XXX.\todo[inline]{maybe change letters into numbers, indicating the number of the mode}%
+        Energy diagram of equilibrium branches in the phase-field model of an elastic bar on stiff (left) and compliant (right) elastic foundation. In the figure, the difference $\Delta \Psi = \Psi(y_t)-\Psi_h$ between the energy of the state $y_t$ on the current branch and the homogeneous solution. Stability of solutions is indicated by colors: blue and orange indicate, respectively, stable and unstable states, by numerical evaluation of the sign of the smallest eigenvalue of the stiffness matrix $\mathbf{K}^1$. According to the local energy minimality protocol, arrows indicate the anticipated branch switching events associated with the loss of stability at load values denoted $\bar \epsilon_j, j \in \mathbb N$, where $j$ indicates the instability mode, cf. Equation~\eqref{}. Letters correspond to the states depicted in Figure XXX.%
     }
     \label{fig:}
 \end{figure}
@@ -111,32 +61,33 @@ future work: thorough energy blow up and reduction at bifurcation points
 \end{figure}
 
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics*[width=.45\textwidth]{../images/model_stiff_profiles.png}
-    \includegraphics*[width=.45\textwidth]{../images/model_compliant_profiles.png}
-    \caption{The damage profiles of the minimum energy configurations on each branch for the stiff (left) and compliant (right) substrate models. \todo[inline]{add markers}.}
-    \label{fig:}
-\end{figure}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics*[width=.45\textwidth]{../images/model_stiff_spectrum.png}
-    \includegraphics*[width=.45\textwidth]{../images/model_compliant_spectrum.png}
-    \caption{<caption>}
-    \label{fig:}
-\end{figure}
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics*[width=.45\textwidth]{../images/model_stiff_profiles.png}
+%     \includegraphics*[width=.45\textwidth]{../images/model_compliant_profiles.png}
+%     \caption{The damage profiles of the minimum energy configurations on each branch for the stiff (left) and compliant (right) substrate models. \todo[inline]{add markers}.}
+%     \label{fig:}
+% \end{figure}
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics*[width=.45\textwidth]{../images/model_stiff_spectrum.png}
+%     \includegraphics*[width=.45\textwidth]{../images/model_compliant_spectrum.png}
+%     \caption{<caption>}
+%     \label{fig:}
+% \end{figure}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics*[width=.45\textwidth]{../images/model_stiff_fields.png}
-    \includegraphics*[width=.45\textwidth]{../images/model_compliant_fields.png}
-    \caption{The damage and strain profiles computed along the evolution, for the stiff (left) and compliant (right) substrate models. The profiles correspond to the states marked $...$ in Figure XXX. Notice the peaks of strain in correspondence with the peaks of damage, and the localization of the strain in bands that are narrower than for the dmage field. Strain relaxes across a wider region in the compliant substrate model.}
-    \label{fig:}
-\end{figure}
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics*[width=.45\textwidth]{../images/model_stiff_fields.png}
+%     \includegraphics*[width=.45\textwidth]{../images/model_compliant_fields.png}
+%     \caption{The damage and strain profiles computed along the evolution, for the stiff (left) and compliant (right) substrate models. The profiles correspond to the states marked $...$ in Figure XXX. Notice the peaks of strain in correspondence with the peaks of damage, and the localization of the strain in bands that are narrower than for the dmage field. Strain relaxes across a wider region in the compliant substrate model.}
+%     \label{fig:}
+% \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics*[width=.45\textwidth]{../images/energy_interpolation-orders.png}
-    \caption{Typical profile of energy slice, interpolations at different orders.}
+    \caption{Typical profile of energy slice, interpolations at different orders. APPENDIX. WEBAPP: COMPILE A PARAMETERS FILE AND HOPE FOR A COMPUTATION. OR USE THE WEBAPP. PAY TO USE "DEFAULT VALUES"==CAREFULLY SELECTED, 1 DEFAULT = 1 ACKNOWLEDGMENT IN THE FINAL PAPER. OUR PIPELINES ARE SLOW, IT MAY TAKE A FEW DAYS TO RUN THE COMPUTATION. WE WILL NOTIFY YOU BY EMAIL. YOU PAY THE NECESSARY RESOURCES. PRICE LINEARLY DECREASES (WITH THE NUMBER OF ACKNOWLEDGMENTS.) PRESSURE EXPONENTIALLY INCREASES, TOWARDS RELEASE.}
     \label{fig:energy-slice}
 \end{figure}
+
