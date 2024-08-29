@@ -1,48 +1,44 @@
 %!TEX root = main.tex
 
-\section{DISCUSSION} 
+\section{Discussion} 
 
-\added[id=ALB]{Capturing branch switching phenomena across stability transitions is not an automatic feature of approximate numerical methods. They rely on approximate information about the Hessian of the energy functional, as a consequence these methods do not guarantee to systematically detect transitions between local minima when stability is lost. 
+% \added[id=ALB]{
+    Capturing branch switching phenomena across stability transitions is not an automatic feature of approximate numerical methods. If they rely on approximate information about the Hessian of the energy functional, these methods do not guarantee to systematically detect transitions between critical equilbrium states, when stability is lost. 
 Indeed, this requires a careful determination of the zero-eigenmodes that render singular the exact nonlinear Hessian, which is typically not available in general purpose first order numerical algorithms.
-In practice, without such information, critical loads for equilibrium transitions become algorithm-dependant and are not consistent with closed-form solutions of the exact evolution problem.}
+In practice, without such information, critical loads for equilibrium transitions become algorithm-dependant and are not consistent with closed-form solutions of the exact evolution problem.
+% }
 % 
 % -------
 
-OUR EVIDENCE IS that certain numerical methods can introduce non-physical artifacts which should be distinguished from genuine physical phenomena. Our ongoing work, NAVIGATING LOCAL MINIMA RELYING SOLELY ON A STATEMENT OF STABILITY, aims to refine these techniques and provide more reliable algorithms for analySing irreversible evolutions in variational problems AND GAMES.
+Our evidence is that certain numerical methods can introduce non-physical artifacts which should be distinguished from genuine physical phenomena. Our ongoing work aims to refine numerical techniques to provide more reliable algorithms for analysing irreversible processes in variational evolutionary problems with multiple local minima and a high number of degrees of freedom.
 
+From our numerical experience, first order solutions to strongly nonlinear, nonconvex, and singular problems, like those of interest in the applications exhibit strong sensitivity to numerical errors, possibly leading to spurious bifurcations and artificial state transitions. On the other hand, solutions which inegrate second order information are robust and their observability can be fully characterised.
 
+More than numerical perturbations (which can always arise,) the use of numerical methods relying only on (conjugate) gradients (in lieu of exact Hessians) is prone to introducing non-physical crack nucleation.
 
+This is an important observation, which highlights the need for a thorough investigation of the stability of solutions. 
+If only physical factors are considered, an energetic selection mechanism is already encapsulated in the stability statement in the evolution law. As a consequence, equilibrium solutions under increasing load should be maintained as observable only if stable, assuming that no nucleation should occur otherwise.
 
-------
-
-
-% Numerical PERTURBATIONS, which CAN arise due to the use of quasi-Newton methods and (conjugate) gradients (HENCE, NOT EXACT HESSIANS), introduce non-physical crack nucleation under GENERAL conditions.
-MORE THAN Numerical PERTURBATIONS, (which CAN ALWAUS arise) IT IS THE the use of quasi-Newton methods and (conjugate) gradients IN LIEU OF EXACT HESSIANS, TO introduce non-physical crack nucleation under GENERAL conditions.
-
-This is an important observation, highlighting that the stability of the solutionS (HERE, THE homogeneous) should be THOROUGHLY INVESTIGATED. FURTHERMORE, preserved AS OBSERVABLE IF STABLE, under increasing load, assuming no nucleation should occur if only physical factors are considered, WHICH ARE ENCAPSULATED IN THE STABILITY STATEMENT OR EVOLUTION LAW.
-
-We present two main options for discussing these CONSIDERATIONS IN VIEW OF THE importance of using accurate and robust algorithms IN REAL SCENARIOS.
+We present two main options for discussing these considerations in view of the importance of using accurate and robust algorithms in real scenarios.
 
 \begin{itemize}
     \item 
-    Ignore the Numerical Artifact: focusSING solely on FIRST ORDER CONSIDERATIONS and acknowledgING that the observed COMPUTED nucleationS MAY BE purely numerical and should not be considered in physical terms.
+    Ignore the Numerical Artifact: focussing solely on first order considerations and acknowledging that the observed computed nucleations may be purely numerical and should not be considered in physical terms.
     \item 
-    Highlight the Numerical Artifact: Alternatively, EMPHASISING that HOMOGENEOUS SOLUTIONS SHOULD BE OBSERVABLE, DESPITE 
-    THE SENSITIVITY TO numerical PARAMETERS (artifacts) (IN the quasi-Newton approach) AS WELL AS THE ABUNDANCE OF NON-PHYSICAL SOLUTIONS (IN THE NONCONVEX SCENARIO).
+    Highlight the Numerical Artifact: Alternatively, emphasising that homogeneous solutions should be observable, despite 
+    the sensitivity to numerical parameters (artifacts, in the quasi-Newton approach) and the abundance of admissible solutions (in the nonconvex scenario).
     \item 
-    OTHERWISE.
+    Otherwise.
 \end{itemize}
 
+Suggesting that state transitions in complex scenarios should be carefully interpreted, the connection between observability and stability is functional to understanding real patterns that emerge, e.g., in higher dimensions or in other physical systems.
 
-SUGGESTING that such artifacts should be carefully interpreted, THE CONNECTION BETWEEN OBSERVABILITY AND STABILITY IS A STEP FUNCTIONAL TO UNDERSTANDING REAL COMPLEX PATTERNS THAT EMERGE, E.G., IN HIGHER DIMENSIONS OR IN OTHER DOMAINS.
+In either case, our computations show that, unless second order analysis is performed, observed nucleations are not \emph{necessarily} indicative of physical cracks but rather of an interplay between purely phisical phenomena, inherent to the nature of natural processes, and numerical biases inherent to the computational methods employed. This distinction is crucial for understanding the limitations and proper application of numerical techniques as predictive tools in contexts where cracks are a real concern for structures.
 
-In either case, our COMPUTATIONS (KE) SHOW THAT, UNLESS SECOND ORDER ANALYSIS IS PERFORMED, THE observed nucleation is not \emph{NECESSARILY} indicative of physical crackS but rather OF AN INTERPLAY BETWEEN PURELY PHISICAL PHENOMENA, INHERENT TO THE NATURE OF NATURAL PROCESSES, AND of numerical BIASES inherent to the COMPUTATIONAL methods employed. This distinction is crucial for understanding the limitations and proper application of numerical techniques AS PREDICTIVE TOOLS IN CONTEXTS WHERE CRACKS ARE A REAL CONCERN FOR STRUCTURAL CONSIDERATIONS.
-
-Future work will include a more detailed exploration of these algorithms and their IMPLEMENTATION for stability analysis OF APPLICATIONS IN THIN FILM FRACTURE, SUCH AS IN ARTISTIC PAINTINGS, AND FOR THE STABILITY OF THE CRYOSPHERE.
+Future work will include a more detailed exploration of evolutionary algorithms and their implementation for stability analysis of fracture in thin films. Two notable instances are craquelures artistic paintings and brittle stability of the cryosphere.
 
 % PERFORMING AN THOROUGH characterisation of bifurcation points, conditions for stability exchange, local features of the energy landscape, qualitative features of constrained systems with respect to canonical representations of bifurcations, thorough TECHNIQUES OF energy blow up and reduction at bifurcation points.
 
------
 
 \clearpage
 
