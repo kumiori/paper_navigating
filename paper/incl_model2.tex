@@ -323,17 +323,27 @@ We once more seek the linear incremental stability of an equilibrium configurati
 \delta^2 \Ecompl(y_t)(y, y)=\int_0^1 \left[(1-\alpha_t)^2v'^2 
 %+ \elastell^{-2}v^2
 - 4(1-\alpha_t)u_t' v'\beta+(2+ {u_t'}^2)\beta^2+\damagell^2\beta'^2 +\frac{1}{\elastell^2}( v^2 + \subsutest^2)+\stiffratio \subsutest'^2\right]dx.\label{hessian222}\end{equation}
-We again proceed to extract information on the onset of instability expanding in Fourier series the fields $v$, $w$ and $z$ appearing in \eqref{hessian222} such that $v(x)=\sum_{n=1}^{\infty} a_{n} \sin \left(n \pi x+\phi_{n}\right), \quad \beta(x)=\sum_{n=1}^{\infty} b_{n} \cos \left(n \pi x+\psi_{n}\right),\quad \subsutest(x)=\sum_{n=1}^{\infty} c_{n} \sin \left(n \pi x+\theta_{n}\right)$. Exactly as in the previous section, we claim that, whenever the first order term vanishes, the system is stable only if $\delta^2 \Ecompl
+We again proceed to extract information on the onset of instability expanding in Fourier series the fields $v$, $w$ and $z$ appearing in \eqref{hessian222} such that 
+\[
+v(x) = \sum_{n=1}^{\infty} a_{n} \sin \left(n \pi x + \phi_{n}\right),
+\quad \beta(x) = \sum_{n=1}^{\infty} b_{n} \cos \left(n \pi x + \psi_{n}\right),
+\quad \subsutest(x) = \sum_{n=1}^{\infty} c_{n} \sin \left(n \pi x + \theta_{n}\right).
+\]
+
+Similar to the previous section we claim that, whenever the first order term vanishes, the system is stable only if $\delta^2 \Ecompl
 % (u,\alpha, v)(v,\beta,\subsutest)(v,\beta,\subsutest)
 >0$ for all sufficiently smooth admissible test fields $(v, \beta, \subsutest)$ in the vector space $\widetilde{ X_0}$. The stability condition  takes the form
-\begin{align}\left[ a_n \quad b_n \quad c_n  \right] \mathcal{H} \left[ \begin{array}{c} a_n \\ b_n  \\ c_n\end{array} \right]=\left[ a_n \quad b_n \quad c_n \right]\left(
+\begin{align}
+    % \left[ a_n \quad b_n \quad c_n  \right] \mathcal{H} \left[ \begin{array}{c} a_n \\ b_n  \\ c_n\end{array} \right]=
+    % 
+    \left[ a_n \quad b_n \quad c_n \right]\left(
 \begin{array}{ccc}
 \soften(\alpha)(n\pi)^2+\elastell^{-2}& \frac{\partial \soften}{\partial \alpha}\bar\epsilon(n\pi) &  -\elastell^{-2} \\
 \frac{\partial \soften}{\partial \alpha}\bar\epsilon(n\pi) & \frac{\partial \soften^2}{\partial \alpha^2}\bar\epsilon^2+ \frac{\partial \homogdiss^2}{\partial \alpha^2}+\damagell^2(n\pi)^2 & 0 \\
  -\elastell^{-2} & 0 & \elastell^{-2} +\stiffratio (n\pi)^2\\
 \end{array}
 \right)\left[ \begin{array}{c} a_n \\ b_n \\c_n \end{array} \right]>0.\label{hessian3}\end{align}
-By substituting the homogeneous solution $\alpha_h$ into \eqref{hessian3}, we compute $\det \mathcal{H}$, as depicted  in Fig. \ref{fig:hessian1}(b). The calculations are performed for the parameter values $\damagell=0.16$, $\elastell=0.34$ and $\rho=0.5$.  In Fig. \ref{fig:hessian1}(b), we again observe the formation of closed loops and a re-entry behavior of the affine configuration is discernible, marked by the emergence of two critical strains denoted as $\bar\epsilon^*$ and $\bar\epsilon^{**}$, representing the lower and upper stability limits for the homogeneous state. These critical points are highlighted by red and green dots in Fig. \ref{fig:hessian1}(b). The critical wavenumber $n_c$ for the lower limit $n_c(\bar{\epsilon}^*)$    differs from the critical wavenumber for the upper limit $n_c(\bar{\epsilon}^{**})$. The overall behavior of the system remains the same while the first critical wavenumber $n_c=2$ is now smaller suggesting a different number of cracks will appear during the loading history.
+By substituting the homogeneous solution $\alpha_h$ into \eqref{hessian3}, we compute $\det \mathcal{H}$, as depicted  in Fig. \ref{fig:hessian1}(b). The calculations are performed for the parameter values $\damagell=0.16$, $\elastell=0.34$ and $\rho=0.5$.  In Fig. \ref{fig:hessian1}(b), we again observe the formation of closed loops and a re-entry behavior of the affine configuration is discernible  (i.e., the homogeneous configuration re-stabilizes at large deformation). This is marked by the emergence of two critical strains denoted as $\bar\epsilon^*$ and $\bar\epsilon^{**}$, representing the lower and upper stability limits for the homogeneous state. These critical points are highlighted by red and green dots in Fig. \ref{fig:hessian1}(b). The critical wavenumber $n_c$ for the lower limit $n_c(\bar{\epsilon}^*)$    differs from the critical wavenumber for the upper limit $n_c(\bar{\epsilon}^{**})$. The overall behavior of the system remains the same while the first critical wavenumber $n_c=2$ is now smaller suggesting a different number of cracks will appear during the loading history.
 
 
 
@@ -365,7 +375,7 @@ By testing the elasticity problem for fixed damage, and the damage problem for a
 
 % \added[id=ALB]{
 The last two relations are, respectively, the weak form of the mechanical equilibrium conditions and the  evolution law  for the damage field.
-The former allows to compute the elastic equilibrium displacment $u_t$ which can thus be eliminated from energy, while the latter governs the evolution of the damage field.
+The former allows to compute the elastic equilibrium displacement $u_t$ which can thus be eliminated from energy, while the latter governs the evolution of the damage field.
 Upon elimination of the kinematic field, the variational inequality~\eqref{eq:variational_equilibrium}.2 takes a particularly expressive form when written as a complementarity problem. This highlights the mechanical nature of the damage criterion as a threshold law.
 Namely, the strict convexity of the elastic model for given damage implies that~\eqref{eq:variational_equilibrium}.1 has, for given $\alpha$, a unique time-parametrised solution $u_t(\alpha)$. 
 Substituting in ~\eqref{eq:variational_equilibrium}.2 and accounting for the irreversibility constraint we are led to seek a map $t\mapsto\alpha_t$ such that 
