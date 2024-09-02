@@ -1,14 +1,21 @@
 %!TEX root = main.tex
 
 \section{Discussion} 
-
+\label{sec:discussion}
 % \added[id=ALB]{
-    Capturing branch switching phenomena across stability transitions is not an automatic feature of approximate numerical methods. If they rely on approximate information about the Hessian of the energy functional, these methods do not guarantee to systematically detect transitions between critical equilibrium states, when stability is lost. 
+    Capturing branch switching phenomena across stability transitions is not an automatic feature of approximate numerical methods. If they rely on approximate information about the Hessian of the energy functional, these methods do not guarantee to systematically detect transitions between critical equilbrium states, when stability is lost. 
 Indeed, this requires a careful determination of the zero-eigenmodes that render singular the exact nonlinear Hessian, which is typically not available in general purpose first order numerical algorithms.
 In practice, without such information, critical loads for equilibrium transitions become algorithm-dependant and are not consistent with closed-form solutions of the exact evolution problem.
 % }
 % 
 % -------
+\begin{figure}[htbp]
+    \centering
+    \includegraphics*[width=.7\textwidth]{../images/irreversibility_inf_eig.png}
+    \caption{\footnotesize{ \textcolor{blue}{LABELS ON AXIS} Stability of the homogeneous solution in the first model on (a) the linear space and (b) on convex cone $K^+_0$. When the irreversibility constraint is present, the homogeneous solution is stable for any value of the loading parameter $\bar\epsilon$.}}
+    \label{fig:shouldnt}
+\end{figure}
+
 
 Our evidence is that certain numerical methods can introduce non-physical artifacts which should be distinguished from genuine physical phenomena. Our ongoing work aims to refine numerical techniques to provide more reliable algorithms for analysing irreversible processes in variational evolutionary problems with multiple local minima and a high number of degrees of freedom.
 
@@ -23,7 +30,7 @@ We present two main options for discussing these considerations in view of the i
 
 \begin{itemize}
     \item 
-    Ignore the Numerical Artifact: focusing solely on first order considerations and acknowledging that the observed computed nucleations may be purely numerical and should not be considered in physical terms.
+    Ignore the Numerical Artifact: focussing solely on first order considerations and acknowledging that the observed computed nucleations may be purely numerical and should not be considered in physical terms.
     \item 
     Highlight the Numerical Artifact: Alternatively, emphasizing that homogeneous solutions should be observable, despite 
     the sensitivity to numerical parameters (artifacts, in the quasi-Newton approach) and the abundance of admissible solutions (in the nonconvex scenario).
@@ -33,61 +40,11 @@ We present two main options for discussing these considerations in view of the i
 
 Suggesting that state transitions in complex scenarios should be carefully interpreted, the connection between observability and stability is functional to understanding real patterns that emerge, e.g., in higher dimensions or in other physical systems.
 
-In either case, our computations show that, unless second order analysis is performed, observed nucleations are not \emph{necessarily} indicative of physical cracks but rather of an interplay between purely phisical phenomena, inherent to the nature of natural processes, and numerical biases inherent to the computational methods employed. This distinction is crucial for understanding the limitations and proper application of numerical techniques as predictive tools in contexts where cracks are a real concern for structures.
+In either case, our computations show that, unless second order analysis is performed, observed nucleations are not \emph{necessarily} indicative of physical cracks but rather of an interplay between purely \comment[id={OUS}]{add references}  \textcolor{blue}{physical} phenomena, inherent to the nature of natural processes, and numerical biases inherent to the computational methods employed. This distinction is crucial for understanding the limitations and proper application of numerical techniques as predictive tools in contexts where cracks are a real concern for structures.
 
-Future work will include a more detailed exploration of evolutionary algorithms and their implementation for stability analysis of fracture in thin films. Two notable instances are craquelures artistic paintings and brittle stability of the cryosphere.
+Future work will include a more detailed exploration of evolutionary algorithms and their implementation for stability analysis of fracture in thin films. Some notable instances are craquelures artistic paintings,  brittle stability of the cryosphere and crack-pattern selection in metallic thin films~\cite{Faurie2019-to}. \comment[id={OUS}]{add references} \textcolor{blue}{As understood in this work, the final crack patterns depend heavily on the form of the selected unstable mode. In turn, the irreversibility constraint, primarily implemented to prevent crack closure, directly impacts the stability of solutions and mode selection. Therefore, our findings suggest that the success of the phase-field model in predicting crack patterns in thin films relies on the use of robust numerical algorithms.}
 
 % PERFORMING AN THOROUGH characterisation of bifurcation points, conditions for stability exchange, local features of the energy landscape, qualitative features of constrained systems with respect to canonical representations of bifurcations, thorough TECHNIQUES OF energy blow up and reduction at bifurcation points.
 
 
-\clearpage
-
-
-
-\begin{figure}[htbp]
-    \centering
-    \caption{
-        Energy diagram of equilibrium branches in the phase-field model of an elastic bar on stiff (left) and compliant (right) elastic foundation. In the figure, the difference $\Delta \Psi = \Psi(y_t)-\Psi_h$ between the energy of the state $y_t$ on the current branch and the homogeneous solution. Stability of solutions is indicated by colors: blue and orange indicate, respectively, stable and unstable states, by numerical evaluation of the sign of the smallest eigenvalue of the stiffness matrix $\mathbf{K}^1$. According to the local energy minimality protocol, arrows indicate the anticipated branch switching events associated with the loss of stability at load values denoted $\bar \epsilon_j, j \in \mathbb N$, where $j$ indicates the instability mode, cf. Equation~\eqref{}. Letters correspond to the states depicted in Figure XXX.%
-    }
-    \label{fig:}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    % \includegraphics*[width=.45\textwidth]{../images/model_stiff_energy_kick.png}
-    % \includegraphics*[width=.45\textwidth]{../images/model_compliant_energy_kick.png}
-    \caption{Quasi-static evolutions computed with L-BFGS fail to satisfy a local minimality criterion. The evolutions are displayed with a thick black line for the stiff substrate (left) and compliant substrate (right) models. The figures display the energy difference $\Delta \Psi = \Psi(y_t)-\Psi_h$ between the quasi-Newton solutions $y_t$ and the homogeneous state corresponding to the same load. At the bottom with a thin black line, the minimum eigenvalue $\lambda_t$ for the current state and the regions (highlighted in red) of instability.}
-    \label{fig:}
-\end{figure}
-
-
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics*[width=.45\textwidth]{../images/model_stiff_profiles.png}
-%     \includegraphics*[width=.45\textwidth]{../images/model_compliant_profiles.png}
-%     \caption{The damage profiles of the minimum energy configurations on each branch for the stiff (left) and compliant (right) substrate models. \todo[inline]{add markers}.}
-%     \label{fig:}
-% \end{figure}
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics*[width=.45\textwidth]{../images/model_stiff_spectrum.png}
-%     \includegraphics*[width=.45\textwidth]{../images/model_compliant_spectrum.png}
-%     \caption{<caption>}
-%     \label{fig:}
-% \end{figure}
-
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics*[width=.45\textwidth]{../images/model_stiff_fields.png}
-%     \includegraphics*[width=.45\textwidth]{../images/model_compliant_fields.png}
-%     \caption{The damage and strain profiles computed along the evolution, for the stiff (left) and compliant (right) substrate models. The profiles correspond to the states marked $...$ in Figure XXX. Notice the peaks of strain in correspondence with the peaks of damage, and the localization of the strain in bands that are narrower than for the dmage field. Strain relaxes across a wider region in the compliant substrate model.}
-%     \label{fig:}
-% \end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics*[width=.45\textwidth]{../images/energy_interpolation-orders.png}
-    \caption{Typical profile of energy slice, interpolations at different orders. APPENDIX. WEBAPP: COMPILE A PARAMETERS FILE AND HOPE FOR A COMPUTATION. OR USE THE WEBAPP. PAY TO USE "DEFAULT VALUES"==CAREFULLY SELECTED, 1 DEFAULT = 1 ACKNOWLEDGMENT IN THE FINAL PAPER. OUR PIPELINES ARE SLOW, IT MAY TAKE A FEW DAYS TO RUN THE COMPUTATION. WE WILL NOTIFY YOU BY EMAIL. YOU PAY THE NECESSARY RESOURCES. PRICE LINEARLY DECREASES (WITH THE NUMBER OF ACKNOWLEDGMENTS.) PRESSURE EXPONENTIALLY INCREASES, TOWARDS RELEASE.}
-    \label{fig:energy-slice}
-\end{figure}
 
