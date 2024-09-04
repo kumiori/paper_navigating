@@ -1,6 +1,7 @@
 # README
 
-## Paper Title: Navigating Among Local Minima via Numerical Optimization
+## Navigating with Stabilty: Local Minima, Patterns, and Evolution
+### in a 1D Fracture Model
 
 ### Authors:
 - M. M. Terzi
