@@ -13,7 +13,7 @@ Here, the damage variable $\alpha$ is a scalar field driving material softening,
 The state function $W$ is defined as 
 \begin{equation}
     \label{def:energy_material}
-    W(e, \alpha, \alpha'):= \frac{1}{2} \mathsf{E} \soften(\alpha)e^2 + W_1\homogdiss(\alpha) + \frac{\damagell^2}{2}\alpha'^2,
+    W(e, \alpha, \alpha'):= \frac{1}{2} \mathsf{E} \soften(\alpha)e^2 +\homogdiss(\alpha) + \frac{\damagell^2}{2}\alpha'^2,
 \end{equation}
 where $\homogdiss(\alpha)$ can be interpreted as the energy dissipated during an homogeneous damaging process, compounds a term that is proportional to the square of its gradient and controls the energy cost of spatial damage variations. In the first summand, $\soften(\alpha)$ is the function that describes the material softening. %
 For physical consistency, $\soften(\alpha)$ is a non-negative function that is one when $\alpha=0$ and monotonically decreases as $\alpha\to 1$, reaching zero for $\alpha=1$  
@@ -466,7 +466,6 @@ Denoting $t_s$ the load at which the homogeneous solution looses stability by an
 This indicates a qualitative conceptual distinction between the bifurcation and the stability thresholds, in the irreversible case. As a consequence, a system can persist along a critical non-unique equilibrium branch, yet be stable. 
 A sufficient condition for the stability of the homogeneous state $\yhom$ is given by the strict positivity  of the Hessian form, on the constrained space of admissible perturbations, namely (for the stiff substrate model)
 
-\newcommand{\conespace}{K^+_{0}}
 % As a straightforward consequence,  
 % Indeed, the critical load for loss of stability is conceptually different from the critical load at which the uniqueness of the (rate) response is lost, they are determined by two different problems which can be related by a (singular) asymptotic process.
 \begin{equation}
@@ -481,11 +480,8 @@ This allows to replace the \emph{current} state $y_t$ in the definition of the s
 % $\alpha$ is admissible at $t$ only if $\alpha \in H^1(0, 1)$ and $\alpha \geq \alpha_{-}$ where $\alpha_{-}$ is the damage state at the previous load step. 
 In this way, the space of perturbation allows for (small) perturbations $\beta$ which can be negative where $\alpha_t(x)>\alpha_-(x)$. Such a space is a vector space and the eigen-problem can be solved by standard methods of linear algebra by restricting the Hessian to the set of active constraints, cf~\cite{Nocedal1999-zr}.
 Conversely, the stability problem~\eqref{eq:variational_stability}, a constrained eigenvalue problem in a convex cone, is of a different nature altogether due to the different topology of the underlying energy space. 
-The associated discrete problem can be numerically solved by exploiting the orthogonality between the set $\conespace$ and its dual $K^*:=\{y \in H^1(0,1): \langle x,y \rangle \leq 0, \forall x \in \conespace\}$, cf.~\cite{Moreau1962-fz,Pinto_da_Costa2010-qv}. \comment[id=OUS]{corrected}
+The associated discrete problem can be numerically solved by exploiting the orthogonality between the set $\conespace$ and its dual $K^*:=\{y \in H^1(0,1): \langle x,y \rangle \leq 0, \forall x \in \conespace\}$, cf.~\cite{Moreau1962-fz,Pinto_da_Costa2010-qv}.
 
-% \begin{equation}
-    % H_{\conespace} = \{z\in X_0: \delta^2 \Psi(y_h)(z, z) \geq 0\}.
-% \end{equation}
 
 
 

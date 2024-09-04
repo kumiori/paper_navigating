@@ -16,8 +16,6 @@
 \newcommand{\stiffmat}{\mathbf{H}}
 \newcommand{\stiffmatcompl}{\widetilde{\mathbf{H}}}
 
-% 
-% 
 
 \newcommand{\Youngfilm}{\mathsf{E_{\text{2d}}}}
 \newcommand{\Youngsubs}{{\mathsf{\widetilde E_{\text{2d}}}}}
@@ -28,6 +26,8 @@
 \newcommand{\femnewstate}{\femstate'}
 \newcommand{\femcurrentstate}{\mathbf{X^*}}
 \newcommand{\femperturb}{\mathbf{p}}
+\newcommand{\conespace}{K^+_{0}}
+
 \begin{table}[h!]
   \centering
   \begin{tabular}{  m{5.5cm}  m{3cm}  m{6cm}  }
@@ -57,7 +57,9 @@
     State space, stiff& $X_t$ & $H^1_t(0,1)\times  H^1(0,1)$\\
     State space, compliant& $\widetilde{X_t}$ & $H^1_t(0,1)\times  H^1(0,1)$\\
     Homogeneous space& $V_0$ & $H^1_0(0,1)\times  H^1(0,1)$\\
-    Cone of admissible perturbations& $K^+_0$ & $H^1_0((0, 1))\times \{w \in H^1((0, 1)): w(x) \geq 0 \text{ a.e. }x\in (0, 1)\}$\\
+    Cone of admissible perturbations& $\conespace$ & $H^1_0((0, 1))\times \{w \in H^1((0, 1)): w(x) \geq 0 \text{ a.e. }x\in (0, 1)\}$\\
+    Dual Cone& $K^*$ & $\{y \in H^1(0,1): \langle x,y \rangle \leq 0, \forall x \in \conespace\}$\\
+    % $$
     Eigenvalue, eigenfunction& $(\lambda, w^*)$ & \\
     First critical load & $\bar \epsilon^c_1$ & \\
     Critical loads & $\bar \epsilon^c_*$ & \\
