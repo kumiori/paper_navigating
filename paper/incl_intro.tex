@@ -29,47 +29,49 @@
 \newcommand{\femcurrentstate}{\mathbf{X^*}}
 \newcommand{\femperturb}{\mathbf{p}}
 \begin{table}[h!]
-    \centering
-    \begin{tabular}{  m{3.5cm}  m{3cm}  m{2.5cm}  m{6cm}  }
-      \hline
-      \textbf{Description} & \textbf{Symbol} & \textbf{Alt. Symbol} & \textbf{Remarks} \\
-      \hline
-      Energy stiff     & $\Psi$ & $\Estiff$ & - \\
-      Energy compliant & $\Psi$ & $\Ecompl$ & - \\
-      Energy homogeneous & $\Psi_h(\bar\epsilon)$ &  & total? \\
-      & & $\mathsf E(\alpha), \homogdiss(\alpha)$ & 1D Young, homog. damage\\
-      & & $u, \alpha, v$ & \\
-      & & $(u,\alpha), (v, \beta)$ & $(u,\alpha, v), (\cdot, \beta, \cdot)$ \\
-      & & $(u,\alpha), (v, \beta)$ & $(u,\alpha, \subsu), (\cdot, \beta, \cdot)$ \\
-      & & $V, V_0, K^+_0$ & $H^1((0,1))\times  H^1((0,1))$\\
-      & & $V_0$ & $H^1_0((0,1))\times  H^1((0,1))$\\
-      & & $K^+_0$ & $H^1_0((0, 1))\times \{w \in H^1((0, 1)): w(x) \geq 0 \text{ a.e. }x\in (0, 1)\}$\\
-      & $(\lambda, w^*)$ &  & \\
-      & $(\kappa, z^*)$ &  & \\
-      & $\bar \epsilon^c$ &  & first critical load, stiff\\
-      & $\bar \epsilon_c^1$ &  & first critical load, compliant \\
-      & $\bar \epsilon^c_*$ &  & all critical loads \\
-      & $\bar \epsilon^c_n$ &  & $n$-th critical load  \\
-      & ${\bf R}^1, {\bf R}^2$ & ${\bf R}1, \widetilde{\bf R}$ & \\
-      & $\damagell$ & $.$ & \\
-      & $\bar \epsilon_1$ & $.$ & \\
-    Equilibrium state stiff& $y_t=(u_t, \alpha_t)$ & $.$ & \\
-    Equilibrium state compliant & $y_t=(u_t, \alpha_t, v_t)$ & $.$ & \\
-    FEM base functions and derivative  & ${\mathcal N}_i, {\mathcal N}'_i$ & $.$ & \\
-     Young subs & $\Youngsubs$ & $.$ & \\
-     Young film & $\Youngfilm$ & $.$ & \\
-    Homogeneous state  & $\yhom$ & $.$ & \\
-    Homogeneous energy, stiff   & $\Estiffhom$ & $.$ & \\
-    Homogeneous energy, stiff   & $\Ecomplhom$ & $.$ & \\
-     Load & $\bar\epsilon_t$ & $.$ & \\
-     Eigenvalues & $\lambda_t$ & $.$ & \\
-     Eigenvect & $hp_n = y - y_t $ & $.$ & \\
-     FEM state & $\femstate$ & $.$ & \\
-     FEM new state & $\femnewstate$ & $.$ & \\
-     FEM current equilibrium state & $\femcurrentstate$ & $.$ & \\
-     FEM perturbation & $\femperturb$ & $.$ & \\
-    \end{tabular}
-    \caption{Notation and Definitions}
+  \centering
+  \begin{tabular}{  m{5.5cm}  m{3cm}  m{6cm}  }
+    \hline
+    \textbf{Description} & \textbf{Symbol} & \textbf{Remarks} \\
+    \hline
+    Energy stiff     & $\Estiff$ & - \\
+    Energy compliant & $\Ecompl$ & - \\
+    Load & $\bar\epsilon_t$ & \\
+    Homogeneous energy, stiff   & $\Estiffhom$ & \\
+    Homogeneous energy, compliant   & $\Ecomplhom$ & \\
+    Material functions &  $\mathsf E(\alpha), \homogdiss(\alpha)$ & \\
+    Material length & $\bar\damagell$ & dimensional, [m]\\
+    Film thickness & $h$ & dimensional, [m]\\
+    Characteristic size & $L$ & dimensional, [m]\\
+    Young modulus, substrate & $\Youngsubs$ & \\
+    Young modulus, film & $\Youngfilm$ & \\
+    State, stiff& $u, \alpha$ & \\
+    State, compliant& $u, \alpha, v$ & \\
+    Equilibrium state, stiff& $y_t=(u_t, \alpha_t)$ & \\
+    Equilibrium state, compliant & $y_t=(u_t, \alpha_t, v_t)$ & \\
+    Homogeneous equilibrium state  & $\yhom$ & \\
+    State \& perturbations, stiff & $(u,\alpha), (w, \beta)$ & \\
+    State \& perturbations, compliant & $(u, \alpha, \subsu), (v, \beta, \subsutest)$ & \\
+    Admissible perturbations, stiff& $V$ & $H^1(0,1)\times  H^1(0,1)$\\
+    Admissible perturbations, compliant& $\widetilde{V}$ & $H^1(0,1)\times  H^1(0,1)\times  H^1(0,1)$\\
+    State space, stiff& $X_t$ & $H^1_t(0,1)\times  H^1(0,1)$\\
+    State space, compliant& $\widetilde{X_t}$ & $H^1_t(0,1)\times  H^1(0,1)$\\
+    Homogeneous space& $V_0$ & $H^1_0(0,1)\times  H^1(0,1)$\\
+    Cone of admissible perturbations& $K^+_0$ & $H^1_0((0, 1))\times \{w \in H^1((0, 1)): w(x) \geq 0 \text{ a.e. }x\in (0, 1)\}$\\
+    Eigenvalue, eigenfunction& $(\lambda, w^*)$ & \\
+    First critical load & $\bar \epsilon^c_1$ & \\
+    Critical loads & $\bar \epsilon^c_*$ & \\
+    $n$-th critical load & $\bar \epsilon^c_n$ & \\
+    FEM Residual vectors& ${\bf R}, \widetilde{\bf R}$ & \\
+    FEM base functions and derivatives  & ${\mathcal N}_i, {\mathcal N}'_i$ & \\
+   Eigenvalue & $\lambda_t$ & \\
+  %  Eigenvect & $hp_n = y - y_t $ & \\
+   FEM state & $\femstate$ & \\
+   FEM new state & $\femnewstate$ & \\
+   FEM current equilibrium state & $\femcurrentstate$ & \\
+   FEM perturbation & $\femperturb$ & \\
+  \end{tabular}
+  \caption{Notation and Definitions. The subscripted $t$ in $H_t^1(0, 1)$ indicates a $t$-parametrised boundary datum}
 \label{table:notation}
 \end{table}
 

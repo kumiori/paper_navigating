@@ -295,6 +295,20 @@ The quasi-Newton solver starting from the perturbed state seeks a direction that
 \subsection{Irreversible evolutions and stability}
 To highlight the role of irreversibility constraints on the determination of the evolution and its consequences on the space of perturbations, we discuss the full stability problem~\eqref{eq:variational_stability} in our simplified one-dimensional setting through an illustrative numerical computation. 
 
+To solve the second-order cone-constrained inequality~\eqref{eq:variational_stability}, we employ a numerical method based on the orthogonal decomposition of the Hilbert space  $H$  according to two mutually polar cones  $P$  and  $Q$\cite{Moreau1962-fz}. Given an element  $z$  in  $H$ , it can be shown that tehere exists a unique decomposition into two orthogonal components,  $x \in P$  and  $y \in Q$ , where  $x$  and  $y$  are the closest points in  $P$  and  $Q$  to  $z$ , respectively.
+
+When dealing with eigenvalue problems, this decomposition allows one to project the problem into the cone, ensuring that the solution remains within the constraints imposed by irreversibility. 
+This approach is particularly useful in mechanics and physics when dealing with unilateral constraints or problems where the solution space is naturally bounded by physical considerations (e.g., non-negative stress, plastic deformations, etc.) 
+
+More in particular, we implement a simple iterative Scaling-and-Projection algorithm~\cite{Pinto_da_Costa2010-qv} which depends upon one numerical parameter, a scaling factor $\eta>0$. Given a convex cone  $K$ and an initial guess $z_0$ (not necessarily in the convex cone), the algorithm operates by first projecting the vector in the cone, $x^{(k=0)}= \operatorname{P_K}(z_0)$.  
+After the projection step, the current estimate for the eigenvalue can be computed using the Rayleigh quotient
+\begin{equation}
+    \lambda^{(k)} = \frac{{x^{(k)}}^T H x^{(k)}}{||x^{(k)}||},
+\end{equation}
+where $H$ is the Hessian operator. Then, we compute the residual vector $y^{(k)} = H x^{(k)} - \lambda^{(k)} x^{(k)}$ and obtain the next iterate $x^{(k+1)} = v^{(k)}/||v^{(k)}||$ where 
+$v^{(k)} =\operatorname{P_K} (x^{(k)} + \eta y^{(k)})$.
+The algorithm is repeated until convergence is achieved. Note that, in the cone-constrained case, the residual vector $y^{(k)}$ need not be zero at convergence.
+
 The irreversible evolution is computed using the same parameters as in the experiment in Figure~\ref{fig:hessian1}-(a) for the rigid substrate model. ~\comment[id={OUS}]{change the label location in Fig. fig:irreversibility-profiles}In Fig.~\ref{fig:irreversibility-profiles} we plot the profiles of the fields at the loading step corresponding with the bifurcation point of the reversible system, namely $H$ in Fig.~\ref{fig:branches-stiff}.
 
 The homogeneous damage field $\alpha_h$ and the profiles of the damage eigenfunctions associated to the minimal eigenvalue for the second order bifurcation problem~\comment[id={OUS}]{check the citation to Eq.}~\eqref{eq:variational_bifurcation} (left panel) coincide with the solutions and eigenmodes \comment[id={OUS}]{n=3}
@@ -305,7 +319,7 @@ Note that the profile of the (non-negative) instability modes do not reduce to a
 % The former is determined by the smallest eigenvalue of the operator $H(y)$, which is a non-linear operator that depends on the current damage state, whereas the latter is determined by the eigenvalue problem in the vector space.
 
 In Figure~\ref{fig:shouldnt}, we plot the inf-eigenvalue of the Hessian operators for the bifurcation problem (with blue circles) as well as for the (irreversible) stability problem (with a thick orange line). 
-Note that the bifurcation spectrum is singular at $\bar \epsilon_t=0$ following the fact that, in our model, the damage criterion is attained as soon as the load is non-zero, thus the space of admissible state perturbations changes suddenly from $H^1_t((0,1)) \times \emptyset$ at $\bar \epsilon_t=0$ to the full space $X_0$ for $\bar \epsilon_t>0$ which includes all (sufficiently smooth) damage perturbations. 
+Note that the bifurcation spectrum is singular at $\bar \epsilon_t=0$ following the fact that, in our model, the damage criterion is attained as soon as the load is non-zero, thus the space of admissible state perturbations changes suddenly from $H^1_0(0,1) \times \emptyset$ at $\bar \epsilon_t=0$ to the full space $X_0$ for $\bar \epsilon_t>0$ which includes all (sufficiently smooth) damage perturbations. 
 Conversely, the set of admissible damage perturbations for the stability problem changes from the empty set for the loading interval $0 < \bar\epsilon_t\leq \bar\epsilon_b$ set to the solid cone of smooth positive functions $\{\beta\in H^1((0,1)):\beta \geq 0\}$ only beyond the bifurcation load for $\bar\epsilon_t \geq \bar\epsilon_b$.
 Despite the occurrence of negative eigenvalues for the bifurcation problem, the eigenvalues of the stability problem are all positive, which is a sufficient condition to ascertain the stability (and thus, the observability) of the computed evolution.
 
@@ -327,6 +341,7 @@ On the other hand, irreversibility has a major role  as a global constraint on t
     \centering
     \includegraphics*[width=.7\textwidth]{../images/irreversibility_inf_eig.png}
     \caption{The right solver should'nt give you a crack. Lower bound of the Hessian spectra for the bifurcation problem  (orange line) and the stability problem (blue circles), along the homogeneous evolution. The bifurcation spectrum indicates  that the evolution path is unique until $\bar \epsilon_b$. Then, despite multiple solution exists, the homogeneous solution is stable. Notice that the observable $\lambda_t$ (inf-eig cone) for stability is \emph{discontinuous}.
+    % Stability of the homogeneous solution in the first model on (a) the linear space and (b) on convex cone $K^+_0$. When the irreversibility constraint is present, the homogeneous solution is stable for any value of the loading parameter $\bar\epsilon$.
     % (THE MARKET SHOUDN'T GIVE YOU A CRACK. THE MARKET DOESN'T GIVE A FUCK.) 
     }
     \label{fig:shouldnt}
