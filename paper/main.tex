@@ -6,8 +6,8 @@
 % \usepackage[english]{babel}
 
 % Bibliography management
-\usepackage[backend=biber,style=alphabetic]{biblatex}
-\addbibresource{mybibliography.bib} % Add your .bib file
+%\usepackage[backend=biber,style=alphabetic]{biblatex}
+%\addbibresource{mybibliography.bib} % Add your .bib file
 \usepackage[]{graphicx}
 \usepackage{graphbox}
 \usepackage{caption}
@@ -39,11 +39,11 @@
 \usepackage{authblk}
 \def\ep{\varepsilon}
 \def\eps{\varepsilon}
-\usepackage[inline]{showlabels}
+%\usepackage[inline]{showlabels}
 % Document title, authors, and affiliations
 \title{
     % Navigating Among Local Minima via Numerical Optimization // \\ 
-Navigating with Stabilty: Local Minima, Patterns, and Evolution in a 1D Fracture Model}
+Navigating with Stability: Local Minima, Patterns, and Evolution in a 1D Fracture Model}
 \author[1]{M. M. Terzi}
 \author[1,2]{O. U. Salman}
 \author[1]{D. Faurie}
@@ -58,58 +58,19 @@ Navigating with Stabilty: Local Minima, Patterns, and Evolution in a 1D Fracture
 
 \maketitle
 
-% \begin{abstract}
-%     We investigate the behavior of numerical optimization schemes employed to find local minima of nonlinear energy functionals. Our focus is on one-dimensional phase-field fracture models of brittle thin films on an elastic foundation.  Despite their inherent simplicity, allowing for analytical predictions, these models reveal a complex equilibrium landscape with multiple local minima providing an ideal case for assessing the efficacy of numerical solution algorithms. Through an exploration of  line-search-based descent algorithms relying on the approximate Hessian of the energy functional, our study sheds light on their efficacy in detecting branch-switching events among different equilibrium branches.
-% \end{abstract}
-
-% \begin{abstract}
-% We explore numerical optimization approaches for locating local minima in nonconvex energy functionals governing phase-field models of brittle fracture. Conventional solvers, such as Newton-Raphson methods, face challenges due to the energy functional’s lack of convexity. This paper examines quasi-Newton algorithms as alternatives, leveraging positive definite approximations to the Hessian matrix for improved convergence. However, these methods often miss bifurcation points and stability transitions critical to fracture evolution paths. Our study centers on one-dimensional models of brittle thin films on elastic foundations, employing branch-following bifurcation techniques to construct equilibrium maps across varying external loads. We find that quasi-Newton methods struggle without precise second variation information. To address this, spectral analysis of the Hessian matrix reveals optimal perturbations, facilitating stable crack evolution path selection by quasi-Newton solvers.
-% \end{abstract}
-
-
-% \begin{abstract}
-%     We investigate the behavior of numerical optimization schemes employed to find local minima of nonlinear energy functionals. In phase-field theories of brittle fracture, WE ARE INTERESTED IN crack initiation,  growth, and path selection. The lack of convexity of the governing energy poses difficulties for monolithic solvers that aim to compute minimisers. IN SOME CIRCUMSTANCES, HOWEVER, ANALYTIC SOLUTIONS EXIST FOR COMPLEX ENERGY LANDSCAPES. In this paper, we numerically investigate the effectiveness of quasi-Newton algorithms as an alternative to conventional Newton-Raphson solvers. These algorithms improve convergence by constructing a positive definite approximation to the full Hessian of the functional, BARGANING IMPROVED CONVERGENCE WITH THE RISK OF MISSING BIFURCATION POINTS AND ENERGY-STABILITY TRANSITIONS. Our study focuses on one-dimensional phase-field fracture models of brittle thin films on an elastic foundation. Within this framework, we CONSTRUCT AN equilibrium map that represents all stable and unstable equilibrium states as a function of the external load, USING branch-following bifurcation techniques. When the solution returned by the solver is compared to the equilibrium map, its OBSERVABILITY can be ASCERTAINED. Our main finding is that quasi-Newton algorithms fail to select stable evolution paths without EXACT full second variation information. TO SOLVE THIS, WE PERFORM A spectral analysis of the full Hessian, PROVIDING OPTIMAL perturbATIONS THAT enable quasi-Newton methods to FOLLOW a stable and potentially unique path for crack evolution.
-%     WHAT CAN BE CAPTURED by an energetic principle acting on a nonconvex energy functional?
-% \end{abstract}
 
 
 \begin{abstract}
 In phase-field theories of brittle fracture, crack initiation, growth and path selection are investigated using non-convex energy functionals and a stability criterion. The lack of convexity with respect to the state poses difficulties to monolithic solvers that aim to solve for kinematic and internal variables, simultaneously. In this paper, we inquire into the effectiveness of quasi-Newton algorithms as an alternative to conventional Newton-Raphson solvers. These algorithms improve convergence by constructing a positive definite approximation of the Hessian, bargaining improved convergence with the risk of missing bifurcation points and stability thresholds. Our study focuses on one-dimensional phase-field fracture models of brittle thin films on  elastic foundations. Within this framework, in the absence of irreversibility constraint, we construct an equilibrium map that represents all stable and unstable equilibrium states as a function of the external load, using well-known branch-following bifurcation techniques. Our main finding is that quasi-Newton algorithms fail to select stable evolution paths without exact  second variation information. To solve this issue, we perform a spectral analysis of the full Hessian, providing optimal perturbations that enable quasi-Newton methods to follow a stable and potentially unique path for crack evolution. Finally, we discuss the stability issues and optimal perturbations in the case when the damage irreversibility is present, changing the topological structure of the set of admissible perturbations from a linear vector space to a convex cone.
 \end{abstract}
 
-\textbf{Potential Journals}
-\begin{itemize}
-\item International Journal of Solids and Structures
-3610
-
-Article publishing charge
-for open access
-
-129 days
-Review time
-143 days
-Submission to acceptance
-6 days
-Acceptance to publication
-
-\item Journal of the Mechanics and Physics of Solids
-\item Journal of Computational Physics \\
-233 days Submission to acceptance \\
-\url{https://www.sciencedirect.com/journal/journal-of-computational-physics}
-\item Computer Methods in Applied Mechanics and Engineering
-\item Journal of Applied Mechanics
-\item International Journal of Mechanical Sciences
-\item Theoretical and Applied Fracture Mechanics
-\item ...
-\end{itemize}
 
 % \listofchanges[style=list, title=Changes]
-\listoftodos
+%\listoftodos
 \input{incl_intro}
 \input{incl_model}
 \input{incl_numerics}
 \input{incl_conclusion}
-
-\printbibliography % Prints the bibliography
-
+\bibliographystyle{unsrt}  % Or any other style you prefer
+\bibliography{mybibliography}  % Reference your .bib file without the .bib extension
 \end{document}
