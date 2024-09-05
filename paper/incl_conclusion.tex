@@ -24,7 +24,7 @@ From our numerical experience, first order solutions to strongly nonlinear, nonc
 More than numerical perturbations (which can always arise,) the use of numerical methods relying only on (conjugate) gradients (in lieu of exact Hessians) is prone to introducing non-physical crack nucleation.
 
 This is an important observation, which highlights the need for a thorough investigation of the stability of solutions. 
-If only physical factors are considered, an energetic selection mechanism is already encapsulated in the stability statement in the evolution law. As a consequence, equilibrium solutions under increasing load should be maintained as observable only if stable, assuming that no nucleation should occur otherwise.
+If only physical factors are considered, an energetic selection mechanism is already encapsulated in the stability statement in the evolution law. As a consequence, equilibrium solutions under increasing load should be maintained as observable if stable, assuming that no nucleation should occur otherwise.
 
 We present two main options for discussing these considerations in view of the importance of using accurate and robust algorithms in real scenarios.
 
@@ -33,7 +33,7 @@ We present two main options for discussing these considerations in view of the i
     Ignore the Numerical Artifact: focussing solely on first order considerations and acknowledging that the observed computed nucleations may be purely numerical and should not be considered in physical terms.
     \item 
     Highlight the Numerical Artifact: Alternatively, emphasizing that homogeneous solutions should be observable, despite 
-    the sensitivity to numerical parameters (artifacts, in the quasi-Newton approach) and the abundance of admissible solutions (in the nonconvex scenario).
+    the sensitivity to numerical parameters (artifacts, in the quasi-Newton approach) and the abundance of admissible solutions (in the nonconvex scenario), or
     \item 
     Otherwise.
 \end{itemize}
@@ -43,7 +43,7 @@ Suggesting that state transitions in complex scenarios should be carefully inter
 In either case, our computations show that, unless second order analysis is performed, observed nucleations are not \emph{necessarily} indicative of physical cracks but rather of an interplay between purely   \textcolor{black}{physical} phenomena, inherent to the nature of natural processes, and numerical biases inherent to the computational methods employed. This distinction is crucial for understanding the limitations and proper application of numerical techniques as predictive tools in contexts where cracks are a real concern for structures.
 
 
-Future work will include a more detailed exploration of evolutionary algorithms and their implementation for stability analysis of fracture in thin films. Some notable instances are craquelures artistic paintings~\cite{fuster-lopez:2020-picassos, Bosco:2020aa,Bosco:2021},  brittle stability of the cryosphere~\cite{weiss:2017-linking, tollefson:2017-giant, Sun:2023aa, Millan:2023aa} and crack-pattern selection in metallic thin films~\cite{Faurie2019-to}. {As understood in this work, the final crack patterns depend heavily on the form of the selected unstable mode. In turn, the irreversibility constraint, primarily implemented to prevent crack closure, directly impacts the stability of solutions and mode selection. Therefore, our findings suggest that the success of the phase-field model in predicting crack patterns in thin films relies on the use of robust numerical algorithms.}
+Future work will include a more detailed exploration of evolutionary algorithms and their implementation for stability analysis of fracture in thin films. Some notable instances are craquelures in artistic paintings~\cite{fuster-lopez:2020-picassos, Bosco:2020aa,Bosco:2021},  brittle stability of the cryosphere~\cite{weiss:2017-linking, tollefson:2017-giant, Sun:2023aa, Millan:2023aa} and crack-pattern selection in metallic thin films~\cite{Faurie2019-to}. {As understood in this work, the final crack patterns depend heavily on the form of the selected unstable modes. In turn, the irreversibility constraint, primarily implemented to prevent crack closure, directly impacts the stability of solutions and mode selection at transition loads. Therefore, our findings suggest that the success of the phase-field model in predicting crack patterns in thin films relies on the use of robust numerical algorithms.}
 
 % PERFORMING AN THOROUGH characterisation of bifurcation points, conditions for stability exchange, local features of the energy landscape, qualitative features of constrained systems with respect to canonical representations of bifurcations, thorough TECHNIQUES OF energy blow up and reduction at bifurcation points.
 
