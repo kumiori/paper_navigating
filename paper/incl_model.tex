@@ -201,7 +201,7 @@ Solutions to the incremental evolutionary problem are sought by solving first an
 
 Equilibrium equations of the system are obtained as first order necessary conditions for energy minimality, satisfying imposed displacements at the ends of the film.
 
-The first order variation of the energy functional $\Estiff$ in the direction  \comment[id=OUS]{change the notation of directions to make them compatible with the rest} $z:=(w, \beta)$ is given by the following linear form  
+The first order variation of the energy functional $\Estiff$ in the direction $z:=(w, \beta)$ is given by the following linear form  
 \begin{equation}
     \delta \Estiff(u,\alpha)(w,\beta)=\int_0^1
 \left[\soften(\alpha)u'w'+\frac{1}{\elastell^2} (u-u_0) w+ \left( \frac{1}{2}u'^2 \soften'(\alpha)+\homogdiss'(\alpha) \right)\beta+\damagell^2\alpha'\beta' \right]dx,\label{firstvar1}
@@ -226,24 +226,25 @@ By using standard arguments of the calculus of variations, localizing the integr
 % proceeding with the evaluation of the equilibrium configuration via the Euler-Lagrange equations
 This differential system is equipped with essential kinematic boundary conditions $u(0) = \subsu(0, t), u(1) = \subsu(1, t)$. Conversely, conditions on the internal field $\alpha'(0)=\alpha'(1)=0$ naturally follow by minimality.
 % When the order parameter is reversible, the space of admissible perturbations is the homogeneous space associated to $X_t$, that is $V_0:= H^1_0((0,1))\times  H^1((0,1))$.
-Notice that the choice of boundary conditions for displacements compatible with the substrate's deformation implies that the pair $\yhom:=(u_h(x), \alpha_h)$ given by $u_h(x)\equiv \subsu(x, t)$ and $\alpha_h$ a load-dependent constant to identify, is always (the unique homogenous) solution to the first order equilibrium equations. This makes it immediate to identify the fundamental homogeneous solution branch $t \mapsto \yhom$ and to decouple the elasticity problem from the  evolution of damage. 
+Notice that the choice of boundary conditions for displacements compatible with the substrate's deformation implies that the pair $\yhom(\bar\epsilon):=(u_h(x), \alpha_h)(\bar\epsilon)$ given by $u_h(x)\equiv \subsu(x, t)$ and $\alpha_h$ a load-dependent constant to identify, is always (the unique homogenous) solution to the first order equilibrium equations. This makes it immediate to identify the fundamental homogeneous solution branch $t \mapsto \yhom$ and to decouple the elasticity problem from the  evolution of damage. 
 Therefore, the solution to~\eqref{auto1} such that $u''(x)=\alpha'(x)= 0, \, \forall x\in (0, 1)$ is the homogeneous branch
 %  $y_h = (u_h, \alpha_h)$ whose  read 
 \begin{equation}
 u_h(x) =  \frac{\bar \epsilon_t}{2}(2x-1),\qquad\alpha_h = \frac{\Bar{\epsilon_t}^2}{2 + \Bar\epsilon_t^2}\label{eq:homo1}.
 \end{equation}
 Notice that,  
-first order conditions identify the the critical load threshold that activates the damaging process. namely, the quantity $\bar\epsilon^*$ is the value of the load for which the pristine elastic state becomes unstable. It is determined injecting the elastic solution $u_h$ in the energy and computing $\delta \Estiff(u_h, 0)(0, \beta)=0$.
+first order conditions identify the the critical load threshold that activates the damaging process. namely, the quantity $\bar\epsilon_*^c$ is the value of the load for which the undamaged elastic state becomes unstable. It is determined injecting the elastic solution $u_h$ in the energy and computing $\delta \Estiff(u_h, 0)(0, \beta)=0$.
 According to our energy, the critical load is given by
 \begin{equation}
-    \bar{\epsilon}_*^2 = 2\frac{\homogdiss'(0)}{\soften'(0)} 
+    {{{\bar{\epsilon}^c}_*}} = \sqrt{2\frac{\homogdiss'(0)}{\soften'(0)}} 
 \end{equation}
+% impossible to typeset {\bar{\epsilon}^c}_*}^2 ?
 % 
-which, by our choice of material model (whereby $\homogdiss(\alpha)$ is quadratic, cf~\eqref{def:constitutive_functions}) we get that  \comment[id=OUS]{aligned bar over epsilon} $\bar{\epsilon}_*=0$ so that damage necessarily starts as soon as $t>0$.
+which, by our choice of material model (whereby $\homogdiss(\alpha)$ is quadratic, cf~\eqref{def:constitutive_functions}) we get that $\bar{\epsilon}^c_*=0$ so that damage necessarily starts as soon as $t>0$.
 The effective {total} energy along the {homogeneous} branch reads  
 \begin{equation}
     \label{eq:energy_homogeneous}
-    \Estiffhom(\bar\epsilon) :=\Estiff(\yhom) = \frac{\Bar{\epsilon}^2}{2 + \Bar\epsilon^2}.
+    \Estiffhom(\bar\epsilon) :=\Estiff(\yhom(\bar\epsilon)) = \frac{\Bar{\epsilon}^2}{2 + \Bar\epsilon^2}.
 \end{equation}
 An equilibrium configuration $y_t:=(u,\alpha)_t$ is a state such that the first variation $\delta \Estiff(y_t)(z)$ vanishes for all admissible test fields in the vector space $X_0$. 
 To assess the incremental stability of the homogeneous solution in the reversible (linear) case, we examine the positivity of the second variation, requiring
