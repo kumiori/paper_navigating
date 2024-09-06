@@ -8,7 +8,7 @@ Two one-dimensional fracture models for a brittle thin film bonded to substrates
 \paragraph{Material Model}
 We consider a one-dimensional isotropic and homogeneous brittle material modelled by a state function $W(e, \alpha, \alpha')$ which, at any point $x$,
 % The displacement field of the thin film is denoted by $u(x)$ and the corresponding strain field is $\epsilon(x) = u'(x)$.
-depends on the local membrane strain $e(x)$ (associated to in-plane displacements $u(x)$, namely $e(x) = u'(x)$), the local damage $\alpha(x)$, and the local gradient of the damage $\alpha'(x)$. 
+depends on the local membrane strain $e(x)$ (associated with  in-plane displacements $u(x)$, namely $e(x) = u'(x)$), the local damage $\alpha(x)$, and the local gradient of the damage $\alpha'(x)$. 
 Here, the damage variable $\alpha$ is a scalar field driving material softening, bounded between 0 and 1, where $0$ indicates the undamaged material and $1$, the cracked material. Thus, at points where $\alpha=0$ the material is elastic with a stiffness $\mathsf{E}$ (its Young modulus), at points where $\alpha=1$ the material has a crack and zero residual stiffness, whereas for intermediate damage values the material's stiffness is $0<\mathsf{E}\soften(\alpha)< \mathsf{E}$.  
 The state function $W$ is defined as 
 \begin{equation}
@@ -44,7 +44,7 @@ The film is subjected to $v(x, t)$ as a tensile imposed load and to given (compa
 % 
 Our first model describes a brittle thin film deposited on a stiff, non-deformable substrate. This model assumes the substrate is rigid, meaning, $\subsu$ is a given. The elastic interaction is modelled by a distributed linear elastic foundation of stiffness $K$, thus
 % , so that the energy of the structure is given by
-the total energy of the structure is a functional $\Estiff$ constructed by considering the energy of the thin film and the energy associated to the mechanical coupling between the film and the substrate. In nondimensional form, it is given by
+the total energy of the structure is a functional $\Estiff$ constructed by considering the energy of the thin film and the energy associated with  the mechanical coupling between the film and the substrate. In nondimensional form, it is given by
 
 \begin{equation}
     \label{def:energy_stiff}
@@ -157,7 +157,7 @@ As a consequence, irreversibility restricts the admissible set of competitors to
 Remark that in the definition of the competitor space $\alpha_t$ (the damage field at time $t$) is unknown at time $t$. 
 In the irreversible case the set of admissible competitor states depends explicitly on the entire history of the evolution through the current damage field.
 To draw the attention to the consequences of irreversibility on the system's transitions between different equilibrium states we develop the global variational inequality~\eqref{eq:variational_global_ineq} (and the analogous for the compliant model) by expanding the energy around the state $y_t$. 
-Admissible perturbations in the fully reversible case they belong to the linear space $X_0$ associated to $X_t$ (respectively, $\widetilde{X_t}$), whereas in the irreversible case they are bound to the closed, pointed, convex cone $K^+_0$ (respectively, $\widetilde{K^+_0}$).
+Admissible perturbations in the fully reversible case they belong to the linear space $X_0$ associated with  $X_t$ (respectively, $\widetilde{X_t}$), whereas in the irreversible case they are bound to the closed, pointed, convex cone $K^+_0$ (respectively, $\widetilde{K^+_0}$).
 
 An energy expansion in the vicinity the state $y_t$ reads
 $$
@@ -178,7 +178,7 @@ This analysis will involve both analytical and numerical methods, with a focus o
 
 
 %  we consider the phase-field theory of fracture to describe the crack formation of {a thin elastic membrane} attached to a substrate. The evolution equation for the phase-field is determined by the minimization of an energy functional based on the variational theory of brittle fracture~\cite{bourdin:2008-the-variational}.
-% In phase-field theories of fracture, elasticity of the brittle solid is usually assumed to be linear with a stiffness degrading with damage. The latter is described by a scalar order parameter which features in the total energy functional with one term that accounts for the energy dissipation associated to homogeneous damage, and with 
+% In phase-field theories of fracture, elasticity of the brittle solid is usually assumed to be linear with a stiffness degrading with damage. The latter is described by a scalar order parameter which features in the total energy functional with one term that accounts for the energy dissipation associated with  homogeneous damage, and with 
 
 % Suppose that the scalar damage variable $\alpha(x)$ is \replaced[id=ALB]{normalised such that}{with} $\alpha=0$ and $\alpha=1$ respectively correspond to the unbroken an fully broken states, \added[id=ALB]{and that the system's evolution is parametrized by a positive scalar control parameter, henceforth noted $t$, which can be thought of as a kinematic time and with respect to which loads are indexed}.
 
@@ -208,7 +208,7 @@ The first order variation of the energy functional $\Estiff$ in the direction $z
 \end{equation}
 where 
 % $v$ and $w$ are scalar test functions. 
-$z\in X_0$ is a test function (an admissible perturbation) in the linear space associated to $X_t$. First order minimality conditions are \emph{local} conditions that associated to the stationarity or the energy functional, that is, its first order variation should vanish for all admissible test functions, namely
+$z\in X_0$ is a test function (an admissible perturbation) in the linear space associated with  $X_t$. First order minimality conditions are \emph{local} conditions that associated with  the stationarity or the energy functional, that is, its first order variation should vanish for all admissible test functions, namely
 \begin{equation}
     \label{eq:stationarity}
     \delta \Estiff(u,\alpha)(w,\beta)=0, \quad \forall z\in X_0.
@@ -225,7 +225,7 @@ By using standard arguments of the calculus of variations, localizing the integr
 \end{eqnarray}
 % proceeding with the evaluation of the equilibrium configuration via the Euler-Lagrange equations
 This differential system is equipped with essential kinematic boundary conditions $u(0) = \subsu(0, t), u(1) = \subsu(1, t)$. Conversely, conditions on the internal field $\alpha'(0)=\alpha'(1)=0$ naturally follow by minimality.
-% When the order parameter is reversible, the space of admissible perturbations is the homogeneous space associated to $X_t$, that is $V_0:= H^1_0((0,1))\times  H^1((0,1))$.
+% When the order parameter is reversible, the space of admissible perturbations is the homogeneous space associated with  $X_t$, that is $V_0:= H^1_0((0,1))\times  H^1((0,1))$.
 Notice that the choice of boundary conditions for displacements compatible with the substrate's deformation implies that the pair $\yhom(\bar\epsilon):=(u_h(x), \alpha_h)(\bar\epsilon)$ given by $u_h(x)\equiv \subsu(x, t)$ and $\alpha_h$ a load-dependent constant to identify, is always (the unique homogenous) solution to the first order equilibrium equations. This makes it immediate to identify the fundamental homogeneous solution branch $t \mapsto \yhom$ and to decouple the elasticity problem from the  evolution of damage. 
 Therefore, the solution to~\eqref{auto1} such that $u''(x)=\alpha'(x)= 0, \, \forall x\in (0, 1)$ is the homogeneous branch
 %  $y_h = (u_h, \alpha_h)$ whose  read 
@@ -384,7 +384,7 @@ Substituting in ~\eqref{eq:variational_equilibrium}.2 and accounting for the irr
      -\phi_t(\alpha_t) \leq 0 \qquad
      \phi_t(\alpha_t)\dot \alpha_t = 0.
 \end{equation}
-Here, $\phi_t$ is the scalar function associated to the variation of elastic energy density at the equilibrium, defined by $\delta \Estiff(y_t)(0, \beta) = \langle -\phi_t(\alpha_t), \beta\rangle$. Here, the subscript $t$ indicates that this quantity is computed for the equilibrium $u_t$.
+Here, $\phi_t$ is the scalar function associated with  the variation of elastic energy density at the equilibrium, defined by $\delta \Estiff(y_t)(0, \beta) = \langle -\phi_t(\alpha_t), \beta\rangle$. Here, the subscript $t$ indicates that this quantity is computed for the equilibrium $u_t$.
 %  Here, $\phi_t$ is the energy variation with respect to perturbations of the order parameter (from a given damage level $\alpha_t$) and is interpreted as an energy release rate. 
 Consequently, $\phi_t(0)$ is 
 % the total energy released by the system from its sound state
