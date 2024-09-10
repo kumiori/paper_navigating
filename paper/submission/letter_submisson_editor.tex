@@ -1,0 +1,67 @@
+% \documentclass{oxmathletter} % if using pdflatex
+%\documentclass[xelatex]{oxmathletter} % if using xelatex
+%
+%following options can be combined if desired and used with xelatex option
+%\documentclass[cmrbody]{oxmathletter} % use computer modern roman font
+% \documentclass[nofoundrysterling]{oxmathletter} % don't have the oxford font
+\documentclass[nofoundrysterling]{cnrsletter} % don't have the oxford font
+% \usepackage[french]{babel} % optional babel package options    
+\signature{Andrés A. León Baldelli} % your name as you want it to appear as signature
+
+% This document class should only be used for official departmental business
+% As such the option defaults are the official departmental general contact
+% details. Defaults should only be overridden with your personal official 
+% departmental contact details
+\usepackage{hyperref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%optional commands to override defaults
+%do not include these commands if you wish to stick with the defaults
+\position{CR, CNRS} % your role/position, default none shown
+\phone{001}   % your direct phone number (area code is added automatically)
+                 % default none shown
+
+\fax{000}     % fax number (area code is added automatically)
+                 % defaults to St Giles reception fax
+
+\econtact{leon.baldelli}  % your official (long format) maths e-mail address 
+                         % without @maths.ox.ac.uk 
+                         % this will produce your official email address
+                         % and the URL of your official web profile page
+
+% \refcode{MIIT/2013/17A} % optional reference code to specify on letter
+                        % default none shown
+
+\researchgroup{Institut $\partial$'Alembert} % specify a research 
+                                                       % group name to show 
+                                             %above "Mathematical Institute"
+
+%end of optional commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{letter}{
+    YYY\\
+    Editor Submission\\
+}
+
+\subject{We Submit an Original Article}  
+% optional subject line
+
+\opening{Dear Editor,}
+
+We are pleased to submit our manuscript, `\emph{Navigating with Stability: Local Minima, Patterns, and
+Evolution in a Gradient Damage Fracture Model,}' for consideration in next issue of YYY. 
+
+In this original article, we present an investigation of non-convex evolutionary problems with irreversibility constraints, through numerical optimisation methods for phase-field fracture models. By analysing the spectral stability properties of equilibrium paths, our finidings show that conventional solvers may fail to detect critical bifurcation points in non-convex energy landscapes. 
+
+This offers significant insight into the effectiveness of approximate quasi-Newton algorithms, especially navigating nonconvex energy landscapes, handling constraints, and complex patterns typical of fracture evolution in thin brittle films. 
+
+This work addresses a critical challenge in solving evolution problems in this context,  introducing a spectral analysis-based correction and a computational algorithm that ensures the stability of the computed evolution, even in the presence of irreversibility constraints. 
+
+We trust this contribution opens new avenues in numerical fracture mechanics and nonlinear optimisation, offering tools that advance the predictive modeling of fracture mechanics.
+
+
+\closing{Sincerely,} % closing phrase
+\end{letter}
+\end{document}
