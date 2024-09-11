@@ -61,12 +61,12 @@ The state of this structure is identified by the triplet $y:=(u, \alpha, v)$, an
     \label{def:energy_compliant}
     \Ecompl(\alpha, u,  v) = \int_{0}^1 \left[ \frac{1}{2} \ \soften(\alpha)(u')^2 + \homogdiss(\alpha) + \frac{\damagell^2}{2}(\alpha')^2 
     + \frac{1}{2 \elastell^2} (u- v)^2 
-    + \frac{\stiffratio}{2}  (v')^2 \right] dx,
+    + \frac{\stiffratio}{2}  (v')^2 \right] dx.
 \end{equation}
-
-
+% 
+% 
 % Dimensional parameters
-
+% 
 Nondimensional constants appearing in the expression of the energies can be related the three-dimensional parameters of a phyisical mechanical system by an appropriate de-scaling, remarking that the reduced elastic model~\eqref{def:energy_stiff} can be obtained as an asymptotic limit starting from a thin multilayer system in 3d elasticity, as shown in~\cite{Leon_Baldelli2015-rp} .
 % , \mathsf{E'_\text{2d}}
 Thus, denoting by $\mathsf{E_\text{2d}}$ the two-dimensional stiffness of the thin film membrane (per unit depth), and by a tilde the stiffness and thickness of the substrate, the nondimensional quantities appearing in the expression of the energy depend on the geometric the elastic properties of the system as follows
@@ -117,7 +117,6 @@ For brevity, we denote by $y:=(u, \alpha)$ (and $y:=(u, \alpha, v)$) the mechani
 
 
 \paragraph{Evolutionary model}
-\label{sec:stability}
 
 Assuming small enough loading rates, 
 the evolution problem of the structure can be cast in an energetic variational formulation as an incremental rate-indipendent quasi-static process driven by an energy-minimality principle.
@@ -161,7 +160,7 @@ Admissible perturbations in the fully reversible case they belong to the linear 
 
 An energy expansion in the vicinity the state $y_t$ reads
 $$
-\Estiff(y)-\Estiff(y_t)= \delta\Estiff(y_t)(y-y_t)+\frac{1}{2}(y-y_t)^T \delta^2\Estiff(y_t)(y-y_t)+o(\|y-y_t\|^2)
+\Estiff(y)-\Estiff(y_t)= \delta\Estiff(y_t)(y-y_t)+\frac{1}{2}(y-y_t)^T \delta^2\Estiff(y_t)(y-y_t)+o(\|y-y_t\|^2),
     \label{eqn:energy-expansion}
 $$
 % and is valid for any $y$ whose displacement component verifies kinematic boundary conditions and its damage component $\alpha$ is either unconstrained, or such that $\alpha\geq\alpha_t$ if irreversibility is taken into account.
@@ -258,7 +257,7 @@ To assess the incremental stability of the homogeneous solution in the reversibl
 +\frac{1}{\elastell^2} v^2 \right]dx
 %+ \elastell^{-2}v^2
 +\int_0^1
-\left[ - 4(1-\alpha)u' v'\beta+(2+ u'^2)w^2+\damagell^2\beta'^2 \right] dx, 
+\left[ - 4(1-\alpha)u' v'\beta+(2+ u'^2)v^2+\damagell^2\beta'^2 \right] dx, 
 \label{hessian22}
 \end{equation}
 % \comment[id=ALB]{notation $w\mapsto \beta$} 
@@ -274,7 +273,7 @@ which is well defined for perturbations $(v, \beta)\in X_0$.
 By substituting the homogeneous solution $\alpha_h$ into \eqref{hessian1}, we compute $\det \mathcal{H}$ as a function of $\bar \epsilon$ and $n$, which is depicted in Figure~\ref{fig:hessian1}. The calculations are performed for the parameter values $\damagell=0.16$ and $\elastell=0.34$.
     % Interpretation of the image: 
 The figure represents, for a given load $\bar \epsilon$, the wave number $n(\bar \epsilon)\in \mathbb N$ of possible energy-decreasing damage bifurcations. For an increasing loading history $\bar \epsilon_t\nearrow$, the wave number is non-monotonic.
-In Fig. \ref{fig:hessian1}(a), the locus $\det \mathcal H=0$ forms closed loops, indicative of an elastic background's influence\comment[id=ALB]{Expand}. Notably, a re-entry behavior of the affine configuration is discernible, marked by the emergence of two critical strains denoted as $\bar\epsilon^*$ and $\bar\epsilon^{**}$ (with $\bar\epsilon^* < \bar\epsilon^{**}$), representing the lower and upper stability limits for the homogeneous state. These critical points are highlighted by red and green dots in Fig. \ref{fig:hessian1}(a). The critical wave number $n_c$ for the lower limit $n_c(\bar{\epsilon}^*)$    differs from the critical wave number for  upper limit $n_c(\bar{\epsilon}^{**})$. Finally, we remark that closed-form analytical solutions can be provided for the critical wave number and critical strains and the parametric dependence of the corresponding bifurcation thresholds can be obtained, as detailed in \cite{Salman2021-mn}.
+In Fig. \ref{fig:hessian1}(a), the locus $\det \mathcal H=0$ forms closed loops, indicative of an elastic background's influence. Notably, a re-entry behavior of the affine configuration  (i.e., the homogeneous configuration re-stabilizes at large deformation) is discernible, marked by the emergence of two critical strains denoted as $\bar\epsilon^*$ and $\bar\epsilon^{**}$ (with $\bar\epsilon^* < \bar\epsilon^{**}$), representing the lower and upper stability limits for the homogeneous state. These critical points are highlighted by red and green dots in Fig. \ref{fig:hessian1}(a). The critical wave number $n_c$ for the lower limit $n_c(\bar{\epsilon}^*)$    differs from the critical wave number for  upper limit $n_c(\bar{\epsilon}^{**})$. Finally, we remark that closed-form analytical solutions can be provided for the critical wave number and critical strains and the parametric dependence of the corresponding bifurcation thresholds can be obtained, as detailed in \cite{Salman2021-mn}.
 
 \begin{figure}
      \centering
@@ -341,7 +340,7 @@ Similar to the previous section we claim that, whenever the first order term van
  -\elastell^{-2} & 0 & \elastell^{-2} +\stiffratio (n\pi)^2\\
 \end{array}
 \right)\left[ \begin{array}{c} a_n \\ b_n \\c_n \end{array} \right]>0.\label{hessian3}\end{align}
-By substituting the homogeneous solution $\alpha_h$ into \eqref{hessian3}, we compute $\det \mathcal{H}$, as depicted  in Fig. \ref{fig:hessian1}(b). The calculations are performed for the parameter values $\damagell=0.16$, $\elastell=0.34$ and $\rho=0.5$.  In Fig. \ref{fig:hessian1}(b), we again observe the formation of closed loops and a re-entry behavior of the affine configuration is discernible  (i.e., the homogeneous configuration re-stabilizes at large deformation). This is marked by the emergence of two critical strains denoted as $\bar\epsilon^*$ and $\bar\epsilon^{**}$, representing the lower and upper stability limits for the homogeneous state. These critical points are highlighted by red and green dots in Fig. \ref{fig:hessian1}(b). The critical wave number $n_c$ for the lower limit $n_c(\bar{\epsilon}^*)$    differs from the critical wave number for the upper limit $n_c(\bar{\epsilon}^{**})$. The overall behavior of the system remains the same while the first critical wave number $n_c=2$ is now smaller suggesting a different number of cracks will appear during the loading history.
+By substituting the homogeneous solution $\alpha_h$ into \eqref{hessian3}, we compute $\det \mathcal{H}$, as depicted  in Fig. \ref{fig:hessian1}(b). The calculations are performed for the parameter values $\damagell=0.16$, $\elastell=0.34$ and $\rho=0.5$.  In Fig. \ref{fig:hessian1}(b), we again observe the formation of closed loops and a re-entry behavior of the affine configuration is discernible. This is marked by the emergence of two critical strains denoted as $\bar\epsilon^*$ and $\bar\epsilon^{**}$, representing the lower and upper stability limits for the homogeneous state. These critical points are highlighted by red and green dots in Fig. \ref{fig:hessian1}(b). The critical wave number $n_c$ for the lower limit $n_c(\bar{\epsilon}^*)$    differs from the critical wave number for the upper limit $n_c(\bar{\epsilon}^{**})$. The overall behavior of the system remains the same while the first critical wave number $n_c=2$ is now smaller suggesting a different number of cracks will appear during the loading history.
 
 
 
@@ -357,9 +356,7 @@ Because the current state can only be compared to those of with equal or higher 
 Equilibrium states $y_t=(u_t, \alpha_t)$ of the irreversible system, are hence governed by the following (first order) necessary optimality conditions taking the form of a variational inequality
 \begin{equation}
     \label{eq:eq_variational_inequality_full}
-    \delta \Estiff(y_t)(y-y_t) \geq 0, \quad \forall y-y_t \in K^+_0.
-    % \delta \Psi(y)(v-u, w-\alpha) \geq 0, \quad \forall
-    %  w -\alpha \in \{ w\in H^1(\Omega), w\geq 0\}
+    \delta \Estiff(y_t)(y-y_t) \geq 0, \quad \forall y-y_t \in K^+_0,
 \end{equation}
 % 
 which has to hold for all admissible competitor states $y$ such that $v-u_t \in H^1_0(0, 1)$ and $\beta-\alpha_t\in H^1(0,1)$ with $\beta \geq \alpha_t$.
@@ -399,8 +396,8 @@ Explicitly, the function $\phi_t$ depends on the brittle material model and is d
 \end{equation}
 where $\epsilon$ is the elastic strain and $\soften'(\alpha)$ and $\homogdiss'(\alpha)$ are the derivatives of the softening and dissipation energy densities with respect to the damage variable.
 The inequality ~\eqref{eq:variational_equilibrium}.2 identifies the domains of admissible strains (and, by duality, of stresses) for homogeneous solutions as
-$\mathcal{R}(\alpha):=\{epsilon: \Youngfilm \epsilon^2 \leq -\frac{2 \mathsf{w}'(\alpha)}{\mathsf{a}'(\alpha)}\},$ and $
-\mathcal{R}^*(\alpha):=\{\sigma: \frac{\sigma^2}{\Youngfilm} \leq \frac{2 \mathsf{w}'(\alpha)}{\mathsf{s}'(\alpha)}\}$, respectively.
+$\mathcal{R}(\alpha):=\{\epsilon\in R^{2\times 2}_{sym}: \Youngfilm \epsilon^2 \leq -\frac{2 \mathsf{w}'(\alpha)}{\mathsf{a}'(\alpha)}\},$ and $
+\mathcal{R}^*(\alpha):=\{\sigma\in R^{2\times 2}_{sym}: \frac{\sigma^2}{\Youngfilm} \leq \frac{2 \mathsf{w}'(\alpha)}{\mathsf{s}'(\alpha)}\}$, respectively.
 % 
 % The inequality $-\phi_t(\alpha_t) \leq 0$ 
 As a first order optimality condition,~\eqref{eq:variational_equilibrium}.2 states that the local elastic energy release is either smaller than or equal to the (marginal) cost of damage, whereas the complementarity condition $\phi_t(\alpha_t)\dot \alpha_t = 0$ ensures that the damage field evolves only if the energy release rate is critical.

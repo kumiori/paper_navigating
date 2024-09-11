@@ -6,14 +6,15 @@
 % \usepackage[english]{babel}
 
 % Bibliography management
-\usepackage[backend=biber,style=alphabetic]{biblatex}
-\addbibresource{mybibliography.bib} % Add your .bib file
+% \usepackage[backend=biber, style=alphabetic]{biblatex}
+% \addbibresource{mybibliography.bib} % Add your .bib file
 \usepackage[]{graphicx}
+
 \graphicspath{{../../images/}}
 
 \usepackage{graphbox}
 \usepackage{caption}
-\captionsetup[figure]{font=footnotesize}
+% \captionsetup[figure]{font=footnotesize}
 
 % \usepackage[draft]{graphicx}
 \usepackage[todonotes={textsize=tiny}]{changes}
@@ -22,7 +23,7 @@
 \definechangesauthor[color=blue]{OUS}
 
 \usepackage{todonotes}
-% \input{../macros}
+% \input{macros.tex}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -39,9 +40,11 @@
 \usepackage{enumitem}
 % For author and affiliation formatting
 \usepackage{authblk}
+
 \def\ep{\varepsilon}
 \def\eps{\varepsilon}
-%\usepackage[inline]{showlabels}
+
+% \usepackage[inline]{showlabels}
 % Document title, authors, and affiliations
 \title{
     % Navigating Among Local Minima via Numerical Optimization // \\ 
@@ -60,7 +63,6 @@ Navigating with Stability: Local Minima, Patterns, and Evolution in a Gradient D
 
 \maketitle
 
-
 \begin{abstract}
 In phase-field theories of brittle fracture, crack initiation, growth and path selection are investigated using non-convex energy functionals and a stability criterion. The lack of convexity with respect to the state poses difficulties to monolithic solvers that aim to solve for kinematic and internal variables, simultaneously. In this paper, we inquire into the effectiveness of quasi-Newton algorithms as an alternative to conventional Newton-Raphson solvers. These algorithms improve convergence by constructing a positive definite approximation of the Hessian, bargaining improved convergence with the risk of missing bifurcation points and stability thresholds. Our study focuses on one-dimensional phase-field fracture models of brittle thin films on  elastic foundations. Within this framework, in the absence of irreversibility constraint, we construct an equilibrium map that represents all stable and unstable equilibrium states as a function of the external load, using well-known branch-following bifurcation techniques. Our main finding is that quasi-Newton algorithms fail to select stable evolution paths without exact  second variation information. To solve this issue, we perform a spectral analysis of the full Hessian, providing optimal perturbations that enable quasi-Newton methods to follow a stable and potentially unique path for crack evolution. Finally, we discuss the stability issues and optimal perturbations in the case when the damage irreversibility is present, changing the topological structure of the set of admissible perturbations from a linear vector space to a convex cone.
 \end{abstract}
@@ -68,14 +70,39 @@ In phase-field theories of brittle fracture, crack initiation, growth and path s
 
 % \listofchanges[style=list, title=Changes]
 %\listoftodos
+
+
+\newcommand{\Estiff}{\Psi}
+\newcommand{\Ecompl}{\widetilde\Psi}
+% \newcommand{\subsu}{\bar u}
+\newcommand{\subsu}{\tilde u}
+\newcommand{\subsutest}{\tilde v}
+\newcommand{\homogdiss}{\mathsf{w}}
+\newcommand{\soften}{\mathsf{a}}
+\newcommand{\damagell}{\ell}
+\newcommand{\elastell}{\Lambda}
+\newcommand{\stiffratio}{\rho}
+\newcommand{\yhom}{y^{\text{hom}}}
+\newcommand{\stiffmat}{\mathbf{H}}
+\newcommand{\stiffmatcompl}{\widetilde{\mathbf{H}}}
+\newcommand{\Youngfilm}{\mathsf{E_{\text{2d}}}}
+\newcommand{\Youngsubs}{{\mathsf{\widetilde E_{\text{2d}}}}}
+\newcommand{\Estiffhom}{\Estiff^\text{hom}}
+\newcommand{\Ecomplhom}{\Ecompl^\text{hom}}
+\newcommand{\femstate}{\mathbf{X}}
+\newcommand{\femnewstate}{\femstate'}
+\newcommand{\femcurrentstate}{\mathbf{X^*}}
+\newcommand{\femperturb}{\mathbf{p}}
+\newcommand{\conespace}{K^+_{0}}
+
 \input{incl_intro}
 \input{incl_model}
 \input{incl_numerics}
 \input{incl_conclusion}
 
+% \cite{2020SciPy-NMeth}
+% \printbibliography % Prints the bibliography
 
-\printbibliography % Prints the bibliography
-
-% \bibliographystyle{unsrt}  % Or any other style you prefer
-% \bibliography{mybibliography}  % Reference your .bib file without the .bib extension
+\bibliographystyle{plain}  % Or any other style you prefer
+\bibliography{mybibliography}  % Reference your .bib file without the .bib extension
 \end{document}

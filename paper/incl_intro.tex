@@ -1,33 +1,5 @@
 %!TEX root = main.tex
 
-
-
-\newcommand{\Estiff}{\Psi}
-\newcommand{\Ecompl}{\widetilde\Psi}
-% \newcommand{\subsu}{\bar u}
-\newcommand{\subsu}{\tilde u}
-\newcommand{\subsutest}{\tilde v}
-\newcommand{\homogdiss}{\mathsf{w}}
-\newcommand{\soften}{\mathsf{a}}
-\newcommand{\damagell}{\ell}
-\newcommand{\elastell}{\Lambda}
-\newcommand{\stiffratio}{\rho}
-\newcommand{\yhom}{y^{\text{hom}}}
-\newcommand{\stiffmat}{\mathbf{H}}
-\newcommand{\stiffmatcompl}{\widetilde{\mathbf{H}}}
-
-
-\newcommand{\Youngfilm}{\mathsf{E_{\text{2d}}}}
-\newcommand{\Youngsubs}{{\mathsf{\widetilde E_{\text{2d}}}}}
-% \newcommand{\Youngfilm}{{ E}}
-\newcommand{\Estiffhom}{\Estiff^\text{hom}}
-\newcommand{\Ecomplhom}{\Ecompl^\text{hom}}
-\newcommand{\femstate}{\mathbf{X}}
-\newcommand{\femnewstate}{\femstate'}
-\newcommand{\femcurrentstate}{\mathbf{X^*}}
-\newcommand{\femperturb}{\mathbf{p}}
-\newcommand{\conespace}{K^+_{0}}
-
 \begin{table}[h!]
   \centering
   \begin{tabular}{  m{5.5cm}  m{3cm}  m{6cm}  }
@@ -79,14 +51,17 @@
 
 \section{Introduction}
 Numerous physical phenomena in materials science, such as crystal plasticity, phase transitions, twinning~\cite{Clayton2011-xq}, and fracture ~\cite{francfort_marigo1998,Baldelli2014-ho,Baldelli2021-gc}, can be described by non-linear energy functionals at the mesoscale. 
+% 
+% 
 % {When these systems evolve,}, equilibrium configurations are critical states the energy functional that satisfy boundary conditions and an optimality criterion. 
 The configurational variables within these energy functionals evolve under external loading, navigating equilibrium states. These states corresponds to critical points of the energy functional, satisfying both boundary conditions and an optimality criterion.
 This optimization process is achieved through incremental minimization along a loading program. Outcomes of such optimization are fields
 (e.g., displacement, strain, stress), energy components, and order parameters depending on the model considered. The corresponding microstructures are crucial to understand and improve the mechanical behavior of materials.
 
-Functionals of the type $\Psi(\mathbf u)$, non-convex in their argument  $\mathbf u$ (a displacement field) are frequently employed in theories such as quasi-continuum methods, the multi-well Landau-type theory of weak or reconstructive phase transformations , twinning, and crystal plasticity~\cite{Tadmor1996-qi,Lookman2003-gd,Conti2004-yj,Finel2010-zw,Clayton2011-xq,Salman2019-cg,Baggio2019-rs,Baggio2023-qu}. On the other hand, a second type of functionals, denoted as $\Psi(\mathbf u, \alpha)$, find application in phase-field theories. Here, the scalar phase-field variable $\alpha$ is an internal variable that elucidates the substance's state, encompassing aspects like crystal structure, symmetry, lattice orientation, \cite{Finel2010-zw,Ruffini2015-pn,Javanbakht2016-dr} or serving as a damage parameter in the variational phase-field theory of fracture ~\cite{francfort_marigo1998,Salman2021-mn}. 
 
-In both cases, one deals with the problem of finding  configurations that satisfy $\min_{\boldsymbol{u}} \Psi(\boldsymbol{u})$, $\min_{\boldsymbol{u},\alpha} \Psi(\boldsymbol{u},\alpha)$, or at least \emph{some} necessary conditionsfor energy optimality and, potentially, satisfying constraints. 
+Functionals of the type $\Psi(u)$, non-convex in their argument  $u$ (a displacement field) are frequently employed in theories such as quasi-continuum methods, the multi-well Landau-type theory of weak or reconstructive phase transformations , twinning, and crystal plasticity~\cite{Tadmor1996-qi,Lookman2003-gd,Conti2004-yj,Finel2010-zw,Clayton2011-xq,Salman2019-cg,Baggio2019-rs,Baggio2023-qu}. On the other hand, a second type of functionals, denoted as $\Psi(u, \alpha)$, find application in phase-field theories. Here, the scalar phase-field variable $\alpha$ is an internal variable that elucidates the substance's state, encompassing aspects like crystal structure, symmetry, lattice orientation, \cite{Finel2010-zw,Ruffini2015-pn,Javanbakht2016-dr} or serving as a damage parameter in the variational phase-field theory of fracture ~\cite{francfort_marigo1998,Salman2021-mn}. 
+
+In both cases, one deals with the problem of finding  configurations that satisfy $\min_{{u}} \Psi({u})$, $\min_{{u},\alpha} \Psi({u},\alpha)$, or at least \emph{some} necessary conditions for energy optimality and, potentially, satisfying constraints. 
 The multiple minima of the functionals and the multitude of equilibrium states accessible during loading spawn many possible evolution paths. One can expect that under a quasi-static loading protocol, the system navigates among metastable states which are continuous branches of equilibria. These branches can bifurcate and intersect as well as terminate at points where the state’s stability is lost.
 % \added[id=ALB]{Thus, whether smooth or sudden, transitions lead the system to a new equilibrium state.}
 At an instability threshold, the system restabilizes in a dissipative manner through a state transition, whether smoothly or suddenly.

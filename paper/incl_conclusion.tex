@@ -6,15 +6,6 @@
     Capturing branch switching phenomena across stability transitions is not an automatic feature of approximate numerical methods. If they rely on approximate information about the Hessian of the energy functional, these methods do not guarantee to systematically detect transitions between critical equilbrium states, when stability is lost. 
 Indeed, this requires a careful determination of the zero-eigenmodes that render singular the exact nonlinear Hessian, which is typically not available in general purpose first order numerical algorithms.
 In practice, without such information, critical loads for equilibrium transitions become algorithm-dependant and are not consistent with closed-form solutions of the exact evolution problem.
-% }
-% 
-% -------
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics*[width=.7\textwidth]{../images/irreversibility_inf_eig.png}
-%     \caption{\footnotesize{ \textcolor{blue}{LABELS ON AXIS} Stability of the homogeneous solution in the first model on (a) the linear space and (b) on convex cone $K^+_0$. When the irreversibility constraint is present, the homogeneous solution is stable for any value of the loading parameter $\bar\epsilon$.}}
-%     \label{fig:shouldnt}
-% \end{figure}
 
 
 Our evidence is that certain numerical methods can introduce non-physical artifacts which should be distinguished from genuine physical phenomena. Our ongoing work aims to refine numerical techniques to provide more reliable algorithms for analysing irreversible processes in variational evolutionary problems with multiple local minima and a high number of degrees of freedom.
@@ -28,7 +19,7 @@ If only physical factors are considered, an energetic selection mechanism is alr
 
 We present two main options for discussing these considerations in view of the importance of using accurate and robust algorithms in real scenarios.
 
-\begin{itemize}
+\begin{enumerate}
     \item 
     Ignore the Numerical Artifact: focussing solely on first order considerations and acknowledging that the observed computed nucleations may be purely numerical and should not be considered in physical terms.
     \item 
@@ -36,7 +27,7 @@ We present two main options for discussing these considerations in view of the i
     the sensitivity to numerical parameters (artifacts, in the quasi-Newton approach) and the abundance of admissible solutions (in the nonconvex scenario), or
     \item 
     Otherwise.
-\end{itemize}
+\end{enumerate}
 
 Suggesting that state transitions in complex scenarios should be carefully interpreted, the connection between observability and stability is functional to understanding real patterns that emerge, e.g., in higher dimensions or in other physical systems.
 
