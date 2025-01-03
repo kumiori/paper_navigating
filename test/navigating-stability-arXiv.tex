@@ -4,18 +4,15 @@
 %
 \usepackage[utf8]{inputenc}
 %
-
 %
-%
-%
+\usepackage[backend=biber,style=alphabetic]{biblatex}
+\addbibresource{../mybibliography.bib} %
 \usepackage[]{graphicx}
-
-\graphicspath{{images/}}
+\graphicspath{{../../images/}}
 
 \usepackage{graphbox}
 \usepackage{caption}
-%
-
+\captionsetup[figure]{font=footnotesize}
 %
 \usepackage[todonotes={textsize=tiny}]{changes}
 %
@@ -40,10 +37,8 @@
 \usepackage{enumitem}
 %
 \usepackage{authblk}
-
 \def\ep{\varepsilon}
 \def\eps{\varepsilon}
-
 %
 %
 \title{
@@ -63,6 +58,7 @@ Navigating with Stability: Local Minima, Patterns, and Evolution in a Gradient D
 
 \maketitle
 
+
 \begin{abstract}
 In phase-field theories of brittle fracture, crack initiation, growth and path selection are investigated using non-convex energy functionals and a stability criterion. The lack of convexity with respect to the state poses difficulties to monolithic solvers that aim to solve for kinematic and internal variables, simultaneously. In this paper, we inquire into the effectiveness of quasi-Newton algorithms as an alternative to conventional Newton-Raphson solvers. These algorithms improve convergence by constructing a positive definite approximation of the Hessian, bargaining improved convergence with the risk of missing bifurcation points and stability thresholds. Our study focuses on one-dimensional phase-field fracture models of brittle thin films on  elastic foundations. Within this framework, in the absence of irreversibility constraint, we construct an equilibrium map that represents all stable and unstable equilibrium states as a function of the external load, using well-known branch-following bifurcation techniques. Our main finding is that quasi-Newton algorithms fail to select stable evolution paths without exact  second variation information. To solve this issue, we perform a spectral analysis of the full Hessian, providing optimal perturbations that enable quasi-Newton methods to follow a stable and potentially unique path for crack evolution. Finally, we discuss the stability issues and optimal perturbations in the case when the damage irreversibility is present, changing the topological structure of the set of admissible perturbations from a linear vector space to a convex cone.
 \end{abstract}
@@ -70,6 +66,9 @@ In phase-field theories of brittle fracture, crack initiation, growth and path s
 
 %
 %
+%
+%
+
 
 
 \newcommand{\Estiff}{\Psi}
@@ -85,8 +84,11 @@ In phase-field theories of brittle fracture, crack initiation, growth and path s
 \newcommand{\yhom}{y^{\text{hom}}}
 \newcommand{\stiffmat}{\mathbf{H}}
 \newcommand{\stiffmatcompl}{\widetilde{\mathbf{H}}}
+
+
 \newcommand{\Youngfilm}{\mathsf{E_{\text{2d}}}}
 \newcommand{\Youngsubs}{{\mathsf{\widetilde E_{\text{2d}}}}}
+%
 \newcommand{\Estiffhom}{\Estiff^\text{hom}}
 \newcommand{\Ecomplhom}{\Ecompl^\text{hom}}
 \newcommand{\femstate}{\mathbf{X}}
@@ -94,9 +96,6 @@ In phase-field theories of brittle fracture, crack initiation, growth and path s
 \newcommand{\femcurrentstate}{\mathbf{X^*}}
 \newcommand{\femperturb}{\mathbf{p}}
 \newcommand{\conespace}{K^+_{0}}
-
-%
-%
 
 \begin{table}[h!]
   \centering
@@ -150,16 +149,13 @@ In phase-field theories of brittle fracture, crack initiation, growth and path s
 \section{Introduction}
 Numerous physical phenomena in materials science, such as crystal plasticity, phase transitions, twinning~\cite{Clayton2011-xq}, and fracture ~\cite{francfort_marigo1998,Baldelli2014-ho,Baldelli2021-gc}, can be described by non-linear energy functionals at the mesoscale. 
 %
-%
-%
 The configurational variables within these energy functionals evolve under external loading, navigating equilibrium states. These states corresponds to critical points of the energy functional, satisfying both boundary conditions and an optimality criterion.
 This optimization process is achieved through incremental minimization along a loading program. Outcomes of such optimization are fields
 (e.g., displacement, strain, stress), energy components, and order parameters depending on the model considered. The corresponding microstructures are crucial to understand and improve the mechanical behavior of materials.
 
+Functionals of the type $\Psi(\mathbf u)$, non-convex in their argument  $\mathbf u$ (a displacement field) are frequently employed in theories such as quasi-continuum methods, the multi-well Landau-type theory of weak or reconstructive phase transformations , twinning, and crystal plasticity~\cite{Tadmor1996-qi,Lookman2003-gd,Conti2004-yj,Finel2010-zw,Clayton2011-xq,Salman2019-cg,Baggio2019-rs,Baggio2023-qu}. On the other hand, a second type of functionals, denoted as $\Psi(\mathbf u, \alpha)$, find application in phase-field theories. Here, the scalar phase-field variable $\alpha$ is an internal variable that elucidates the substance's state, encompassing aspects like crystal structure, symmetry, lattice orientation, \cite{Finel2010-zw,Ruffini2015-pn,Javanbakht2016-dr} or serving as a damage parameter in the variational phase-field theory of fracture ~\cite{francfort_marigo1998,Salman2021-mn}. 
 
-Functionals of the type $\Psi(u)$, non-convex in their argument  $u$ (a displacement field) are frequently employed in theories such as quasi-continuum methods, the multi-well Landau-type theory of weak or reconstructive phase transformations, twinning, and crystal plasticity~\cite{Tadmor1996-qi,Lookman2003-gd,Conti2004-yj,Finel2010-zw,Clayton2011-xq,Salman2019-cg,Baggio2019-rs,Baggio2023-qu}. On the other hand, a second type of functionals, denoted as $\Psi(u, \alpha)$, find application in phase-field theories. Here, the scalar phase-field variable $\alpha$ is an internal variable that elucidates the substance's state, encompassing aspects like crystal structure, symmetry, lattice orientation, \cite{Finel2010-zw,Ruffini2015-pn,Javanbakht2016-dr} or serving as a damage parameter in the variational phase-field theory of fracture ~\cite{francfort_marigo1998,Salman2021-mn}. 
-
-In both cases, one deals with the problem of finding  configurations that satisfy $\min_{{u}} \Psi({u})$, $\min_{{u},\alpha} \Psi({u},\alpha)$, or at least \emph{some} necessary conditions for energy optimality and, potentially, satisfying constraints. 
+In both cases, one deals with the problem of finding  configurations that satisfy $\min_{\boldsymbol{u}} \Psi(\boldsymbol{u})$, $\min_{\boldsymbol{u},\alpha} \Psi(\boldsymbol{u},\alpha)$, or at least \emph{some} necessary conditionsfor energy optimality and, potentially, satisfying constraints. 
 The multiple minima of the functionals and the multitude of equilibrium states accessible during loading spawn many possible evolution paths. One can expect that under a quasi-static loading protocol, the system navigates among metastable states which are continuous branches of equilibria. These branches can bifurcate and intersect as well as terminate at points where the state’s stability is lost.
 %
 At an instability threshold, the system restabilizes in a dissipative manner through a state transition, whether smoothly or suddenly.
@@ -185,7 +181,7 @@ The absence of analytical solutions in strongly non-linear settings requires res
 %
 
 The fracture phenomenon of thin films bonded to substrates unveils a myriad of complex crack patterns, as evidenced by numerical studies \cite{Baldelli2014-ho,Alessi2019-bx,Hu2020-nt,Salman2021-mn,Baldelli2021-gc}, resembling those observed in natural contexts such as sand or dried mud \cite{Goehring2010-xz}, and even in biological structures like animal skin \cite{Qin2014-wz} and bark~\cite{chattaway:1955, shen:2020}. These observations hold particular relevance in the domain of stretchable and flexible electronics \cite{Faurie2019-to,Godard2022-ss} including  self-healing metal thin films on a flexible substrates \cite{Trost2024-ca}. 
-Within this study, centered on the numerical computation of evolutionary solutions for phase-field fracture models, we consider two one-dimensional phase-field fracture models of a brittle membrane on two types of substrates: one stiff, one compliant. The first model describes a brittle thin film deposited on a stiff (rigid) substrate, while the second model involves a compliant yet unbreakable substrate that can undergo non-uniform deformations. The finite stiffness of the substrate in the second scenario leads to nontrivial qualitative differences in terms of uniqueness of the evolution path, associated with  the loss of stability of the unfractured solution~\cite{Baldelli2014-ho,Kuhn2015-rt,Baldelli2021-gc,Harandi2023-cd,zolesi:2024}.
+Within this study, centered on the numerical computation of evolutionary solutions for phase-field fracture models, we consider two one-dimensional phase-field fracture models of a brittle membrane on two types of substrates: one stiff, one compliant. The first model describes a brittle thin film deposited on a stiff (rigid) substrate, while the second model involves a compliant yet unbreakable substrate that can undergo non-uniform deformations. The finite stiffness of the substrate in the second scenario leads to nontrivial qualitative differences in terms of uniqueness of the evolution path, associated with  the loss of stability of the unfractured solution~\cite{Baldelli2014-ho,Kuhn2015-rt,Baldelli2021-gc,Harandi2023-cd}.
 
 
 Despite the one-dimensional setting we adopt here which allows for analytical predictions, these models reveal a complex landscape of equilibrium states with multiple local minima.
@@ -272,12 +268,12 @@ The state of this structure is identified by the triplet $y:=(u, \alpha, v)$, an
     \label{def:energy_compliant}
     \Ecompl(\alpha, u,  v) = \int_{0}^1 \left[ \frac{1}{2} \ \soften(\alpha)(u')^2 + \homogdiss(\alpha) + \frac{\damagell^2}{2}(\alpha')^2 
     + \frac{1}{2 \elastell^2} (u- v)^2 
-    + \frac{\stiffratio}{2}  (v')^2 \right] dx.
+    + \frac{\stiffratio}{2}  (v')^2 \right] dx,
 \end{equation}
+
+
 %
-%
-%
-%
+
 Nondimensional constants appearing in the expression of the energies can be related the three-dimensional parameters of a phyisical mechanical system by an appropriate de-scaling, remarking that the reduced elastic model~\eqref{def:energy_stiff} can be obtained as an asymptotic limit starting from a thin multilayer system in 3d elasticity, as shown in~\cite{Leon_Baldelli2015-rp} .
 %
 Thus, denoting by $\mathsf{E_\text{2d}}$ the two-dimensional stiffness of the thin film membrane (per unit depth), and by a tilde the stiffness and thickness of the substrate, the nondimensional quantities appearing in the expression of the energy depend on the geometric the elastic properties of the system as follows
@@ -328,6 +324,7 @@ For brevity, we denote by $y:=(u, \alpha)$ (and $y:=(u, \alpha, v)$) the mechani
 
 
 \paragraph{Evolutionary model}
+\label{sec:stability}
 
 Assuming small enough loading rates, 
 the evolution problem of the structure can be cast in an energetic variational formulation as an incremental rate-indipendent quasi-static process driven by an energy-minimality principle.
@@ -371,7 +368,7 @@ Admissible perturbations in the fully reversible case they belong to the linear 
 
 An energy expansion in the vicinity the state $y_t$ reads
 $$
-\Estiff(y)-\Estiff(y_t)= \delta\Estiff(y_t)(y-y_t)+\frac{1}{2}(y-y_t)^T \delta^2\Estiff(y_t)(y-y_t)+o(\|y-y_t\|^2),
+\Estiff(y)-\Estiff(y_t)= \delta\Estiff(y_t)(y-y_t)+\frac{1}{2}(y-y_t)^T \delta^2\Estiff(y_t)(y-y_t)+o(\|y-y_t\|^2)
     \label{eqn:energy-expansion}
 $$
 %
@@ -430,7 +427,7 @@ By using standard arguments of the calculus of variations, localizing the integr
 \begin{cases}
   2(1-\alpha)\alpha' u' +(1-\alpha)^2 u'' -  \frac{1}{\elastell^2}(u-\subsu) &= 0, \quad {x\in (0, 1)}\\
   -\damagell^2\alpha'' - (1-\alpha)( u')^2 + 2\alpha   &= 0, \quad {x\in (0, 1)}
-\end{cases}.
+\end{cases}
 \label{auto1}
 \end{eqnarray}
 %
@@ -446,7 +443,7 @@ Notice that,
 first order conditions identify the the critical load threshold that activates the damaging process. The quantity $\bar\epsilon_*^c$, the value of the load for which the undamaged elastic state becomes unstable, is determined injecting the elastic solution $u_h$ in the energy and computing $\delta \Estiff(u_h, 0)(0, \beta)=0$.
 According to our mechanical energy model, the critical load is given by
 \begin{equation}
-    {{{\bar{\epsilon}^c}_*}} = \sqrt{2\frac{\homogdiss'(0)}{\soften'(0)}},
+    {{{\bar{\epsilon}^c}_*}} = \sqrt{2\frac{\homogdiss'(0)}{\soften'(0)}} 
 \end{equation}
 %
 %
@@ -468,13 +465,12 @@ To assess the incremental stability of the homogeneous solution in the reversibl
 +\frac{1}{\elastell^2} v^2 \right]dx
 %
 +\int_0^1
-\left[ - 4(1-\alpha)u' v'\beta+(2+ u'^2)v^2+\damagell^2\beta'^2 \right] dx, 
+\left[ - 4(1-\alpha)u' v'\beta+(2+ u'^2)w^2+\damagell^2\beta'^2 \right] dx, 
 \label{hessian22}
 \end{equation}
 %
 which is well defined for perturbations $(v, \beta)\in X_0$.
-{We} extract information on the onset of instability  seeking a solution in Fourier series of the fields $v$ and $\beta$ in \eqref{hessian22}, such that $$v(x)=\sum_{n=1}^{\infty} a_{n} \sin \left(n \pi x+\phi_{n}\right), \quad \beta(x)=\sum_{n=1}^{\infty} b_{n} \cos \left(n \pi x+\psi_{n}\right).$$
-Then we observe that, thanks to boundary conditions, $\psi_{n}=\phi_{n}=0$ for all natural $n$. The stability condition~\eqref{eqn:linear_second_order_stability}  takes the form:
+{We} extract information on the onset of instability  seeking a solution in Fourier series of the fields $v$ and $\beta$ in \eqref{hessian22}, such that $$v(x)=\sum_{n=1}^{\infty} a_{n} \sin \left(n \pi x+\phi_{n}\right), \quad \beta(x)=\sum_{n=1}^{\infty} b_{n} \cos \left(n \pi x+\psi_{n}\right)$$. Then, we observe that, thanks to boundary conditions, $\psi_{n}=\phi_{n}=0$ for all natural $n$. The stability condition~\eqref{eqn:linear_second_order_stability}  takes the form:
 \begin{align}\left[ a_n \quad b_n \right] \mathcal{H} \left[ \begin{array}{c} a_n \\ b_n \end{array} \right]=\left[ a_n \quad b_n \right]\left(
 \begin{array}{cc}
 \soften(\alpha)(n\pi)^2+\elastell^{-2}  & \frac{\partial \soften}{\partial \alpha}\bar\epsilon(n\pi)  \\
@@ -485,11 +481,11 @@ Then we observe that, thanks to boundary conditions, $\psi_{n}=\phi_{n}=0$ for a
 By substituting the homogeneous solution $\alpha_h$ into \eqref{hessian1}, we compute $\det \mathcal{H}$ as a function of $\bar \epsilon$ and $n$, which is depicted in Figure~\ref{fig:hessian1}. The calculations are performed for the parameter values $\damagell=0.16$ and $\elastell=0.34$.
     %
 The figure represents, for a given load $\bar \epsilon$, the wave number $n(\bar \epsilon)\in \mathbb N$ of possible energy-decreasing damage bifurcations. For an increasing loading history $\bar \epsilon_t\nearrow$, the wave number is non-monotonic.
-In Fig. \ref{fig:hessian1}(a), the locus $\det \mathcal H=0$ forms closed loops, indicative of an elastic background's influence. Notably, a re-entry behavior of the affine configuration  (i.e., the homogeneous configuration re-stabilizes at large deformation) is discernible, marked by the emergence of two critical strains denoted as $\bar\epsilon^*$ and $\bar\epsilon^{**}$ (with $\bar\epsilon^* < \bar\epsilon^{**}$), representing the lower and upper stability limits for the homogeneous state. These critical points are highlighted by red and green dots in Fig. \ref{fig:hessian1}(a). The critical wave number $n_c$ for the lower limit $n_c(\bar{\epsilon}^*)$    differs from the critical wave number for  upper limit $n_c(\bar{\epsilon}^{**})$. Finally, we remark that closed-form analytical solutions can be provided for the critical wave number and critical strains and the parametric dependence of the corresponding bifurcation thresholds can be obtained, as detailed in \cite{Salman2021-mn}.
+In Fig. \ref{fig:hessian1}(a), the locus $\det \mathcal H=0$ forms closed loops, indicative of an elastic background's influence\comment[id=ALB]{Expand}. Notably, a re-entry behavior of the affine configuration is discernible, marked by the emergence of two critical strains denoted as $\bar\epsilon^*$ and $\bar\epsilon^{**}$ (with $\bar\epsilon^* < \bar\epsilon^{**}$), representing the lower and upper stability limits for the homogeneous state. These critical points are highlighted by red and green dots in Fig. \ref{fig:hessian1}(a). The critical wave number $n_c$ for the lower limit $n_c(\bar{\epsilon}^*)$    differs from the critical wave number for  upper limit $n_c(\bar{\epsilon}^{**})$. Finally, we remark that closed-form analytical solutions can be provided for the critical wave number and critical strains and the parametric dependence of the corresponding bifurcation thresholds can be obtained, as detailed in \cite{Salman2021-mn}.
 
 \begin{figure}
      \centering
-        \begin{overpic}[width=\linewidth]{images/hessian-models.pdf}
+        \begin{overpic}[width=\linewidth]{../images/hessian-models.pdf}
         %
         \put(33, 35){\textcolor{white}{$\bar \epsilon^{**}$}} %
         \put(88, 35){\textcolor{white}{$\bar \epsilon^{**}$}} %
@@ -535,8 +531,8 @@ We once more seek the linear incremental stability of an equilibrium configurati
 We again proceed to extract information on the onset of instability expanding in Fourier series the fields $v$, $\beta$ and $\subsutest$ appearing in \eqref{hessian222} such that 
 \[
 v(x) = \sum_{n=1}^{\infty} a_{n} \sin \left(n \pi x + \phi_{n}\right),
-\quad\beta(x) = \sum_{n=1}^{\infty} b_{n} \cos \left(n \pi x + \psi_{n}\right),
-\quad\subsutest(x) = \sum_{n=1}^{\infty} c_{n} \sin \left(n \pi x + \theta_{n}\right).
+\quad \beta(x) = \sum_{n=1}^{\infty} b_{n} \cos \left(n \pi x + \psi_{n}\right),
+\quad \subsutest(x) = \sum_{n=1}^{\infty} c_{n} \sin \left(n \pi x + \theta_{n}\right).
 \]
 
 Similar to the previous section we claim that, whenever the first order term vanishes, the system is stable only if $\delta^2 \Ecompl
@@ -552,7 +548,7 @@ Similar to the previous section we claim that, whenever the first order term van
  -\elastell^{-2} & 0 & \elastell^{-2} +\stiffratio (n\pi)^2\\
 \end{array}
 \right)\left[ \begin{array}{c} a_n \\ b_n \\c_n \end{array} \right]>0.\label{hessian3}\end{align}
-By substituting the homogeneous solution $\alpha_h$ into \eqref{hessian3}, we compute $\det \mathcal{H}$, as depicted  in Fig. \ref{fig:hessian1}(b). The calculations are performed for the parameter values $\damagell=0.16$, $\elastell=0.34$ and $\rho=0.5$.  In Fig. \ref{fig:hessian1}(b), we again observe the formation of closed loops and a re-entry behavior of the affine configuration is discernible. This is marked by the emergence of two critical strains denoted as $\bar\epsilon^*$ and $\bar\epsilon^{**}$, representing the lower and upper stability limits for the homogeneous state. These critical points are highlighted by red and green dots in Fig. \ref{fig:hessian1}(b). The critical wave number $n_c$ for the lower limit $n_c(\bar{\epsilon}^*)$    differs from the critical wave number for the upper limit $n_c(\bar{\epsilon}^{**})$. The overall behavior of the system remains the same while the first critical wave number $n_c=2$ is now smaller suggesting a different number of cracks will appear during the loading history.
+By substituting the homogeneous solution $\alpha_h$ into \eqref{hessian3}, we compute $\det \mathcal{H}$, as depicted  in Fig. \ref{fig:hessian1}(b). The calculations are performed for the parameter values $\damagell=0.16$, $\elastell=0.34$ and $\rho=0.5$.  In Fig. \ref{fig:hessian1}(b), we again observe the formation of closed loops and a re-entry behavior of the affine configuration is discernible  (i.e., the homogeneous configuration re-stabilizes at large deformation). This is marked by the emergence of two critical strains denoted as $\bar\epsilon^*$ and $\bar\epsilon^{**}$, representing the lower and upper stability limits for the homogeneous state. These critical points are highlighted by red and green dots in Fig. \ref{fig:hessian1}(b). The critical wave number $n_c$ for the lower limit $n_c(\bar{\epsilon}^*)$    differs from the critical wave number for the upper limit $n_c(\bar{\epsilon}^{**})$. The overall behavior of the system remains the same while the first critical wave number $n_c=2$ is now smaller suggesting a different number of cracks will appear during the loading history.
 
 
 
@@ -568,7 +564,9 @@ Because the current state can only be compared to those of with equal or higher 
 Equilibrium states $y_t=(u_t, \alpha_t)$ of the irreversible system, are hence governed by the following (first order) necessary optimality conditions taking the form of a variational inequality
 \begin{equation}
     \label{eq:eq_variational_inequality_full}
-    \delta \Estiff(y_t)(y-y_t) \geq 0, \quad \forall y-y_t \in K^+_0,
+    \delta \Estiff(y_t)(y-y_t) \geq 0, \quad \forall y-y_t \in K^+_0.
+    %
+    %
 \end{equation}
 %
 which has to hold for all admissible competitor states $y$ such that $v-u_t \in H^1_0(0, 1)$ and $\beta-\alpha_t\in H^1(0,1)$ with $\beta \geq \alpha_t$.
@@ -608,8 +606,8 @@ Explicitly, the function $\phi_t$ depends on the brittle material model and is d
 \end{equation}
 where $\epsilon$ is the elastic strain and $\soften'(\alpha)$ and $\homogdiss'(\alpha)$ are the derivatives of the softening and dissipation energy densities with respect to the damage variable.
 The inequality ~\eqref{eq:variational_equilibrium}.2 identifies the domains of admissible strains (and, by duality, of stresses) for homogeneous solutions as
-$\mathcal{R}(\alpha):=\{\epsilon\in R^{2\times 2}_{sym}: \Youngfilm \epsilon^2 \leq -\frac{2 \mathsf{w}'(\alpha)}{\mathsf{a}'(\alpha)}\},$ and $
-\mathcal{R}^*(\alpha):=\{\sigma\in R^{2\times 2}_{sym}: \frac{\sigma^2}{\Youngfilm} \leq \frac{2 \mathsf{w}'(\alpha)}{\mathsf{s}'(\alpha)}\}$, respectively.
+$\mathcal{R}(\alpha):=\{epsilon: \Youngfilm \epsilon^2 \leq -\frac{2 \mathsf{w}'(\alpha)}{\mathsf{a}'(\alpha)}\},$ and $
+\mathcal{R}^*(\alpha):=\{\sigma: \frac{\sigma^2}{\Youngfilm} \leq \frac{2 \mathsf{w}'(\alpha)}{\mathsf{s}'(\alpha)}\}$, respectively.
 %
 %
 As a first order optimality condition,~\eqref{eq:variational_equilibrium}.2 states that the local elastic energy release is either smaller than or equal to the (marginal) cost of damage, whereas the complementarity condition $\phi_t(\alpha_t)\dot \alpha_t = 0$ ensures that the damage field evolves only if the energy release rate is critical.
@@ -709,8 +707,8 @@ To find the equilibrium branches we make use of a pseudo-arclength continuation 
 \centering
     \hspace*{-.3cm}
 %
-\includegraphics[align=c, width=.6\textwidth]{images/model_stiff_energy.pdf}
-\includegraphics[align=c, width=.4\textwidth]{images/model_stiff_fields.pdf}
+\includegraphics[align=c, width=.6\textwidth]{../images/model_stiff_energy.pdf}
+\includegraphics[align=c, width=.4\textwidth]{../images/model_stiff_fields.pdf}
     \caption{
 %
 Equilibrium branches for phase-field thin film model of an elastic membrane on a compliant elastic foundation. Left, the energy difference $\Delta \Estiff$ between the current and the homogeneous configurations, for the same load. Stability of solutions is color-coded: blue denotes stability while orange indicates instability, by numerical evaluation of the smallest eigenvalue of the stiffness matrix $\stiffmat$. Equilibrium branches are parametrised by an integer $n$ and rrows indicate branch switching events associated with the loss of stability; Right, damage and strain profiles of the minimum energy configurations on each branch.}
@@ -772,8 +770,8 @@ This strategy must ensure the system's re-stabilization following an instability
     \centering
     \hspace*{-.3cm}
 %
-\includegraphics[align=c,width=.6\textwidth]{images/model_compliant_energy.pdf}
-\includegraphics[align=c,width=.4\textwidth]{images/model_compliant_fields.pdf}
+\includegraphics[align=c,width=.6\textwidth]{../images/model_compliant_energy.pdf}
+\includegraphics[align=c,width=.4\textwidth]{../images/model_compliant_fields.pdf}
 \caption{
 %
 %
@@ -791,13 +789,13 @@ $\bar\epsilon^c_1$, identified using linear stability analysis, see Figure~\ref{
 
 When the loading parameter $\bar{\epsilon}_t$ is further increased, the equilibrium configuration with $n=3$ loses linear stability at point $A'$. In Fig. \ref{fig:branches-stiff} we represent state transitions according to the LEM protocol by arrows. It can be observed that under this protocol, the only available transition from point $A'$ is to the branch with $n=4$, which is locally stable within at the corresponding applied strain $\bar{\epsilon}_2$. The minimum energy configuration on the branch with $n=4$ is depicted in Fig.~\ref{fig:branches-stiff}-right at point $B$, consisting of two cracks: one inside the domain and two on the right and left boundaries.
 
-Further increasing the load, the stability of the branch with $n=4$ is lost at point $B'$, a single available transition leads the system to the branch with $n=5$. While the branch with $n=6$ appears accessible due to its lower energy compared to the current state, it is unstable at the current value of $\bar\epsilon_3$. The lowest energy configurations on the branches with $n=5$ and $n=6$ are illustrated in Fig.~\ref{fig:branches-stiff}(right). Increasing the load along the branch with $n=5$ which loses linear stability at point $C'$, a branch switching event occurs towards the branch with $n=7$, the corresponding minimum energy configuration on this branch is depicted in Fig.~\ref{fig:branches-stiff}(right). Finally, this branch reconnects to the homogeneous branch with $n=0$ at point $F$. Remark that, in the case of a stiff substrate, the LEM protocol identifies a unique evolution path, with the system having a single bifurcation option, or available branch, at each instability point.
+Further increasing the load, the stability of the branch with $n=4$ is lost at point $B'$, a single available transition leads the system to the branch with $n=5$. While the branch with $n=6$ appears accessible due to its lower energy compared to the current state, it is unstable at the current value of $\bar\epsilon_3$. The lowest energy configurations on the branches with $n=5$ and $n=6$ are illustrated in Fig.~\ref{fig:branches-stiff}-(right). Increasing the load along the branch with $n=5$ which loses linear stability at point $C'$, a branch switching event occurs towards the branch with $n=7$, the corresponding minimum energy configuration on this branch is depicted in Fig.~\ref{fig:branches-stiff}(b). Finally, this branch reconnects to the homogeneous branch with $n=0$ at point $F$. Remark that, in the case of a stiff substrate, the LEM protocol identifies a unique evolution path, with the system having a single bifurcation option, or available branch, at each instability point.
 
 For the compliant substrate model, the equilibrium branches that solve the nonlinear equations (Eq.~\ref{auto2}) are shown in Fig.~\ref{fig:branches-compliant}. 
 We again plot the energy difference $\Delta \widetilde\Psi$ between the energy of the current solution and the energy of the homogeneous solution $\Estiffhom (\bar{\epsilon})$ at the current value of the loading parameter $\bar\epsilon$. 
 The stability of solutions is color coded (light blue indicates \emph{stable} states, orange identifies \emph{unstable} states), the stability marker being given by the numerical evaluation of the smallest eigenvalue of the stiffness matrix $\stiffmatcompl$, defined in \eqref{eq:stifness2}.
 
-According to the LEM protocol with a loading history starting in the unloaded and sound configuration, the initial transition from the trivial solution to the only available branch with $n=2$ occurs at $\bar \epsilon_1$, marked as point $H$. As illustrated in Fig. \ref{fig:branches-compliant}(right), the damage and strain profiles of the lowest energy configuration at point $A$ is characterised by two boundary cracks. As the loading increases, the system persists on the $n=2$ branch until point $A'$ which marks an instability. The system can now access two equilibrium branches: $n=3$ and $n=4$ shown in gray and black arrows. Fig. \ref{fig:branches-compliant}(right) shows the typical damage and strain profiles on these branches. Branches $n=3$ and $n=4$ feature one bulk crack plus one boundary crack, and one bulk crack plus two boundary cracks, respectively. 
+According to the LEM protocol with a loading history starting in the unloaded and sound configuration, the initial transition from the trivial solution to the only available branch with $n=2$ occurs at $\bar \epsilon_1$, marked as point $H$. As illustrated in Fig. \ref{fig:branches-compliant}(b), the damage and strain profiles of the lowest energy configuration at point $A$ is characterised by two boundary cracks. As the loading increases, the system persists on the $n=2$ branch until point $A'$ which marks an instability. The system can now access two equilibrium branches: $n=3$ and $n=4$ shown in gray and black arrows. Fig. \ref{fig:branches-compliant}(b) shows the typical damage and strain profiles on these branches. Branches $n=3$ and $n=4$ feature one bulk crack plus one boundary crack, and one bulk crack plus two boundary cracks, respectively. 
 
 The choice of the subsequent branch transition at point $A'$ will dictate the ensuing crack growth. On branches with $n=3$ and $n=4$, at the instability points $B'$ and $C'$, the system will once again encounter two available equilibrium branches. From $n=3$ branch  at point $B'$, the system can transition to either the $n=4$ or $n=5$ branch. Opting for the $n=4$ branch, the subsequent branch selection occurs at point $C'$, offering branches with $n=6$ or $n=5$. Notably, the $n=5$ branch smoothly reconnects with the trivial solution at point $F$. However, the $n=6$ branch experiences another instability at point $D'$ before rejoining the trivial solution. 
 
@@ -813,8 +811,8 @@ Our primary objective is not to provide a comprehensive assessment of quasi-Newt
     \centering
     \hspace*{-.3cm}
 %
-\includegraphics[width=.6\textwidth]{images/model_stiff_energy_kick.pdf}
-\includegraphics[width=.4\textwidth]{images/model_stiff_profiles.pdf}
+\includegraphics[width=.6\textwidth]{../images/model_stiff_energy_kick.pdf}
+\includegraphics[width=.4\textwidth]{../images/model_stiff_profiles.pdf}
     \caption{
 %
 Stiff substrate. Quasi-static loading simulations with L-BFGS: (a) the energy difference $\Delta \Estiff$, between the quasi-Newton solutions and the homogeneous solutions are superimposed onto equilibrium branches (light blue: stable; orange: unstable). Bottom, the smallest eigenvalue $\lambda_t$ of the second variation $\Estiff''$ as a function of the loading parameter $\bar\epsilon$. In red, indicated the unstable region $\lambda_t<0$, where the equilibrium solution returned by the solver does not satisfy the evolution law; Right, damage profiles referring to the transition endstates.}
@@ -857,10 +855,10 @@ Among quasi-Newton schemes, the L-BFGS method is widely regarded as one of the m
 \begin{figure}
     \centering
     \hspace*{-.3cm}
-    \includegraphics[width=.6\textwidth]{images/model_compliant_energy_kick.pdf}
-    \includegraphics[width=.4\textwidth]{images/model_compliant_profiles.pdf}
+    \includegraphics[width=.6\textwidth]{../images/model_compliant_energy_kick.pdf}
+    \includegraphics[width=.4\textwidth]{../images/model_compliant_profiles.pdf}
     \caption{
-        Compliant substrate. Quasi-static loading simulations with L-BFGS: (a) the energy difference $\Delta \Ecompl$, between the quasi-Newton solutions and the homogeneous solutions are superimposed onto equilibrium branches (light blue: stable; orange: unstable). Bottom, the smallest eigenvalue $\lambda_t$ of the second variation $\Ecompl''$ as a function of the loading parameter $\bar\epsilon$. In red, indicated the unstable region $\lambda_t<0$ for the equilibrium solution; Right, damage profiles referring to the transition endstates.}
+        Compliant substrate. Quasi-static loading simulations with L-BFGS: (a) the energy difference $\Delta E$, between the quasi-Newton solutions and the homogeneous solutions are superimposed onto equilibrium branches (light blue: stable; orange: unstable). Bottom, the smallest eigenvalue $\lambda_t$ of the second variation $\Ecompl''$ as a function of the loading parameter $\bar\epsilon$. In red, indicated the unstable region $\lambda_t<0$ for the equilibrium solution; Right, damage profiles referring to the transition endstates.}
     \label{fig:tempo2}
 \end{figure}
 
@@ -872,8 +870,8 @@ The following results were obtained using the Alglib library~\cite{Bochkanov2013
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics*[align=c,width=.45\textwidth]{images/model_stiff_kick_profiles-1.pdf}
-    \includegraphics*[align=c,width=.45\textwidth]{images/model_compliant_kick_profiles-1.pdf}
+    \includegraphics*[align=c,width=.45\textwidth]{../images/model_stiff_kick_profiles.png}
+    \includegraphics*[align=c,width=.45\textwidth]{../images/model_compliant_kick_profiles.png}
     \caption{
         Profiles of damage fields and perturbations showing the effect of the kick algorithm in state transitions (from unstable to stable). Branch switching events correspond to load values indicated by $\bar \epsilon_i$ with $i\in \mathbb N$ in {Fig.~\ref{fig:tempo1} and ~\ref{fig:tempo2}}. The stiff substrate model is in the left column, the compliant substrate model on the right and  the light (orange) line indicates the unstable damage field $\alpha^*$, the eigenvector associated with  the smallest eigenvalue, $p$, is displayed in green highlighting its positive and negative values. The dashed line represents the perturbed damage field  $\alpha^*+p$ used as initial guess for the state transition, the solid black line displays the solution $\alpha_t$ returned after first-order convergence.}
     \label{fig:kick}
@@ -882,15 +880,15 @@ The following results were obtained using the Alglib library~\cite{Bochkanov2013
 
 In Figure \ref{fig:tempo1}, we present the results of our numerical experiments, overlaying solutions obtained with the quasi-Newton algorithm onto the equilibrium map determined using the pseudo-arclength continuation method described in the previous section. Fig. \ref{fig:tempo1}-bottom shows the smallest eigenvalue $\lambda_t$ whose positivity informs on the stability of the solution. All the branch switching events are delayed in the sense they do not take place when the smallest eigenvalue of the second variation vanishes but only beyond the loads corresponding to the eigenvalue's sign transition. Notably, the expected first branch switching event—from the {homogeneous} solution to the branch with \(n=3\) as outlined in the LEM protocol—did not occur at point $H$ as anticipated. During a monotonic loading, the system remains on the trivial branch, as shown in Fig. \ref{fig:branches-stiff}(a), until it transitions to the branch with \(n=4\) at a value of the load much higher than the critical loading parameter \(\bar{\epsilon}_1\). By monitoring the smallest eigenvalue of the second energy variation at the solution, we observe that indeed the solutions computed via the quasi-Newton solver are unstable beyond \(\bar{\epsilon}_1\), which is consistent with the linear stability results for the trivial branch. A closer inspection of the solution field reveals that the quasi-Newton solutions are not homogeneous but instead exhibit a small perturbation akin to the instability mode calculated analytically (i.e., the eigenvector associated with the smallest eigenvalue). For instance, the  quasi-Newton solution before the first branch switching event is shown in inset (state $H$) in Fig. \ref{fig:tempo1}-right, where we see that the equilibrium damage shows a slight oscillation reminiscent of the eigenmode \(\alpha_n(x) \sim \cos(n\pi x)\), with \(n=3\). The state transition captured by the quasi-Newton method is the one towards the \(n=4\) branch, with one bulk crack and two boundary cracks, see inset ($A$) in Fig. \ref{fig:tempo1}-right. If the transition had taken place at \(\bar{\epsilon}_1\) as anticipated by our LEM strategy, the system would have reached a configuration with two bulk cracks and one boundary crack, as shown in Fig. \ref{fig:branches-stiff}-right (branch $n=5$).
 
-With continued loading, the damage increases and the system evolves along the \(n=4\) branch beyond the loading value at which stability is lost, as shown in Fig. \ref{fig:tempo1}-right. A dissipative branch switching event takes place from the current branch (\(n=4\)) at point \(B'\) to the branch with \(n=6\); see Fig. \ref{fig:tempo1}(right) and the inset $C$ for the corresponding damage profile. The delay in bifurcation results in a branch selection event different from the one in our LEM protocol. The delays at bifurcation for the first and second branch switching events leads to a completely different evolutionary path compared to the LEM protocol until it finally reconnects with the homogeneous branch at point \(C'\).
+With continued loading, the damage increases and the system evolves along the \(n=4\) branch beyond the loading value at which stability is lost, as shown in Fig. \ref{fig:tempo1}-right. A dissipative branch switching event takes place from the current branch (\(n=4\)) at point \(B'\) to the branch with \(n=6\); see Fig. \ref{fig:tempo1}(b) and the inset $C$ for the corresponding damage profile. The delay in bifurcation results in a branch selection event different from the one in our LEM protocol. The delays at bifurcation for the first and second branch switching events leads to a completely different evolutionary path compared to the LEM protocol until it finally reconnects with the homogeneous branch at point \(C'\).
 
 %
-For the compliant substrate model, the solutions of our numerical experiments obtained from the quasi-Newton algorithm (black thick line) are overlaid in Fig. \ref{fig:tempo2}(left) onto the equilibrium map, while their stability is depicted in Fig. \ref{fig:tempo2}-bottom. Notably, we observe a delay, albeit less pronounced compared to the stiff substrate model, for the bifurcation from the trivial branch which occurrs at a value  higher than the analytically determined critical load \(\bar{\epsilon}_1\). Interestingly, the quasi-Newton method switches to the branch with $n=2$, which exhibits lower energy compared to the branch with $n=3$. This occurs  despite the delay in bifurcation because the branch  $n=3$ remains accessible for the current value $\bar\epsilon$. It's worth noting that the LEM protocol also anticipated a first branch selection event leading to the branch with $n=2$ with two boundary cracks. 
+For the compliant substrate model, the solutions of our numerical experiments obtained from the quasi-Newton algorithm (black thick line) are overlaid in Fig. \ref{fig:tempo2}-(left) onto the equilibrium map, while their stability is depicted in Fig. \ref{fig:tempo2}-bottom. Notably, we observe a delay, albeit less pronounced compared to the stiff substrate model, for the bifurcation from the trivial branch which occurrs at a value  higher than the analytically determined critical load \(\bar{\epsilon}_1\). Interestingly, the quasi-Newton method switches to the branch with $n=2$, which exhibits lower energy compared to the branch with $n=3$. This occurs  despite the delay in bifurcation because the branch  $n=3$ remains accessible for the current value $\bar\epsilon$. It's worth noting that the LEM protocol also anticipated a first branch selection event leading to the branch with $n=2$ with two boundary cracks. 
 We again observe that, even before the first branch-changing event, the quasi-Newton solution {deviates from the homogeneous branch, and the damage profile has} is perturbed by an oscillatory term of the form \(\cos(n\pi x)\), reminiscent of the eigenmode $\alpha_n$  with \(n=2\). 
 %
 These perturbations of the equilibrium profiles are negligible from the global energetic standpoint, as it can be inferred in Figure~\ref{fig:tempo2}(a), by the superposition between the energy of the computed evolution and the exact total energy of the homogeneous solution, yet have a role in the selection of the next branch as will be evidenced in the following.
 
-The system moves along the branch with $n=2$  as the load increases, until the stability transition at load $\bar \epsilon_2$, indicated by point $A'$. Energy minimization brings the system to the branch $n=4$ although the branch with $n=3$ is also accessible and has lower energy. Figure~\ref{fig:tempo2}(right), displays the corresponding damage profiles before and after {the branch} switching events  at points $B'$ and $C$. The final {transition} before the reconnection to the homogeneous branch takes place at point $C'$, which is also an unstable configuration. The transition brings the system to the branch $n=6$ as seen in Fig.~\ref{fig:tempo2}(right), the corresponding stable damage profile at point D is shown in Fig. \ref{fig:tempo2}(right). 
+The system moves along the branch with $n=2$  as the load increases, until the stability transition at load $\bar \epsilon_2$, indicated by point $A'$. Energy minimization brings the system to the branch $n=4$ although the branch with $n=3$ is also accessible and has lower energy. Figure~\ref{fig:tempo2}(c), displays the corresponding damage profiles before and after {the branch} switching events  at points $B'$ and $C$. The final {transition} before the reconnection to the homogeneous branch takes place at point $C'$, which is also an unstable configuration. The transition brings the system to the branch $n=6$ as seen in Fig.~\ref{fig:tempo2}(b), the corresponding stable damage profile at point D is shown in Fig. \ref{fig:tempo2}(c). 
 
 In summary, while the results of the quasi-Newton minimization simulations exhibit overall similarities in both models, the trajectory taken by the system in the compliant model more closely adheres with the LEM protocol outlined above. This alignment can be attributed to the specific energy landscape of the compliant model. In case of indeterminacy of he trajectory, such as when multiple stable solutions exist at a loss of stability, how to identify an evolution direction?
 
@@ -920,10 +918,8 @@ $ where \(\eta\) is the step size.
 %
 %
 This step size can be determined through a line-search algorithm by minimizing the one-dimensional energy slices along the energy descent mode given by the function 
-\begin{equation}
-    f(\eta) = \Psi(\femstate + \eta \femperturb),
-\label{eqn:energy-slice}
-\end{equation}
+$$f(\eta) = \Psi(\femstate + \eta \femperturb)
+\label{eqn:energy-slice}$$
  to find an optimal value \(\eta\), such that $\eta \in \arg \min_{\eta} f$. {We then run the quasi-Newton step to obtain a new critical point $\femnewstate$.}
 
 The outcome of this hybrid algorithm is the three anticipated branch-switching events identified for the first model previously reported in Fig. \ref{fig:branches-stiff}. For each of these three cases, the snapshots of the damage fields, the associated {instabilty mode} \(\mathbf{p}\), the perturbed states \(\mathbf{\tilde X}^{(0)}\), and the converged solutions $\femnewstate$ are shown in Fig.~\ref{fig:kick} in the right column.
@@ -944,30 +940,32 @@ Despite the quasi-Newton algorithm was able to reproduce one of the possible pat
 
 
 The system's response under the hybrid algorithm is depicted in Fig. \ref{fig:kick}(d-g). The first column displays the perturbed damage profiles, while the second column shows the outcomes of the energy minimization process starting from  this perturbed state. A stable state with two nucleated boundary cracks (branch \( n=2 \)) is achieved following the destabilization of the trivial branch, as illustrated in Fig. \ref{fig:kick}(d). Subsequently, an interior crack nucleates in the middle of the system (branch \( n=4 \)), as shown in Fig. \ref{fig:kick}(e). The third event involves a transition from branch \( n=3 \) to branch \( n=5 \). The  event depicted in Fig. \ref{fig:kick}(f) is the transition to branch \( n=6 \). The last event before reconnecting to the trivial branch is the transition from branch \( n=6 \) to branch \( n=7 \), the only  branch available to the system at this load, see in Fig. \ref{fig:kick}(f). To summarize, the branches selected by the hybrid algorithm follow the sequence 
-\( 0 \rightarrow 2 \rightarrow 3 \rightarrow 5 \rightarrow 6 \rightarrow 0 \), 
+\( 0 \rightarrow 2 \rightarrow 3 \rightarrow 5 \rightarrow 6 \rightarrow 7 \rightarrow 0 \), 
 which differs from the sequence 
-\( 0 \rightarrow 2 \rightarrow 3 \rightarrow 6 \rightarrow 0 \) 
+\( 0 \rightarrow 2 \rightarrow 3 \rightarrow 4 \rightarrow 6 \rightarrow 7 \rightarrow 0 \) 
 followed by the quasi-Newton algorithm.
 
+\comment[id=ALB]{double-check}
 Our numerical findings suggest that equilibria close to the Hessian degeneracy (i.e. with small but positive eigenvalues) are robust in the sense that they are insensitive to perturbations. This is highlighed by the fact that running the quasi-Newton solver on a perturbed state close to the Hessian sign transition yields, after convergence, the same equilibrium state prior to perturbation.
-On the other hand, when the smallest eigenvalue of the system's Hessian is small and negative, the step size \( \eta \) obtained by minimization of \eqref{eqn:energy-slice} is sufficient for the quasi-Newton algorithm to effectively escape the flat region of the energy landscape. 
+On the other hand, when the smallest eigenvalue of the system's Hessian is small and negative, the
+ the step size \( \eta \) obtained by minimization of \eqref{eqn:energy-slice} is sufficient for the quasi-Newton algorithm to effectively escape the flat region of the energy landscape. 
 
 %
 
 \begin{figure}
     %
     \hspace*{-.3cm}
-    \includegraphics[width=.5\textwidth]{images/model_stiff_energy_kick_algo.pdf} 
-    \includegraphics[width=.5\textwidth]{images/model_compliant_energy_kick_algo.pdf}
+    \includegraphics[width=.5\textwidth]{../images/model_stiff_energy_kick_algo.pdf} 
+    \includegraphics[width=.5\textwidth]{../images/model_compliant_energy_kick_algo.pdf}
     \caption{
-        Quasi-static loading simulations with L-BFGS: the energy difference $\Delta \Estiff$ (left) and $\Delta\Ecompl$ (right), between the quasi-Newton solutions and the homogeneous solutions are superimposed onto equilibrium branches. The bottom plot shows the smallest eigenvalue of the second variation as a function of the loading parameter $\bar\epsilon$. The positivity of the smallest eigenvalue indicates that the solution (and the evolution as a whole) is stable.
+        Quasi-static loading simulations with L-BFGS: the energy difference $\Delta \Estiff$ (left) and $\Ecompl$ (right), between the quasi-Newton solutions and the homogeneous solutions are superimposed onto equilibrium branches. The bottom plot shows the smallest eigenvalue of the second variation as a function of the loading parameter $\bar\epsilon$. The positivity of the smallest eigenvalue indicates that the solution (and the evolution as a whole) is stable.
         }
     \label{fig:tempostable}
 \end{figure}
 
 
 \subsection{Irreversible evolutions and stability}
-To highlight the role of irreversibility constraints on the determination of the evolution and its consequences on the space of perturbations, we discuss the full stability problem inequality~\eqref{eq:variational_stability} in our simplified one-dimensional setting through an illustrative numerical computation. 
+To highlight the role of irreversibility constraints on the determination of the evolution and its consequences on the space of perturbations, we discuss the full stability problem Ineq.~\eqref{eq:variational_stability} in our simplified one-dimensional setting through an illustrative numerical computation. 
 
 To solve the second-order cone-constrained inequality~\eqref{eq:variational_stability}, we employ a numerical method based on the orthogonal decomposition of the Hilbert space  $X_0$  according to two mutually polar cones  $K^+_0$  and  $K^*$, cf. \cite{Moreau1962-fz}. Given an element  $z$  in  $X_0$ , it can be shown that there exists a unique decomposition into two orthogonal components,  $x \in K^+_0$  and  $y \in K^*$ , where  $x$  and  $y$  are the closest points in  $K^+_0$  and  $K^*$  to  $z$, respectively.
 
@@ -982,11 +980,11 @@ where $H$ is the Hessian operator. Then, we compute the residual vector $y^{(k)}
 $v^{(k)} =\operatorname{P_K} (x^{(k)} + \eta y^{(k)})$.
 The algorithm is repeated until convergence is achieved. Note that, in the cone-constrained case, the residual vector $y^{(k)}$ need not be zero at convergence.
 
-The irreversible evolution is computed using the same parameters as in the experiment in Figure~\ref{fig:hessian1}(a) for the rigid substrate model. In Fig.~\ref{fig:irreversibility-profiles} we plot the profiles of the fields at the loading step corresponding with the bifurcation point of the reversible system, namely $H$ in Fig.~\ref{fig:branches-stiff}.
+The irreversible evolution is computed using the same parameters as in the experiment in Figure~\ref{fig:hessian1}-(a) for the rigid substrate model. In Fig.~\ref{fig:irreversibility-profiles} we plot the profiles of the fields at the loading step corresponding with the bifurcation point of the reversible system, namely $H$ in Fig.~\ref{fig:branches-stiff}.
 
 
-The homogeneous damage field $\alpha_h$ and the profiles of the damage eigenfunctions associated with  the minimal eigenvalue for the second order bifurcation problem inequality~\eqref{eq:variational_bifurcation} (left panel) coincide with the damage solution and eigenmode ($n=3$) computed by Fourier series, {cf.~Fig~\ref{fig:kick}(a).}
-On the other hand, the eigenmode for the full nonlinear stability problem inequality~\eqref{eq:variational_stability} is plotted in the right panel.
+The homogeneous damage field $\alpha_h$ and the profiles of the damage eigenfunctions associated with  the minimal eigenvalue for the second order bifurcation problem Ineq.~\eqref{eq:variational_bifurcation} (left panel) coincide with the damage solution and eigenmode ($n=3$) computed by Fourier series, {cf.~Fig~\ref{fig:kick}(a).}
+On the other hand, the eigenmode for the full nonlinear stability problem Ineq.~\eqref{eq:variational_stability} is plotted in the right panel.
 Note that the profile of the (non-negative) instability modes do not reduce to a mere truncation (i.e. a projection on the cone $K^+_0$) of the bifurcation modes, and this is due - in general - to the necessary regularity of the solutions requiring continuity of first derivatives. 
 
 %
@@ -996,12 +994,12 @@ Note that the bifurcation spectrum is singular at $\bar \epsilon_t=0$ following 
 Conversely, the set of admissible damage perturbations for the stability problem changes from the empty set for the loading interval $0 < \bar\epsilon_t\leq \bar\epsilon_b$ set to the solid cone of smooth positive functions $\{\beta\in H^1((0,1)):\beta \geq 0\}$ only beyond the bifurcation load for $\bar\epsilon_t \geq \bar\epsilon_b$.
 Despite the occurrence of negative eigenvalues for the bifurcation problem, the eigenvalues of the stability problem are all positive, which is a sufficient condition to ascertain the stability (and thus, the observability) of the computed evolution.
 
-The consequences of irreversibility manifest both as a pointwise constraint, ruling out transitions between branches that would require a local decrease of damage in favour of a global decrease of energy (e.g. between $n=3$ to $n=4$, see profiles in the Fig.~\ref{fig:kick}(left) of the transition (a)$\mapsto$(b)). 
+The consequences of irreversibility manifest both as a pointwise constraint, ruling out transitions between branches that would require a local decrease of damage in favour of a global decrease of energy (e.g. between $n=3$ to $n=4$, see profiles in the Fig.~\ref{fig:kick} of the transition (b)$\mapsto$ (d)). 
 On the other hand, irreversibility has a major role  as a global constraint on the perturbation space, by introducing a strong nonlinearity. For the current choice of parameters, this is evident in the fact that the computed evolution is qualitatively different from the unconstrained case. Despite allowing potential bifurcations, the system navigates a purely homogeneous branch, whose inf-eigenvalues that are positive indicating a sufficient condition for stability (hence observability) of the computed trajectory.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics*[width=.95\textwidth]{images/profiles-bif-stab-7f4361886184f3c6791fe16bf4f4b3f2.pdf}
+    \includegraphics*[width=.95\textwidth]{../images/profiles-bif-stab-7f4361886184f3c6791fe16bf4f4b3f2.pdf}
     
     \caption{Profiles of the damage field (blue) and of the inf-eigenvectors (green)  at the bifurcation load $\bar \epsilon_b$, for the bifurcation problem (left) and the stability problem (right).
     At bifurcation, the damage is constant (homogeneous). 
@@ -1013,9 +1011,8 @@ On the other hand, irreversibility has a major role  as a global constraint on t
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics*[width=.7\textwidth]{images/irreversibility_inf_eig.png}
-    \caption{Crack nucleation should not occcur in this scenario.
-    Lower bound of the Hessian spectra for the bifurcation problem  (orange line) and the stability problem (blue circles), along the homogeneous evolution. The bifurcation spectrum indicates  that the evolution path is unique until $\bar \epsilon_b$. Then, despite multiple solution exists, the homogeneous solution is stable. Notice that the observable $\lambda_t$ (inf-eig cone) for stability is \emph{discontinuous}.
+    \includegraphics*[width=.7\textwidth]{../images/irreversibility_inf_eig.png}
+    \caption{The right solver should'nt give you a crack. Lower bound of the Hessian spectra for the bifurcation problem  (orange line) and the stability problem (blue circles), along the homogeneous evolution. The bifurcation spectrum indicates  that the evolution path is unique until $\bar \epsilon_b$. Then, despite multiple solution exists, the homogeneous solution is stable. Notice that the observable $\lambda_t$ (inf-eig cone) for stability is \emph{discontinuous}.
     %
     %
     }
@@ -1030,6 +1027,15 @@ On the other hand, irreversibility has a major role  as a global constraint on t
     Capturing branch switching phenomena across stability transitions is not an automatic feature of approximate numerical methods. If they rely on approximate information about the Hessian of the energy functional, these methods do not guarantee to systematically detect transitions between critical equilbrium states, when stability is lost. 
 Indeed, this requires a careful determination of the zero-eigenmodes that render singular the exact nonlinear Hessian, which is typically not available in general purpose first order numerical algorithms.
 In practice, without such information, critical loads for equilibrium transitions become algorithm-dependant and are not consistent with closed-form solutions of the exact evolution problem.
+%
+%
+%
+%
+%
+%
+%
+%
+%
 
 
 Our evidence is that certain numerical methods can introduce non-physical artifacts which should be distinguished from genuine physical phenomena. Our ongoing work aims to refine numerical techniques to provide more reliable algorithms for analysing irreversible processes in variational evolutionary problems with multiple local minima and a high number of degrees of freedom.
@@ -1041,9 +1047,9 @@ More than numerical perturbations (which can always arise,) the use of numerical
 This is an important observation, which highlights the need for a thorough investigation of the stability of solutions. 
 If only physical factors are considered, an energetic selection mechanism is already encapsulated in the stability statement in the evolution law. As a consequence, equilibrium solutions under increasing load should be maintained as observable if stable, assuming that no nucleation should occur otherwise.
 
-We present two main options for discussing these considerations in view of the importance of using accurate and robust algorithms in real scenarios:
+We present two main options for discussing these considerations in view of the importance of using accurate and robust algorithms in real scenarios.
 
-\begin{enumerate}
+\begin{itemize}
     \item 
     Ignore the Numerical Artifact: focussing solely on first order considerations and acknowledging that the observed computed nucleations may be purely numerical and should not be considered in physical terms.
     \item 
@@ -1051,7 +1057,7 @@ We present two main options for discussing these considerations in view of the i
     the sensitivity to numerical parameters (artifacts, in the quasi-Newton approach) and the abundance of admissible solutions (in the nonconvex scenario), or
     \item 
     Otherwise.
-\end{enumerate}
+\end{itemize}
 
 Suggesting that state transitions in complex scenarios should be carefully interpreted, the connection between observability and stability is functional to understanding real patterns that emerge, e.g., in higher dimensions or in other physical systems.
 
@@ -1060,455 +1066,14 @@ In either case, our computations show that, unless second order analysis is perf
 
 Future work will include a more detailed exploration of evolutionary algorithms and their implementation for stability analysis of fracture in thin films. Some notable instances are craquelures in artistic paintings~\cite{fuster-lopez:2020-picassos, Bosco:2020aa,Bosco:2021},  brittle stability of the cryosphere~\cite{weiss:2017-linking, tollefson:2017-giant, Sun:2023aa, Millan:2023aa} and crack-pattern selection in metallic thin films~\cite{Faurie2019-to}. {As understood in this work, the final crack patterns depend heavily on the form of the selected unstable modes. In turn, the irreversibility constraint, primarily implemented to prevent crack closure, directly impacts the stability of solutions and mode selection at transition loads. Therefore, our findings suggest that the success of the phase-field model in predicting crack patterns in thin films relies on the use of robust numerical algorithms.}
 
-
-\paragraph{Acknowledgements} This work was in part supported by the French National Research Agency (ANR, Project No. ANR-20-CE91–0010) and the Austrian Science Fund (FWF, Project No. I 4913-N) within the framework of the project: Nanoarchitected films for unbreakable flexible electronics (NanoFilm).
 %
 
 
 
  
+
+\printbibliography %
+
 %
 %
-
-\bibliographystyle{plain}  %
-%
-\begin{thebibliography}{10}
-
-\bibitem{Nocedal1999-zr}
-Sequential quadratic programming.
-\newblock In Jorge Nocedal and Stephen~J Wright, editors, {\em Numerical Optimization}, pages 526--573. Springer New York, New York, NY, 1999.
-
-\bibitem{Alessi2019-bx}
-R~Alessi and F~Freddi.
-\newblock Failure and complex crack patterns in hybrid laminates: A phase-field approach.
-\newblock {\em Composites Part B}, 179:107256, December 2019.
-
-\bibitem{Baggio2019-rs}
-R~Baggio, E~Arbib, P~Biscari, S~Conti, L~Truskinovsky, G~Zanzotto, and O~U Salman.
-\newblock {Landau-Type} theory of planar crystal plasticity.
-\newblock {\em Phys. Rev. Lett.}, 123(20):205501, November 2019.
-
-\bibitem{Baggio2023-yo}
-R~Baggio, O~U Salman, and L~Truskinovsky.
-\newblock Homogeneous nucleation of dislocations as a pattern formation phenomenon.
-\newblock {\em Eur. J. Mech. A: Solids}, 99(104897):104897, May 2023.
-
-\bibitem{Baggio2023-qu}
-R~Baggio, O~U Salman, and L~Truskinovsky.
-\newblock Inelastic rotations and pseudoturbulent plastic avalanches in crystals.
-\newblock {\em Phys Rev E}, 107(2-2):025004, February 2023.
-
-\bibitem{Baldelli2014-ho}
-A~A~L Baldelli and J~F Babadjian.
-\newblock A variational model for fracture and debonding of thin films under in-plane loadings.
-\newblock {\em J. Mech. Phys. Solids}, 2014.
-
-\bibitem{Baldelli2021-gc}
-A~A~L Baldelli and C~Maurini.
-\newblock Numerical bifurcation and stability analysis of variational gradient-damage models for phase-field fracture.
-\newblock {\em J. Mech. Phys. Solids}, 152(104424), 2021.
-
-\bibitem{Bazant2010-zb}
-Z~Ba{\v z}ant and L~Cedolin.
-\newblock Stability of structures: Elastic, inelastic, fracture and damage theories.
-\newblock {\em Journal of Structural Engineering-asce}, 119:1001--1002, August 2010.
-
-\bibitem{Bertoldi2008-au}
-K~Bertoldi and M~C Boyce.
-\newblock Wave propagation and instabilities in monolithic and periodically structured elastomeric materials undergoing large deformations.
-\newblock {\em Phys. Rev. B Condens. Matter}, 78(18):184107, November 2008.
-
-\bibitem{Bettiol2020-ey}
-R~G Bettiol and P~Piccione.
-\newblock Instability and bifurcation.
-\newblock {\em Not. Am. Math. Soc.}, 2020.
-
-\bibitem{Bochkanov2013-lk}
-S~Bochkanov and V~Bystritsky.
-\newblock Alglib.
-\newblock {\em Available from: www alglib net}, 2013.
-
-\bibitem{Bosco:2020aa}
-E.~Bosco, A.~S.~J. Suiker, and N.~A. Fleck.
-\newblock Crack channelling mechanisms in brittle coating systems under moisture or temperature gradients.
-\newblock {\em International Journal of Fracture}, 225(1):1--30, 2020.
-
-\bibitem{Bosco:2021}
-E.~Bosco, A.~S.~J. Suiker, and N.~A. Fleck.
-\newblock Moisture-induced cracking in a flexural bilayer with application to historical paintings.
-\newblock {\em Theoretical and Applied Fracture Mechanics}, 112:102779, 2021.
-
-\bibitem{Bourdin2000-pc}
-B~Bourdin, G~A Francfort, and J-J Marigo.
-\newblock Numerical experiments in revisited brittle fracture.
-\newblock {\em J. Mech. Phys. Solids}, 48(4):797--826, April 2000.
-
-\bibitem{Carpio2005-bv}
-A~Carpio and L~L Bonilla.
-\newblock Discrete models of dislocations and their motion in cubic crystals.
-\newblock {\em Phys. Rev. B Condens. Matter}, 71(13):134105, April 2005.
-
-\bibitem{chattaway:1955}
-MM~Chattaway.
-\newblock The anatomy of bark. vi. peppermints, boxes, ironbarks, and other eucalypts with cracked and furrowed barks.
-\newblock {\em Australian Journal of Botany}, 3(2):170--176, 1955.
-
-\bibitem{Chen2019-mn}
-Yang Chen, Dmytro Vasiukov, Lionel G{\'e}l{\'e}bart, and Chung~Hae Park.
-\newblock A {FFT} solver for variational phase-field modeling of brittle fracture.
-\newblock {\em Comput. Methods Appl. Mech. Eng.}, 349:167--190, June 2019.
-
-\bibitem{Clayton2011-xq}
-J~D Clayton and J~Knap.
-\newblock A phase field model of deformation twinning: Nonlinear theory and numerical simulations.
-\newblock {\em Physica D}, 240(9):841--858, April 2011.
-
-\bibitem{Combescure2016-dy}
-Christelle Combescure, Pierre Henry, and Ryan~S Elliott.
-\newblock Post-bifurcation and stability of a finitely strained hexagonal honeycomb subjected to equi-biaxial in-plane loading.
-\newblock {\em Int. J. Solids Struct.}, 88-89:296--318, June 2016.
-
-\bibitem{Conti2004-yj}
-Sergio Conti and Giovanni Zanzotto.
-\newblock A variational model for reconstructive phase transformations in crystals, and their relation to dislocations and plasticity.
-\newblock {\em Arch. Ration. Mech. Anal.}, 173(1):69--88, July 2004.
-
-\bibitem{Curtis2015-wp}
-Frank~E Curtis and Xiaocun Que.
-\newblock A quasi-newton algorithm for nonconvex, nonsmooth optimization with global convergence guarantees.
-\newblock {\em Math. Program. Comput.}, 7(4):399--428, December 2015.
-
-\bibitem{Dai1999-hz}
-Y~H Dai and Y~Yuan.
-\newblock A nonlinear conjugate gradient method with a strong global convergence property.
-\newblock {\em SIAM J. Optim.}, 10(1):177--182, January 1999.
-
-\bibitem{De-Lorenzis2020-rz}
-Laura De~Lorenzis and Tymofiy Gerasimov.
-\newblock Numerical implementation of phase-field models of brittle fracture.
-\newblock In {\em Modeling in Engineering Using Innovative Numerical Methods for Solids and Fluids}, pages 75--101. Springer International Publishing, Cham, 2020.
-
-\bibitem{Doedel1981-sa}
-Eusebius~J Doedel.
-\newblock {AUTO}: A program for the automatic bifurcation analysis of autonomous systems.
-\newblock {\em Congr. Numer.}, 30(265-284):25--93, 1981.
-
-\bibitem{Faurie2019-to}
-D~Faurie, F~Zighem, P~Godard, G~Parry, T~Sadat, D~Thiaudi{\`e}re, and P-O Renault.
-\newblock In situ x-ray diffraction analysis of {2D} crack patterning in thin films.
-\newblock {\em Acta Mater.}, 165:177--182, February 2019.
-
-\bibitem{Finel2010-zw}
-Alphonse Finel, Y~Le~Bouar, A~Gaubert, and U~Salman.
-\newblock Phase field methods: Microstructures, mechanical properties and complexity.
-\newblock {\em C. R. Phys.}, 11(3):245--256, April 2010.
-
-\bibitem{fuster-lopez:2020-picassos}
-L.~Fuster-L{\'o}pez, F.~C. Izzo, C.~K. Andersen, A.~Murray, A.~Vila, M.~Picollo, L.~Stefani, R.~Jim{\'e}nez, and E.~Aguado-Guardiola.
-\newblock Picasso's 1917 paint materials and their influence on the condition of four paintings.
-\newblock {\em SN Applied Sciences}, 2(12):2159, 2020.
-
-\bibitem{Godard2022-ss}
-P~Godard, A~Guillot, F~Zighem, D~Thiaudi{\`e}re, D~Faurie, and P~O Renault.
-\newblock Strain ratio and thickness effects on plasticity and crack patterns of nickel thin films.
-\newblock {\em Scr. Mater.}, 213:114638, May 2022.
-
-\bibitem{Goehring2010-xz}
-Lucas Goehring, Rebecca Conroy, Asad Akhter, William~J Clegg, and Alexander~F Routh.
-\newblock Evolution of mud-crack patterns during repeated drying cycles.
-\newblock {\em Soft Matter}, 6(15):3562--3567, July 2010.
-
-\bibitem{Grimstad2016-cq}
-Bjarne Grimstad and Anders Sandnes.
-\newblock Global optimization with spline constraints: a new branch-and-bound method based on b-splines.
-\newblock {\em J. Global Optimiz.}, 65(3):401--439, July 2016.
-
-\bibitem{Guenole2020-tc}
-Julien Gu{\'e}nol{\'e}, Wolfram~G N{\"o}hring, Aviral Vaid, Fr{\'e}d{\'e}ric Houll{\'e}, Zhuocheng Xie, Aruna Prakash, and Erik Bitzek.
-\newblock Assessment and optimization of the fast inertial relaxation engine (fire) for energy minimization in atomistic simulations and its implementation in lammps.
-\newblock {\em Comput. Mater. Sci.}, 175:109584, April 2020.
-
-\bibitem{Harandi2023-cd}
-Ali Harandi, Shahed Rezaei, Soheil Karimi~Aghda, Chaowei Du, Tim Brepols, Gerhard Dehm, Jochen~M Schneider, and Stefanie Reese.
-\newblock Numerical and experimental studies on crack nucleation and propagation in thin films.
-\newblock {\em Int. J. Mech. Sci.}, 258:108568, November 2023.
-
-\bibitem{Hill1958-xd}
-R~Hill.
-\newblock A general theory of uniqueness and stability in elastic-plastic solids.
-\newblock {\em J. Mech. Phys. Solids}, 6(3):236--249, May 1958.
-
-\bibitem{Hu2020-nt}
-Tianchen Hu, Johann Guilleminot, and John~E Dolbow.
-\newblock A phase-field model of fracture with frictionless contact and random fracture properties: Application to thin-film fracture and soil desiccation.
-\newblock {\em Comput. Methods Appl. Mech. Eng.}, 368:113106, 2020.
-
-\bibitem{Hu2021-mq}
-Xin Hu, Yanzhou Ji, Lei Chen, Ricardo~A Lebensohn, Long-Qing Chen, and Xiangyang Cui.
-\newblock Spectral phase-field model of deformation twinning and plastic deformation.
-\newblock {\em Int. J. Plast.}, 143:103019, August 2021.
-
-\bibitem{Hutchinson2013-jk}
-John~W Hutchinson.
-\newblock The role of nonlinear substrate elasticity in the wrinkling of thin films.
-\newblock {\em Philos. Trans. A Math. Phys. Eng. Sci.}, 371(1993):20120422, June 2013.
-
-\bibitem{Iooss2012-el}
-Gerard Iooss and Daniel~D Joseph.
-\newblock {\em Elementary stability and bifurcation theory}.
-\newblock Undergraduate Texts in Mathematics. Springer, New York, NY, 2 edition, December 2012.
-
-\bibitem{Javanbakht2016-dr}
-Mahdi Javanbakht and Valery~I Levitas.
-\newblock Phase field approach to dislocation evolution at large strains: Computational aspects.
-\newblock {\em Int. J. Solids Struct.}, 82:95--110, March 2016.
-
-\bibitem{Kirkesaether_Brun2020-wa}
-Mats Kirkes{\ae}ther~Brun, Thomas Wick, Inga Berre, Jan~Martin Nordbotten, and Florin~Adrian Radu.
-\newblock An iterative staggered scheme for phase field brittle fracture propagation with stabilizing parameters.
-\newblock {\em Comput. Methods Appl. Mech. Eng.}, 361:112752, April 2020.
-
-\bibitem{Kristensen2020-zy}
-Philip~K Kristensen and Emilio Mart{\'\i}nez-Pa{\~n}eda.
-\newblock Phase field fracture modelling using quasi-newton methods and a new adaptive step scheme.
-\newblock {\em Theor. Appl. Fract. Mech.}, 107:102446, June 2020.
-
-\bibitem{Kuhn2015-rt}
-Charlotte Kuhn, Alexander Schl{\"u}ter, and Ralf M{\"u}ller.
-\newblock On degradation functions in phase field fracture models.
-\newblock {\em Comput. Mater. Sci.}, 108:374--384, October 2015.
-
-\bibitem{Kumar2020-xz}
-A~Kumar, B~Bourdin, G~A Francfort, and {others}.
-\newblock Revisiting nucleation in the phase-field approach to brittle fracture.
-\newblock {\em J. Mech. Phys. Solids}, 142(104027), 2020.
-
-\bibitem{Leon_Baldelli2015-rp}
-Andr{\'e}s~A Le{\'o}n~Baldelli and Blaise Bourdin.
-\newblock On the asymptotic derivation of {Winkler-Type} energies from {3D} elasticity.
-\newblock {\em J. Elast.}, 121(2):275--301, December 2015.
-
-\bibitem{Lewis2013-eu}
-Adrian~S Lewis and Michael~L Overton.
-\newblock Nonsmooth optimization via quasi-newton methods.
-\newblock {\em Math. Program.}, 141(1):135--163, October 2013.
-
-\bibitem{Liu1989-kl}
-Dong~C Liu and Jorge Nocedal.
-\newblock On the limited memory {BFGS} method for large scale optimization.
-\newblock {\em Math. Program.}, 45(1-3):503--528, August 1989.
-
-\bibitem{Liu2013-sj}
-G~R Liu and S~S Quek.
-\newblock {\em The Finite Element Method: A Practical Course}.
-\newblock Butterworth-Heinemann, August 2013.
-
-\bibitem{Liu2022-ix}
-Z~Liu, J~Reinoso, and M~Paggi.
-\newblock Phase field modeling of brittle fracture in large-deformation solid shells with the efficient quasi-newton solution and global--local approach.
-\newblock {\em Comput. Methods Appl. Mech. Eng.}, 399:115410, September 2022.
-
-\bibitem{Lookman2003-gd}
-T~Lookman, S~R Shenoy, K~{\O} Rasmussen, A~Saxena, and A~R Bishop.
-\newblock Ferroelastic dynamics and strain compatibility.
-\newblock {\em Phys. Rev. B: Condens. Matter Mater. Phys.}, 67(2):024114, January 2003.
-
-\bibitem{francfort_marigo1998}
-J.-J. Marigo and G.~A. Francfort.
-\newblock Revisiting brittle fracture as an energy minimization problem.
-\newblock {\em J. Mech. Phys. Sol.}, 35(7):1319--1342, 1998.
-
-\bibitem{Matthies1979-gl}
-Hermann Matthies and Gilbert Strang.
-\newblock The solution of nonlinear finite element equations.
-\newblock {\em Int. J. Numer. Methods Eng.}, 14(11):1613--1626, January 1979.
-
-\bibitem{Mayer2022-km}
-Alexander~E Mayer, Vasiliy~S Krasnikov, and Victor~V Pogorelko.
-\newblock Homogeneous nucleation of dislocations in copper: Theory and approximate description based on molecular dynamics and artificial neural networks.
-\newblock {\em Comput. Mater. Sci.}, 206:111266, April 2022.
-
-\bibitem{Miehe2010-sj}
-C~Miehe, F~Welschinger, and M~Hofacker.
-\newblock Thermodynamically consistent phase-field models of fracture: Variational principles and multi-field {FE} implementations.
-\newblock {\em Int. J. Numer. Methods Eng.}, 83(10):1273--1311, 2010.
-
-\bibitem{Miehe2010-ja}
-Christian Miehe, Martina Hofacker, and Fabian Welschinger.
-\newblock A phase field model for rate-independent crack propagation: Robust algorithmic implementation based on operator splits.
-\newblock {\em Comput. Methods Appl. Mech. Eng.}, 199(45):2765--2778, November 2010.
-
-\bibitem{Millan:2023aa}
-R.~Millan, E.~Jager, J.~Mouginot, M.~H. Wood, S.~H. Larsen, P.~Mathiot, N.~C. Jourdain, and A.~Bj{\o}rk.
-\newblock Rapid disintegration and weakening of ice shelves in north greenland.
-\newblock {\em Nature Communications}, 14(1):6914, 2023.
-
-\bibitem{Moreau1962-fz}
-J~J Moreau.
-\newblock D{\'e}composition orthogonale d'un espace hilbertien selon deux c{\^o}nes mutuellement polaires.
-\newblock {\em Comptes rendus hebdomadaires des s{\'e}ances de l'Acad{\'e}mie des sciences}, 255:238--240, 1962.
-
-\bibitem{Nocedal2006-qh}
-J~Nocedal and S~J Wright.
-\newblock {Quasi-Newton} methods.
-\newblock In Jorge Nocedal and Stephen~J Wright, editors, {\em Numerical Optimization}, pages 135--163. Springer New York, New York, NY, 2006.
-
-\bibitem{Pattamatta2014-pn}
-Subrahmanyam Pattamatta, Ryan~S Elliott, and Ellad~B Tadmor.
-\newblock Mapping the stochastic response of nanostructures.
-\newblock {\em Proc. Natl. Acad. Sci. U. S. A.}, 111(17):E1678--86, April 2014.
-
-\bibitem{Pinto_da_Costa2010-qv}
-A~Pinto~da Costa and A~Seeger.
-\newblock Cone-constrained eigenvalue problems: theory and algorithms.
-\newblock {\em Comput. Optim. Appl.}, 45(1):25--57, January 2010.
-
-\bibitem{Plans2007-cx}
-I~Plans, A~Carpio, and L~L Bonilla.
-\newblock Homogeneous nucleation of dislocations as bifurcations in a periodized discrete elasticity model.
-\newblock {\em EPL}, 81(3):36001, December 2007.
-
-\bibitem{Puglisi2005-lg}
-G~Puglisi and L~Truskinovsky.
-\newblock Thermodynamics of rate-independent plasticity.
-\newblock {\em J. Mech. Phys. Solids}, 53(3):655--679, March 2005.
-
-\bibitem{Qin2014-wz}
-Zhao Qin, Nicola~M Pugno, and Markus~J Buehler.
-\newblock Mechanics of fragmentation of crocodile skin and other thin films.
-\newblock {\em Sci. Rep.}, 4(1):1--7, May 2014.
-
-\bibitem{Riccobelli2023-fc}
-D~Riccobelli, P~Ciarletta, G~Vitale, C~Maurini, and L~Truskinovsky.
-\newblock Elastic instability behind brittle fracture in soft solids.
-\newblock November 2023.
-
-\bibitem{Ruffini2015-pn}
-A~Ruffini and A~Finel.
-\newblock Phase-field model coupling cracks and dislocations at finite strain.
-\newblock {\em Acta Mater.}, 92:197--208, 2015.
-
-\bibitem{Salman2009-qv}
-O~U Salman.
-\newblock Modeling of spatio-temporal dynamics and patterning mechanisms of martensites by phase-field and lagrangian methods.
-\newblock {\em Universit{\'e} Pierre er Marie-Curie}, Ph.D. thesis, 2009.
-
-\bibitem{Salman2021-mn}
-O~U Salman and L~Truskinovsky.
-\newblock De-localizing brittle fracture.
-\newblock {\em J. Mech. Phys. Solids}, 154(104517):104517, September 2021.
-
-\bibitem{Salman2019-kp}
-O~U Salman, G~Vitale, and L~Truskinovsky.
-\newblock Continuum theory of bending-to-stretching transition.
-\newblock {\em Phys Rev E}, 100(5-1):051001, November 2019.
-
-\bibitem{Salman2019-cg}
-Oguz~Umut Salman, Benson Muite, and Alphonse Finel.
-\newblock Origin of stabilization of macrotwin boundaries in martensites.
-\newblock {\em Eur. Phys. J. B}, 92(1):20, January 2019.
-
-\bibitem{SALMAN2012219}
-O.U. Salman and L.~Truskinovsky.
-\newblock On the critical nature of plastic flow: One and two dimensional models.
-\newblock {\em International Journal of Engineering Science}, 59:219--254, 2012.
-
-\bibitem{Sanderson2016-ht}
-Conrad Sanderson and Ryan Curtin.
-\newblock Armadillo: a template-based c++ library for linear algebra.
-\newblock {\em J. Open Source Softw.}, 1(2):26, June 2016.
-
-\bibitem{shen:2020}
-Chuang-Shi Shen, Chao Zhang, Xiaosheng Gao, and Yulong Li.
-\newblock Fragmentation of shells: an analogy with the crack formation in tree bark.
-\newblock {\em Philosophical Magazine Letters}, 100(6):294--305, 06 2020.
-
-\bibitem{Simone2012-tx}
-V~D Simone, D~Serafino, and G~Toraldo.
-\newblock Recent advances in nonlinear optimization and equilibrium problems : a tribute to marco {D'Apuzzo}.
-\newblock {\em MATHEMATICS NOTEBOOKS}, 27, 2012.
-
-\bibitem{Stiefel1952-fw}
-Eduard Stiefel.
-\newblock Methods of conjugate gradients for solving linear systems.
-\newblock {\em J. Res. Natl. Bur. Stand.}, 49:409--435, 1952.
-
-\bibitem{Storvik2021-cd}
-Erlend Storvik, Jakub~Wiktor Both, Juan~Michael Sargado, Jan~Martin Nordbotten, and Florin~Adrian Radu.
-\newblock An accelerated staggered scheme for variational phase-field models of brittle fracture.
-\newblock {\em Comput. Methods Appl. Mech. Eng.}, 381:113822, August 2021.
-
-\bibitem{Sun:2023aa}
-Sainan Sun and G.~Hilmar Gudmundsson.
-\newblock The speedup of pine island ice shelf between 2017 and 2020: revaluating the importance of ice damage.
-\newblock {\em Journal of Glaciology}, pages 1--9, 2023.
-
-\bibitem{Tadmor1996-qi}
-E~B Tadmor, M~Ortiz, and R~Phillips.
-\newblock Quasicontinuum analysis of defects in solids.
-\newblock {\em Philos. Mag. A}, 73(6):1529--1563, June 1996.
-
-\bibitem{tollefson:2017-giant}
-Jeff Tollefson.
-\newblock Giant crack in antarctic ice shelf spotlights advances in glaciology.
-\newblock {\em NATURE | NEWS}, 2017.
-
-\bibitem{Trost2024-ca}
-Claus Othmar~Wolfgang Trost, Alice Lassnig, Patrice Kreiml, Tanja J{\"o}rg, Velislava~L Terziyska, Christian Mitterer, and Megan~Jo Cordill.
-\newblock Enthalpy‐driven self‐healing in thin metallic films on flexible substrates.
-\newblock {\em Adv. Mater.}, May 2024.
-
-\bibitem{Truskinovsky2010-st}
-L~Truskinovsky.
-\newblock Fracture as a phase transition, in ``contemporary research in the mechanics and mathematics of materials,'' {CIMNE}, barcelona,(1996), 322--332.
-\newblock {\em Received August}, 2010.
-
-\bibitem{2020SciPy-NMeth}
-Pauli Virtanen, Ralf Gommers, Travis~E. Oliphant, Matt Haberland, Tyler Reddy, David Cournapeau, Evgeni Burovski, Pearu Peterson, Warren Weckesser, Jonathan Bright, St{\'e}fan~J. {van der Walt}, Matthew Brett, Joshua Wilson, K.~Jarrod Millman, Nikolay Mayorov, Andrew R.~J. Nelson, Eric Jones, Robert Kern, Eric Larson, C~J Carey, {\.I}lhan Polat, Yu~Feng, Eric~W. Moore, Jake {VanderPlas}, Denis Laxalde, Josef Perktold, Robert Cimrman, Ian Henriksen, E.~A. Quintero, Charles~R. Harris, Anne~M. Archibald, Ant{\^o}nio~H. Ribeiro, Fabian Pedregosa, Paul {van Mulbregt}, and {SciPy 1.0 Contributors}.
-\newblock {{SciPy} 1.0: Fundamental Algorithms for Scientific Computing in Python}.
-\newblock {\em Nature Methods}, 17:261--272, 2020.
-
-\bibitem{weiss:2017-linking}
-J{\'e}r{\^o}me Weiss and V{\'e}ronique Dansereau.
-\newblock Linking scales in sea ice mechanics.
-\newblock {\em Philos Trans A Math Phys Eng Sci}, 375(2086), Feb 2017.
-
-\bibitem{Weiss2021-db}
-J{\'e}r{\^o}me Weiss, Peng Zhang, O{\u g}uz~Umut Salman, Gang Liu, and Lev Truskinovsky.
-\newblock Fluctuations in crystalline plasticity.
-\newblock {\em C. R. Phys.}, 22(S3):1--37, March 2021.
-
-\bibitem{Wick2017-bo}
-Thomas Wick.
-\newblock Modified newton methods for solving fully monolithic phase-field quasi-static brittle fracture propagation.
-\newblock {\em Comput. Methods Appl. Mech. Eng.}, 325:577--611, October 2017.
-
-\bibitem{Wu2020-qk}
-Jian-Ying Wu, Yuli Huang, and Vinh~Phu Nguyen.
-\newblock On the {BFGS} monolithic algorithm for the unified phase field damage theory.
-\newblock {\em Comput. Methods Appl. Mech. Eng.}, 360:112704, 2020.
-
-\bibitem{Xu2001-ax}
-Chengxian Xu and Jianzhong Zhang.
-\newblock A survey of {Quasi-Newton} equations and {Quasi-Newton} methods for optimization.
-\newblock {\em Ann. Oper. Res.}, 103(1):213--234, March 2001.
-
-\bibitem{Yang2020-zm}
-J~Yang, J~Duan, Y~J Wang, and M~Q Jiang.
-\newblock Complexity of plastic instability in amorphous solids: Insights from spatiotemporal evolution of vibrational modes.
-\newblock {\em Eur. Phys. J. E Soft Matter}, 43(9):56, September 2020.
-
-\bibitem{Zhang2020-ax}
-P~Zhang, O~U Salman, J~Weiss, and L~Truskinovsky.
-\newblock Variety of scaling behaviors in nanocrystalline plasticity.
-\newblock {\em Phys Rev E}, 102(2-1):023006, August 2020.
-
-\bibitem{zolesi:2024}
-Camilla Zolesi and Corrado Maurini.
-\newblock Stability and crack nucleation in variational phase-field models of fracture: Effects of length-scales and stress multi-axiality.
-\newblock {\em Journal of the Mechanics and Physics of Solids}, 192:105802, 2024.
-
-\end{thebibliography}
- %
-  %
 \end{document}

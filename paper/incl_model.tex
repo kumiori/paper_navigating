@@ -219,7 +219,7 @@ By using standard arguments of the calculus of variations, localizing the integr
 \begin{cases}
   2(1-\alpha)\alpha' u' +(1-\alpha)^2 u'' -  \frac{1}{\elastell^2}(u-\subsu) &= 0, \quad {x\in (0, 1)}\\
   -\damagell^2\alpha'' - (1-\alpha)( u')^2 + 2\alpha   &= 0, \quad {x\in (0, 1)}
-\end{cases}
+\end{cases}.
 \label{auto1}
 \end{eqnarray}
 % proceeding with the evaluation of the equilibrium configuration via the Euler-Lagrange equations
@@ -235,7 +235,7 @@ Notice that,
 first order conditions identify the the critical load threshold that activates the damaging process. The quantity $\bar\epsilon_*^c$, the value of the load for which the undamaged elastic state becomes unstable, is determined injecting the elastic solution $u_h$ in the energy and computing $\delta \Estiff(u_h, 0)(0, \beta)=0$.
 According to our mechanical energy model, the critical load is given by
 \begin{equation}
-    {{{\bar{\epsilon}^c}_*}} = \sqrt{2\frac{\homogdiss'(0)}{\soften'(0)}} 
+    {{{\bar{\epsilon}^c}_*}} = \sqrt{2\frac{\homogdiss'(0)}{\soften'(0)}},
 \end{equation}
 % impossible to typeset {\bar{\epsilon}^c}_*}^2 ?
 % 
@@ -262,7 +262,8 @@ To assess the incremental stability of the homogeneous solution in the reversibl
 \end{equation}
 % \comment[id=ALB]{notation $w\mapsto \beta$} 
 which is well defined for perturbations $(v, \beta)\in X_0$.
-{We} extract information on the onset of instability  seeking a solution in Fourier series of the fields $v$ and $\beta$ in \eqref{hessian22}, such that $$v(x)=\sum_{n=1}^{\infty} a_{n} \sin \left(n \pi x+\phi_{n}\right), \quad \beta(x)=\sum_{n=1}^{\infty} b_{n} \cos \left(n \pi x+\psi_{n}\right)$$. Then, we observe that, thanks to boundary conditions, $\psi_{n}=\phi_{n}=0$ for all natural $n$. The stability condition~\eqref{eqn:linear_second_order_stability}  takes the form:
+{We} extract information on the onset of instability  seeking a solution in Fourier series of the fields $v$ and $\beta$ in \eqref{hessian22}, such that $$v(x)=\sum_{n=1}^{\infty} a_{n} \sin \left(n \pi x+\phi_{n}\right), \quad \beta(x)=\sum_{n=1}^{\infty} b_{n} \cos \left(n \pi x+\psi_{n}\right).$$
+Then we observe that, thanks to boundary conditions, $\psi_{n}=\phi_{n}=0$ for all natural $n$. The stability condition~\eqref{eqn:linear_second_order_stability}  takes the form:
 \begin{align}\left[ a_n \quad b_n \right] \mathcal{H} \left[ \begin{array}{c} a_n \\ b_n \end{array} \right]=\left[ a_n \quad b_n \right]\left(
 \begin{array}{cc}
 \soften(\alpha)(n\pi)^2+\elastell^{-2}  & \frac{\partial \soften}{\partial \alpha}\bar\epsilon(n\pi)  \\
@@ -323,8 +324,8 @@ We once more seek the linear incremental stability of an equilibrium configurati
 We again proceed to extract information on the onset of instability expanding in Fourier series the fields $v$, $\beta$ and $\subsutest$ appearing in \eqref{hessian222} such that 
 \[
 v(x) = \sum_{n=1}^{\infty} a_{n} \sin \left(n \pi x + \phi_{n}\right),
-\quad \beta(x) = \sum_{n=1}^{\infty} b_{n} \cos \left(n \pi x + \psi_{n}\right),
-\quad \subsutest(x) = \sum_{n=1}^{\infty} c_{n} \sin \left(n \pi x + \theta_{n}\right).
+\quad\beta(x) = \sum_{n=1}^{\infty} b_{n} \cos \left(n \pi x + \psi_{n}\right),
+\quad\subsutest(x) = \sum_{n=1}^{\infty} c_{n} \sin \left(n \pi x + \theta_{n}\right).
 \]
 
 Similar to the previous section we claim that, whenever the first order term vanishes, the system is stable only if $\delta^2 \Ecompl
