@@ -5,7 +5,8 @@
 \subsection{Identification of equilibrium branches \albadd{for the reversible case}}
 
 % We now switch to the study of  the nonlinear regime  and we will resort to numerical calculations  to explore the system's behavior beyond the linear approximation.
-We now turn our attention to the solutions beyond the trivial homogeneous branch and will use numerical calculations to identify all the equilibrium branches corresponding to the inhomogeneous solutions. Our goal is to construct an \emph{equilibrium map} that represents all stable and unstable equilibrium states as a function of the external load~\cite{Pattamatta2014-pn}.\comment[]{REV: how is the $0\leq \alpha\leq 1$ enforced?!}
+We now turn our attention to the solutions beyond the trivial homogeneous branch and will use numerical calculations to identify all the equilibrium branches corresponding to the inhomogeneous solutions. Our goal is to construct an \emph{equilibrium map} that represents all stable and unstable equilibrium states as a function of the external load~\cite{Pattamatta2014-pn}.
+% \comment[]{REV: how is the $0\leq \alpha\leq 1$ enforced?!}
 
 To find the equilibrium branches we make use of a pseudo-arclength continuation technique implemented in the software AUTO~\cite{Doedel1981-sa}, see also \cite{Pattamatta2014-pn}. It solves the nonlinear equations \ref{auto1} and \ref{auto2} in the case of rigid and compliant foundation, respectively, with the end displacement $\bar\epsilon_t$ treated as a continuation parameter. To discretize the boundary-value problem, it uses collocation with Lagrange polynomials, and in our simulations we had $N=300$ mesh points with $N_c = 5$ collocation nodes and activated mesh adaptation.
 \begin{figure}
@@ -33,9 +34,33 @@ $
 and $\alpha(\mathbf{x}) \approx \alpha_{\text{FE}} (\mathbf{x}) := \sum_{i=1}^{n_\alpha} \mathcal{N}^{(\alpha)}_i (\mathbf{x}) \alpha_i
 $
 where $\mathcal{N}^{(u)}(\mathbf{x}) $ and $\mathcal{N}^{(\alpha)}(\mathbf{x}) $ are the finite element basis functions and \albadd{$u_i$} and \albadd{$\alpha_i$} are nodal values for the displacement and damage fields, respectively. \albadd{Because both damage and displacement fields are discretised using the same finite element basis functions, we henceforth denote them by the same symbol $\mathcal N_i$ for notational convenience.}
+% $
+%     \hat{N}j(\xi), \quad j = 1, \dots,3
+% $,
+
+% , and 3 is the number of element nodes.
+
+% Use $N_i(x)$ (no hat) to denote the basis functions mapped to the global DOFs, defined in terms of the physical domain coordinate x.
+
+% $
+%     N_i(x), \quad i = 1, \dots, n
+% $
+% ,
+
+% where i is the global DOF index, and $n$ is the total number of DOFs in the system.
+\albadd{
+Using a hat $\hat{\mathcal{N}}_j(\xi)$ to denote the basis functions defined on the isoparametric domain $\xi \in [-1, 1]$, where $j$ is the local node index within the reference element, the assembly process through which the local basis functions $\hat{\mathcal{N}}_j(\xi)$ are connected to the global finite element fields is the mapping
+$$u_{\text{FE}}(x) = \sum_{i=1}^{n_u} \mathcal N_i(x) u_i = \sum_{e=1}^{n_\text{ele}} \sum_{j=1}^{3} \hat{\mathcal {N}}_j(\xi) u_j^e,$$
+where $u_j^e$ is the value at the $j$-th node of the restriction of the field $u$ to the element $e$, and $u_{\text{FE}}(x)$ is the field in the global physical domain.}
+% $N_i(x)$ are the global basis functions spanning all DOFs. $\hat{N}_j(\xi)$ are the local basis functions in the isoparametric coordinates for element e. $u_i$ are the global DOF values, and $u_j^e$ are the local nodal values for element e.
+
+% ---------
+
+
+
 We used quadratic one-dimensional finite elements with 3 nodes  whose   shape functions   ${\mathcal N}_i(x)$ at a node $i$  are given by ${\mathcal N}_1(\xi)=-0.5\xi(1-\xi)$, ${\mathcal N}_2(\xi)=-0.5\xi(1+\xi)$ and ${\mathcal N}_3(\xi)=-(1-\xi)(1+\xi)$, where $\xi$ is the isoparameteric coordinate. The discrete solution $u(x_i)$ provided at discrete nodes $x_i$ by AUTO was first interpolated using B-spline basis functions of degree 3 \cite{Grimstad2016-cq}, and then utilized to calculate the integrals \eqref{hessian22} and \ref{hessian222} employing a three-point Gauss integration scheme. The fixed boundary conditions were enforced by removing the rows and columns corresponding to $x = 0$ and $x = 1$ from the stiffness matrices
 % $\mathbf{H}^i, i = 1, 2$
-$\stiffmat$ and $\widetilde\stiffmat$, \albadd{which are real, symmetric, block matrices of dimensions ${n_u + n_\alpha}$ and ${2n_u + n_\alpha}$, respectively}. The explicit form of the stiffness matrix for the stiff substrate model is given by
+$\stiffmat$ and $\widetilde\stiffmat$, \albadd{which are real, symmetric, block matrices of dimensions ${n_u-2 + n_\alpha}$ and ${2(n_u-2) + n_\alpha}$, respectively}. The explicit form of the stiffness matrix for the stiff substrate model is given by
 \begin{equation}
     \stiffmat =
     % \stiffmat^1=
@@ -152,11 +177,12 @@ Recall that quasi-Newton algorithms only evaluate the function value and its gra
                 % + \frac{1}{2} u'^2 a'(\alpha) \mathcal{N}_i
             \right] dx \\
             \int_0^1 \left[
-                (\frac{1}{2} u'^2 a'(\alpha) + w'(\alpha)) \mathcal{N}_i + \ell^2 \alpha' \mathcal{N}_i'
+                (\frac{1}{2} u'^2 a'(\alpha) + w'(\alpha)) \mathcal{N}_j + \ell^2 \alpha' \mathcal{N}_j'
                 \right] dx
         \end{bmatrix}.\label{residual1}
     \end{equation}
 }
+where $i = 1, \dots, n_u-1$, and $j = 0, \dots, n_\alpha$
 in the stiff model and
 % \begin{equation}
 %     \widetilde{{\bf R}}=
@@ -169,9 +195,9 @@ in the stiff model and
     \begin{equation}
         \widetilde{\mathbf{R}} =
         \begin{bmatrix}
-            \mathbf{R}_u          \\
-            \mathbf{R}_{\tilde u} \\
-            \mathbf{R}_\alpha
+            \mathbf{R}_u      \\
+            \mathbf{R}_\alpha \\
+            \mathbf{R}_{\tilde u}
         \end{bmatrix}
         =
         \begin{bmatrix}
@@ -179,15 +205,16 @@ in the stiff model and
                 (1 - \alpha)^2 u' \mathcal{N}_i' + \frac{1}{\Lambda^2} (u - \tilde{u}) \mathcal{N}_i
             \right] dx \\
             \int_0^1 \left[
-                \rho \tilde u' \mathcal{N}'_i + \frac{1}{\Lambda^2} (u - \tilde{u}) \mathcal{N}_i
+                (\frac{1}{2} u'^2 a'(\alpha) + w'(\alpha)) \mathcal{N}_j + \ell^2 \alpha' \mathcal{N}_j'
             \right] dx \\
             \int_0^1 \left[
-                (\frac{1}{2} u'^2 a'(\alpha) + w'(\alpha)) \mathcal{N}_i + \ell^2 \alpha' \mathcal{N}_i'
+                \rho \tilde u' \mathcal{N}'_i + \frac{1}{\Lambda^2} (u - \tilde{u}) \mathcal{N}_i
                 \right] dx
         \end{bmatrix}.
         \label{residual2}
     \end{equation}
 }
+where $i, k= 1, \dots, n_u-1$, and $j = 0,\dots, n_\alpha$
 in the compliant substrate model.
 
 Among iterative methods for large-scale unconstrained optimization, particularly when dealing with possibly dense Hessian matrices,  quasi-Newton methods often emerge as preferable alternatives to the widely-used Newton-Raphson (NR) algorithm. The NR algorithm, conventionally utilized for solving linear equations to determine the correction $\Delta \mathbf{X}^{(k)}$ from the current estimate $\mathbf{X}^{(k)} = (\mathbf{u}^{(k)}, \boldsymbol{\alpha}^{(k)})$ at iteration $k$, is expressed in our context as:

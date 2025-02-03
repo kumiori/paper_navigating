@@ -34,7 +34,7 @@ This modelling choice is common (yet not unique) in phase-field fracture models 
 
 
 \paragraph{Structural Model}
-The structure under consideration is a multilayer composite constituted by a brittle thin film  made of the material identified by the state function $W$, attached to an underlying substrate which is either rigid or elastically compliant. The thin film is a one-dimensional membrane with thickness $h$ and length $L$ with $L\gg h$, subject to a combination of imposed inelastic tensile strains $\bar\epsilon_t$, imposed displacements by the substrate, and loadings at the boundary. The structure's reference configuration is the interval $(0, L)$.
+The structure under consideration is a multilayer composite constituted by a brittle thin film  made of the material identified by the state function $W$, attached to an underlying substrate which is either \albreplace{stiff}{rigid} or elastically compliant. The thin film is a one-dimensional membrane with thickness $h$ and length $L$ with $L\gg h$, subject to a combination of imposed inelastic tensile strains $\bar\epsilon_t$, imposed displacements by the substrate, and loadings at the boundary. The structure's reference configuration is the interval $(0, L)$.
 % 
 The substrate is modelled as a one-dimensional elastic foundation whose displacement field is $v(x)$ and strain field is $e(v) = v'(x)$.
 % 
@@ -42,7 +42,7 @@ The displacement field which is elastically compatible to an homogeneous strain 
 % 
 The film is subjected to $v(x, t)$ as a tensile imposed load and to given (compatible) displacements at its free ends $x = \{0, L\}$, so that for all $t$, $u(0)=v(0, t)$ and $u(L)=v(L, t)$
 % 
-Our first model describes a brittle thin film deposited on a stiff, non-deformable substrate. This model assumes the substrate is rigid, meaning, $\subsu$ is a given. The elastic interaction is modelled by a distributed linear elastic foundation of stiffness $K$, thus
+Our first model describes a brittle thin film deposited on a stiff, non-deformable substrate. This model assumes the substrate is \albreplace{stiff}{rigid}, meaning, $\subsu$ is a given. The elastic interaction is modelled by a distributed linear elastic foundation of stiffness $\mathsf{K}$, thus
 % , so that the energy of the structure is given by
 the total energy of the structure is a functional $\Estiff$ constructed by considering the energy of the thin film and the energy associated with  the mechanical coupling between the film and the substrate. In nondimensional form, it is given by
 
@@ -53,7 +53,8 @@ the total energy of the structure is a functional $\Estiff$ constructed by consi
         + \homogdiss(\alpha) + \frac{\damagell^2}{2}(\alpha')^2
         \right] dx,
 \end{equation}
-where $\Lambda^2 = \frac{E_{\text{eff}}}{K}$, $E_{\text{eff}}$ being the effective stiffness of the two dimensional membrane.
+where $\Lambda^2 = \albadd{\frac{\mathsf E_{\text{eff}}}{\mathsf{K}}}$, $E_{\text{eff}}$ being the effective stiffness of the \albreplace{one}{two} dimensional \albreplace{film}{membrane}
+\albadd{and spatial variables as well as physical displacements are respectively normalized with respect to the film's length $L$ and the displacement scale $u_0 := \frac{\mathsf{w_1}L}{\mathsf{K}}$}\comment[id=ALB]{double check denominator}.
 Our second model involves the same brittle thin film but a \emph{compliant} elastic substrate that undergoes deformation alongside the film. Unlike for the rigid substrate, the substrate's deformation is an additional unknown which affects the overall energy landscape of the system, incorporating an extra term accounting for the strain energy of the substrate.
 The state of this structure is identified by the triplet $y:=(u, \alpha, v)$, and the nondimensional energy of the compliant system  $\Ecompl(\alpha, u, v)$ reads
 
@@ -66,17 +67,22 @@ The state of this structure is identified by the triplet $y:=(u, \alpha, v)$, an
 % 
 % 
 % Dimensional parameters
-% 
-Nondimensional constants appearing in the expression of the energies can be related the three-dimensional parameters of a phyisical mechanical system by an appropriate de-scaling, remarking that the reduced elastic model~\eqref{def:energy_stiff} can be obtained as an asymptotic limit starting from a thin multilayer system in 3d elasticity, as shown in~\cite{Leon_Baldelli2015-rp} .
+\albadd{The reduced elastic model in~\eqref{def:energy_stiff} (and~\eqref{def:energy_compliant}) can be obtained as the asymptotic vanishing thickness limit starting from a thin 3d elastic bilayer system of thickness  $\mathsf 2h \ll L$, as shown in~\cite{Leon_Baldelli2015-rp}. Assuming the film is attached to its substrate by the means of a compliant interface of stiffness $\Youngsubs \ll \Youngfilm$, the nondimensional constants appearing in the expression of the reduced-dimension energies can be related to the three-dimensional parameters of a phyisical mechanical system.}
+
+\albdelete{Nondimensional constants appearing in the expression of the energies can be related \albadd{to} the three-dimensional parameters of a phyisical mechanical system \albdelete{ by an appropriate de-scaling}, remarking that the \albreplace{underlying}{reduced} elastic model \albadd{in}~\eqref{def:energy_stiff} \albadd{(a membrane supported by a linear elastic foundation)} can be obtained as \albreplace{the}{an} asymptotic \albadd{vanishing thickness} limit \albreplace{for}{starting from} a thin \albreplace{bi}{multi}layer system in 3d elasticity, as shown in~\cite{Leon_Baldelli2015-rp}\albadd{, upon appropriate scaling assumptions on the thickness and stiffness ratios}.}
+\albdelete{In essence, a bilayer system  }
 % , \mathsf{E'_\text{2d}}
-Thus, denoting by $\mathsf{E_\text{2d}}$ the two-dimensional stiffness of the thin film membrane (per unit depth), and by a tilde the stiffness and thickness of the substrate, the nondimensional quantities appearing in the expression of the energy depend on the geometric the elastic properties of the system as follows
+Denoting by $\mathsf{E_\text{2d}}$ and $ h$ the two-dimensional stiffness (per unit depth) and the thickness of the film membrane, and by a prime sign the stiffness and thickness of the substrate, the nondimensional quantities appearing in the expression of the energy depend on the geometric the elastic properties of the system as follows
 \begin{equation}
     \label{def:dimensional_parameters}
     \damagell := \frac{\bar\damagell}{L}, \quad
-    \Lambda := \frac{\Youngfilm}{\Youngsubs}\frac{h w_1}{L^2}, \quad
-    \stiffratio := \frac{\Youngfilm}{\Youngsubs}\frac{w_1}{h}, \quad
-\end{equation}
-while spatial variables and physical displacements are respectively normalized with respect to the film's length $L$ and the displacement scale $u_0 := \frac{\mathsf{w_1}L}{\mathsf{E_{\text{2d}} h}}$.
+    % \Lambda := \frac{\Youngfilm}{\Youngsubs}\albadd{\frac{\mathsf h \mathsf w_1}{L^2}}, \quad
+    \Lambda := \frac{\Youngfilm}{\Youngsubs}\albadd{\frac{\mathsf h^2}{L^2}}, \quad
+    % \stiffratio := \frac{\Youngfilm}{\Youngsubs}\albadd{\frac{\mathsf{w_1}}{\mathsf h}}, \quad
+    \stiffratio := \frac{\Youngsubs}{\Youngfilm}\albadd{\frac{\mathsf{h'}}{\mathsf h}}, \quad
+\end{equation}\comment[id=ALB]{unsure on last parameter}
+\albadd{Note that the nondimensional parameter $\Lambda$ relates the effective stiffness of the film membrane undergoing planar tensile strains, $\Youngfilm h$, to the effective stiffness of the bonding layer undergoing shear, $\Youngsubs / h'$.}
+\albdelete{while spatial variables and physical displacements are respectively normalized with respect to the film's length $L$ and the displacement scale $u_0 := \frac{\mathsf{w_1}L}{\mathsf{E_{\text{2d}} h}}$.}
 
 
 
@@ -145,7 +151,7 @@ we seek \albadd{stable states exploiting a notio of directional stability.}
 }
 (and similarly for the compliant model substituting $\Estiff$ with $\Ecompl$ and $X_t$ with $\widetilde{X_t}$.)
 \albadd{
-    Here $z$ is any admissible perturbation direction in the tangent space $T_y X_t$. If this condition is satisfied for all admissible directions $z \in T_y X_t$, the state y is considered directionally stable.
+    Here $z$ is any admissible perturbation direction in the tangent space $T_y X_t$. If this condition is satisfied for all admissible directions $z \in T_y X_t$, the state y is considered stable.
     Remark that this statement focuses on \emph{local} variations of the energy $\Psi$ around $y$, in line with numerical methods that explore the solution landscape directionally (e.g., quasi-Newton or Newton methods, even in finite-dimensional approximations), yet is defined through a \emph{global} quantity, the energy of the system $\Psi$.
     For small perturbations, this is a practical criterion that can be tested numerically without requiring a global search which is computationally prohibitive in infinite-dimensional spaces due to the vastness of the solution landscape.
     In physical systems, stability often depends on small perturbations to the current state. Accordingly, this statement ensures that no small admissible perturbation $z$ decreases the energy of a stable state, which is a natural generalisation of a second-order stability condition.
@@ -174,7 +180,7 @@ As a consequence, irreversibility restricts the admissible set of competitors to
 Remark that in the definition of the competitor space $\alpha_t$ (the damage field at time $t$) is unknown at time $t$.
 In the irreversible case the set of admissible competitor states depends explicitly on the entire history of the evolution through the current damage field.
 To draw the attention to the consequences of irreversibility on the system's transitions between different equilibrium states we develop the global variational inequality~\eqref{eq:variational_global_ineq} (and the analogous for the compliant model) by expanding the energy around the state $y_t$.
-Admissible perturbations in the fully reversible case they belong to the \albadd{tangent} space \albadd{$T_y X_t=X_0$} associated with  $X_t$ (respectively, $\widetilde{X_t}$) \albadd{which is a linear vector space}, whereas in the irreversible case \albreplace{the tangent space $T_y X_t$ of admissible perturbations is}{they are bound to} the closed, pointed, convex cone $K^+_0$ (respectively, $\widetilde{K^+_0}$).
+Admissible perturbations in the fully reversible case they belong to the \albadd{tangent} space \albadd{$T_y X_t=X_0$} associated with  $X_t$ (respectively, $\widetilde{X_t}$) \albadd{which is a linear vector space}, whereas in the irreversible case \albreplace{the tangent space $T_y X_t$ of admissible perturbations is}{they are bound to} the closed \albdelete{, pointed, }convex cone $K^+_0$ (respectively, $\widetilde{K^+_0}$).
 
 An energy expansion in the vicinity the state $y_t$ reads
 $$
@@ -182,7 +188,7 @@ $$
     \label{eqn:energy-expansion}
 $$
 % and is valid for any $y$ whose displacement component verifies kinematic boundary conditions and its damage component $\alpha$ is either unconstrained, or such that $\alpha\geq\alpha_t$ if irreversibility is taken into account.
-(and analogously for the compliant model), which allows to write first and second order necessary (and sufficient) conditions for optimality.
+(and analogously for the compliant model), which allows to write first and second order (necessary and sufficient) conditions for optimality.
 
 
 % Local Stability: For each load step, the system is in a stable equilibrium, meaning no small admissible perturbation can decrease the system's energy.
@@ -231,17 +237,23 @@ $z\in X_0$ is a test function (an admissible perturbation) in the linear space a
     \delta \Estiff(u,\alpha)(w,\beta)=0, \quad \forall z\in X_0.
 \end{equation}
 % Note here that, because the damage field $\alpha$ is free from irreversibility constraits, both positive and negative  test functions  are admissible, thus equilibrium configurations necessarily satisfy the equality to zero of the first order variation of the energy functional. 
-By using standard arguments of the calculus of variations, localizing the integral and choosing $\beta = 0$ first, and then $v =0$ leads to establishing the strong form of local equilibrium conditions which couple the mechanical equilibrium and the damage criterion, respectively given by
+By using standard arguments of the calculus of variations, localizing the integral and choosing $\beta = 0$ first, and then $v =0$ leads to establishing the strong form of local equilibrium conditions which couple the mechanical equilibrium and the damage criterion, \albadd{and the associated boundary conditions, } respectively given by
 \begin{eqnarray}
     % \label{modeld_el_1}
     \begin{cases}
         2(1-\alpha)\alpha' u' +(1-\alpha)^2 u'' -  \frac{1}{\elastell^2}(u-\subsu) & = 0, \quad {x\in (0, 1)} \\
         -\damagell^2\alpha'' - (1-\alpha)( u')^2 + 2\alpha                         & = 0, \quad {x\in (0, 1)}
-    \end{cases}.
+    \end{cases}
+    \albadd{,    \qquad
+        \begin{cases}
+            % u(0, t)       & = \subsu(0, t),       \\
+            u(x)       = \subsu(x, t), & x=\{0, 1\}, \forall t \\
+            \alpha'(x) = 0,            & x=\{0, 1\}, \forall t \\
+        \end{cases}}.
     \label{auto1}
 \end{eqnarray}
 % proceeding with the evaluation of the equilibrium configuration via the Euler-Lagrange equations
-This differential system is equipped with essential kinematic boundary conditions $u(0) = \subsu(0, t), u(1) = \subsu(1, t)$. Conversely, conditions on the internal field $\alpha'(0)=\alpha'(1)=0$ naturally follow by minimality.
+\albdelete{This differential system is equipped with essential kinematic boundary conditions $u(0) = \subsu(0, t), u(1) = \subsu(1, t)$. Conversely, conditions on the internal field $\alpha'(0)=\alpha'(1)=0$ naturally follow by minimality.}
 % When the order parameter is reversible, the space of admissible perturbations is the homogeneous space associated with  $X_t$, that is $V_0:= H^1_0((0,1))\times  H^1((0,1))$.
 Notice that the choice of boundary conditions for displacements compatible with the substrate's deformation implies that the pair $\yhom(\bar\epsilon):=(u_h(x), \alpha_h)(\bar\epsilon)$ given by $u_h(x)\equiv \subsu(x, t)$ and $\alpha_h$ a load-dependent constant to identify, is always (the unique homogenous) solution to the first order equilibrium equations. This makes it immediate to identify the fundamental homogeneous solution branch $t \mapsto \yhom$ and to decouple the elasticity problem from the  evolution of damage.
 Therefore, the solution to~\eqref{auto1} such that $u''(x)=\alpha'(x)= 0, \, \forall x\in (0, 1)$ is the homogeneous branch
@@ -266,7 +278,7 @@ The effective {total} energy along the {homogeneous} branch reads
 An equilibrium configuration $y_t:=(u,\alpha)_t$ is a state such that the first variation $\delta \Estiff(y_t)(z)$ vanishes for all admissible test fields in the vector space $X_0$.
 To assess the incremental stability of the homogeneous solution in the reversible (linear) case, we examine the positivity of the second variation, requiring
 \begin{equation}
-    \delta^2 \Estiff(y_t)(y-y_t, y-y_t)>0, \qquad  \forall y\in X_0,
+    \delta^2 \Estiff(y_t)(y-y_t, y-y_t)>0, \qquad  \forall \albadd{y-y_t}\in X_0,
     \label{eqn:linear_second_order_stability}
 \end{equation}
 {The second directional derivative of the energy is given by the following bilinear form}
@@ -319,14 +331,20 @@ Denoting by $z:=(v, \beta, \subsutest)\in \widetilde{X}_0$ a test function for t
     \delta \Ecompl(u, \alpha, \subsu)(v,\beta,\subsutest)=\int_0^1 [(1-\alpha)^2u'v'+\frac{1}{\elastell^2} (u- v) (v- \subsutest)+\stiffratio \subsu'\subsutest'+\frac{1}{2}u'^2 (\soften'(\alpha)+\homogdiss'(\alpha))\beta+\damagell^2\alpha'\beta' ]dx,\label{firstvar}
 \end{equation}
 % where $v$, $\beta$ and $z$ are  test functions. 
-The Euler-Lagrange equations read
+\albadd{For $x \in (0, 1)$} the Euler-Lagrange equations and associated boundary conditions read
 \begin{eqnarray}
     \label{modeld_el_1}
     \begin{cases}
         2(1-\alpha)\alpha' u' +(1-\alpha)^2 u'' -  \frac{1}{\elastell^2}(u-\subsu) & = 0, \\
         -\damagell^2\alpha'' - (1-\alpha)( u')^2 + 2\alpha                         & = 0, \\
-        \stiffratio  \subsu''  +  \frac{1}{\elastell^2}(u-\subsu)                  & = 0. \\
+        \stiffratio  \subsu''  +  \frac{1}{\elastell^2}(u-\subsu)                  & = 0, \\
     \end{cases}
+    \albadd{,    \qquad
+        \begin{cases}
+            % u(0, t)       & = \subsu(0, t),       \\
+            u(x)       = \subsu(x, t), & x=\{0, 1\}, \forall t \\
+            \alpha'(x) = 0,            & x=\{0, 1\}, \forall t \\
+        \end{cases}}.
     \label{auto2}
 \end{eqnarray}
 It is easy to show that the homogeneous solution on the trivial branch remains the same as in the case of the rigid substrate, that is $\alpha_h(\bar{\epsilon}) = \frac{\bar{\epsilon}^2}{2 + \bar{\epsilon}^2}\label{eq:homo11}$, whereas the effective elastic energy along the homogeneous branch now reads $\Ecomplhom(\bar{\epsilon}) = \frac{\bar{\epsilon}^2}{2 + \bar{\epsilon}^2} + \frac{\rho}{2}\bar{\epsilon}^2$.
@@ -336,7 +354,7 @@ We once more seek the linear incremental stability of an equilibrium configurati
     (y-y_t)^T\delta^2 \Ecompl(y_t)(y-y_t)>0, \qquad \forall y-y_t\in \widetilde X_0,
 \end{equation*}The second variation is given by the following bilinear form
 \begin{equation}
-    \delta^2 \Ecompl(y_t)(y, y)=\int_0^1 \left[(1-\alpha_t)^2v'^2
+    \delta^2 \Ecompl(y_t)(y-y_t, y-y_t)=\int_0^1 \left[(1-\alpha_t)^2v'^2
         %+ \elastell^{-2}v^2
         - 4(1-\alpha_t)u_t' v'\beta+(2+ {u_t'}^2)\beta^2+\damagell^2\beta'^2 +\frac{1}{\elastell^2}( v^2 + \subsutest^2)+\stiffratio \subsutest'^2\right]dx.\label{hessian222}\end{equation}
 We again proceed to extract information on the onset of instability expanding in Fourier series the fields $v$, $\beta$ and $\subsutest$ appearing in \eqref{hessian222} such that
@@ -400,7 +418,7 @@ Substituting in ~\eqref{eq:variational_equilibrium}.2 and accounting for the irr
     -\phi_t(\alpha_t) \leq 0 \qquad
     \phi_t(\alpha_t)\dot \alpha_t = 0.
 \end{equation}
-Here, $\phi_t$ is the scalar function associated with  the variation of elastic energy density at the equilibrium, defined by $\delta \Estiff(y_t)(0, \beta) = \langle -\phi_t(\alpha_t), \beta\rangle$. Here, the subscript $t$ indicates that this quantity is computed for the equilibrium $u_t$.
+Here, $\phi_t$ is the scalar function associated with  the variation of elastic energy density \albadd{computed} at the equilibrium \albadd{and} defined by $\delta \Estiff(y_t)(0, \beta) = \langle -\phi_t(\alpha_t), \beta\rangle$. \albdelete{Here, the subscript $t$ indicates that this quantity is computed {for} the equilibrium $u_t$}.
 %  Here, $\phi_t$ is the energy variation with respect to perturbations of the order parameter (from a given damage level $\alpha_t$) and is interpreted as an energy release rate. 
 Consequently, $\phi_t(0)$ is
 % the total energy released by the system from its sound state
