@@ -28,19 +28,37 @@ and $\homogdiss(\alpha)$ are chosen to be quadratic, namely
     \soften(\alpha) = (1-\alpha)^2, \quad \homogdiss(\alpha) = \mathsf{w_1}\alpha^2,
 \end{equation}
 This modelling choice is common (yet not unique) in phase-field fracture models (cf.~\cite{Bourdin2000-pc,Miehe2010-sj,Miehe2010-ja}). In the current context, it allows damage to evolve for an arbitrarily small value of the load.
+\albadd{
+    % 
+    The choice of the quadratic damage potential brings the main conceptual difficulty of the evolution problem at the first loading step.
+    The other commonly used model AT1 has, instead, an elastic phase during which variations of damage are suboptimal. As a consequence, second or conditions (bifurcation and stability) are trivial, because damage cannot evolve. With our choice, starting from the smallest discrete load, damage can evolve and the space of variations of damage is nontrivial. A \emph{solid} cone, in the irreversible case.
+    In this sense, the choice of the model is such that the first numerical challenge occurs at the first time step, marking
+    the conceptual difference between the irreversible stability and bifurcation problems when irreversibility is accounted for.
+    %  becomes manifest.
+    Simplifying the numerical implementation,
+    the lower and upper lower bounds (0 and 1) on the damage variable do not require
+    additional constraints for first order solvers because it is satisfied by minimality.
+    This allows to focus on the implementation of time-irreversibility at the level of second order solvers,
+    exploiting the ability to explore a complex bifurcation landscape with continuation methods.
+}
+% as with the date in the following the numerical the solution of the second order condition isnontrivial
+% , instead of having to wait for the elastic face and solve a long series of linear elastic problems     
+% 
+% Economic standpoint, we only solve one trivia zero load initial Evolution step
+% Beginning from the first step, 
 %  consequences on the damage material behaviour and the properties of the evolutions.
 
 
 
 
 \paragraph{Structural Model}
-The structure under consideration is a multilayer composite constituted by a brittle thin film  made of the material identified by the state function $W$, attached to an underlying substrate which is either \albreplace{stiff}{rigid} or elastically compliant. The thin film is a one-dimensional membrane with thickness $h$ and length $L$ with $L\gg h$, subject to a combination of imposed inelastic tensile strains $\bar\epsilon_t$, imposed displacements by the substrate, and loadings at the boundary. The structure's reference configuration is the interval $(0, L)$.
+The structure under consideration is a multilayer composite constituted by a brittle thin film  made of the material identified by the state function $W$, attached to an underlying substrate which is either \albreplace{stiff}{rigid} or elastically compliant. The thin film is a one-dimensional membrane with thickness $h$ and length $L$ with $L\gg h$, subject to a combination of \albdelete{imposed inelastic tensile strains $\bar\epsilon_t$,} imposed displacements by the substrate and loadings at the boundary. The structure's reference configuration is the interval $(0, L)$.
 % 
-The substrate is modelled as a one-dimensional elastic foundation whose displacement field is $v(x)$ and strain field is $e(v) = v'(x)$.
+The substrate is modelled as a one-dimensional elastic foundation whose displacement field is $v(x)$\albdelete{ and strain field is $e(v) = v'(x)$}.
 % 
-The displacement field which is elastically compatible to an homogeneous strain in the substrate is the linear function $v(x, t) = \bar\epsilon(t)/2 (2x-1)$, where $\bar\epsilon(t)$ is the applied tensile strain and $t$ plays the role of a loading time parameter.
+The displacement field which is elastically compatible to an homogeneous strain in the substrate is the linear function $v(x, t) = \bar\epsilon_t/2 (2x-1)$, where \albadd{$\bar\epsilon_t\in \mathbb R$} is the \albdelete{applied tensile}\albadd{average} strain and $t$ plays the role of a loading time parameter.
 % 
-The film is subjected to $v(x, t)$ as a tensile imposed load and to given (compatible) displacements at its free ends $x = \{0, L\}$, so that for all $t$, $u(0)=v(0, t)$ and $u(L)=v(L, t)$
+The film is subjected to \albadd{the displacement of the substrate} $v(x, t)$ \albdelete{as a tensile imposed load} and to given (compatible) displacements at its free ends $x = \{0, L\}$, so that for all $t$, $u(0)=v(0, t)$ and $u(L)=v(L, t)$
 % 
 Our first model describes a brittle thin film deposited on a stiff, non-deformable substrate. This model assumes the substrate is \albreplace{stiff}{rigid}, meaning, $\subsu$ is a given. The elastic interaction is modelled by a distributed linear elastic foundation of stiffness $\mathsf{K}$, thus
 % , so that the energy of the structure is given by
@@ -67,12 +85,12 @@ The state of this structure is identified by the triplet $y:=(u, \alpha, v)$, an
 % 
 % 
 % Dimensional parameters
-\albadd{The reduced elastic model in~\eqref{def:energy_stiff} (and~\eqref{def:energy_compliant}) can be obtained as the asymptotic vanishing thickness limit starting from a thin 3d elastic bilayer system of thickness  $\mathsf 2h \ll L$, as shown in~\cite{Leon_Baldelli2015-rp}. Assuming the film is attached to its substrate by the means of a compliant interface of stiffness $\Youngsubs \ll \Youngfilm$, the nondimensional constants appearing in the expression of the reduced-dimension energies can be related to the three-dimensional parameters of a phyisical mechanical system.}
+\albadd{The reduced elastic model in~\eqref{def:energy_stiff} (and~\eqref{def:energy_compliant}) can be obtained as the asymptotic vanishing thickness limit for a thin 3d elastic bilayer system of thickness  $\mathsf 2h \ll L$, as shown in~\cite{Leon_Baldelli2015-rp}. Assuming the film is attached to its substrate by the means of an interface layer of stiffness $\Youngsubs \ll \Youngfilm$, the nondimensional constants appearing in the expression of the reduced-dimension energies can be related to the three-dimensional parameters of a phyisical mechanical system.}
 
 \albdelete{Nondimensional constants appearing in the expression of the energies can be related \albadd{to} the three-dimensional parameters of a phyisical mechanical system \albdelete{ by an appropriate de-scaling}, remarking that the \albreplace{underlying}{reduced} elastic model \albadd{in}~\eqref{def:energy_stiff} \albadd{(a membrane supported by a linear elastic foundation)} can be obtained as \albreplace{the}{an} asymptotic \albadd{vanishing thickness} limit \albreplace{for}{starting from} a thin \albreplace{bi}{multi}layer system in 3d elasticity, as shown in~\cite{Leon_Baldelli2015-rp}\albadd{, upon appropriate scaling assumptions on the thickness and stiffness ratios}.}
 \albdelete{In essence, a bilayer system  }
 % , \mathsf{E'_\text{2d}}
-Denoting by $\mathsf{E_\text{2d}}$ and $ h$ the two-dimensional stiffness (per unit depth) and the thickness of the film membrane, and by a prime sign the stiffness and thickness of the substrate, the nondimensional quantities appearing in the expression of the energy depend on the geometric the elastic properties of the system as follows
+Denoting by $\mathsf{E_\text{2d}}$ and $ h$ the two-dimensional stiffness (per unit depth) and the thickness of the film membrane, and using a prime sign to indicate the stiffness and thickness of the substrate, the nondimensional quantities appearing in the expression of the energy depend on the geometric the elastic properties of the system as follows
 \begin{equation}
     \label{def:dimensional_parameters}
     \damagell := \frac{\bar\damagell}{L}, \quad
@@ -81,7 +99,8 @@ Denoting by $\mathsf{E_\text{2d}}$ and $ h$ the two-dimensional stiffness (per u
     % \stiffratio := \frac{\Youngfilm}{\Youngsubs}\albadd{\frac{\mathsf{w_1}}{\mathsf h}}, \quad
     \stiffratio := \frac{\Youngsubs}{\Youngfilm}\albadd{\frac{\mathsf{h'}}{\mathsf h}}, \quad
 \end{equation}\comment[id=ALB]{unsure on last parameter}
-\albadd{Note that the nondimensional parameter $\Lambda$ relates the effective stiffness of the film membrane undergoing planar tensile strains, $\Youngfilm h$, to the effective stiffness of the bonding layer undergoing shear, $\Youngsubs / h'$.}
+\albadd{
+    Note that the nondimensional parameter $\Lambda$ relates the effective stiffness of the film membrane undergoing planar tensile strains (i.e. $\Youngfilm h$), to the effective stiffness of the bonding layer which, to accommodate the mismatch deformation between the film and the undelying rigid substrate, is subject to a simple shear for which the effective stiffness is inversely proportional to its thickness, namely $\Youngsubs / h'$.}
 \albdelete{while spatial variables and physical displacements are respectively normalized with respect to the film's length $L$ and the displacement scale $u_0 := \frac{\mathsf{w_1}L}{\mathsf{E_{\text{2d}} h}}$.}
 
 
@@ -89,7 +108,7 @@ Denoting by $\mathsf{E_\text{2d}}$ and $ h$ the two-dimensional stiffness (per u
 
 % Functional setting
 
-For brevity, we denote by $y:=(u, \alpha)$ (and $y:=(u, \alpha, v)$) the mechanical state of the stiff (respectively, compliant) model system, and by $H^1(0, 1)$ the (Sobolev) space of scalar real functions defined on the unit interval which are square integrable and have square integrable first derivatives. The energy $\Estiff(y)$ is well-defined for pairs belonging in the Cartesian vector product space $V:=H^1(0,1)\times  H^1(0,1)$. Similarly, the energy $\Ecompl(y)$ is well-defined for triplets $(u, \alpha, \subsu)$ in $\widetilde V:=V\times  H^1(0,1)$. In both cases, we extend the value of the total energy to $+\infty$ whenever $\alpha < 0$ or $\alpha > 1$ without renaming the functional.
+For brevity, we denote by $y:=(u, \alpha)$ (and $y:=(u, \alpha, v)$) the mechanical state of the stiff (respectively, compliant) model system, and by $H^1(0, 1)$ the (Sobolev) space of scalar real functions defined on the unit interval which are square integrable and have square integrable first derivatives. The energy $\Estiff(y)$ is well-defined for pairs belonging in the Cartesian vector product space $V:=H^1(0,1)\times  H^1(0,1)$. Similarly, the energy $\Ecompl(y)$ is well-defined for triplets $(u, \alpha, \subsu)$ in $\widetilde V:=V\times  H^1(0,1)$. \albdelete{In both cases, we extend the value of the total energy to $+\infty$ whenever $\alpha < 0$ or $\alpha > 1$ without renaming the functional.}
 % The energy functionals are coercive, lower semi-continuous, and nonconvex.
 
 % \subsection{Thin Film on Stiff Substrate}
@@ -180,7 +199,7 @@ As a consequence, irreversibility restricts the admissible set of competitors to
 Remark that in the definition of the competitor space $\alpha_t$ (the damage field at time $t$) is unknown at time $t$.
 In the irreversible case the set of admissible competitor states depends explicitly on the entire history of the evolution through the current damage field.
 To draw the attention to the consequences of irreversibility on the system's transitions between different equilibrium states we develop the global variational inequality~\eqref{eq:variational_global_ineq} (and the analogous for the compliant model) by expanding the energy around the state $y_t$.
-Admissible perturbations in the fully reversible case they belong to the \albadd{tangent} space \albadd{$T_y X_t=X_0$} associated with  $X_t$ (respectively, $\widetilde{X_t}$) \albadd{which is a linear vector space}, whereas in the irreversible case \albreplace{the tangent space $T_y X_t$ of admissible perturbations is}{they are bound to} the closed \albdelete{, pointed, }convex cone $K^+_0$ (respectively, $\widetilde{K^+_0}$).
+Admissible perturbations in the fully reversible case they belong to the \albadd{tangent} space \albadd{$T_y X_t=X_0$} associated with  $X_t$ (respectively, $\widetilde{X_t}$) \albadd{which is a linear vector space}, whereas in the irreversible case \albreplace{admissible perturbations constitute}{they are bound to} the closed \albdelete{, pointed, }convex cone $K^+_0$ (respectively, $\widetilde{K^+_0}$).
 
 An energy expansion in the vicinity the state $y_t$ reads
 $$
@@ -227,7 +246,7 @@ Equilibrium equations of the system are obtained as first order necessary condit
 The first order variation of the energy functional $\Estiff$ in the direction $z:=(w, \beta)$ is given by the following linear form
 \begin{equation}
     \delta \Estiff(u,\alpha)(w,\beta)=\int_0^1
-    \left[\soften(\alpha)u'w'+\frac{1}{\elastell^2} (u-u_0) w+ \left( \frac{1}{2}u'^2 \soften'(\alpha)+\homogdiss'(\alpha) \right)\beta+\damagell^2\alpha'\beta' \right]dx,\label{firstvar1}
+    \left[\soften(\alpha)u'w'+\frac{1}{\elastell^2} (u-\subsu) w+ \left( \frac{1}{2}u'^2 \soften'(\alpha)+\homogdiss'(\alpha) \right)\beta+\damagell^2\alpha'\beta' \right]dx,\label{firstvar1}
 \end{equation}\comment[]{REV: what about when $\alpha=1$?}
 where
 % $v$ and $w$ are scalar test functions. 
@@ -433,8 +452,8 @@ Explicitly, the function $\phi_t$ depends on the brittle material model and is d
 \end{equation}
 where $\epsilon$ is the elastic strain and $\soften'(\alpha)$ and $\homogdiss'(\alpha)$ are the derivatives of the softening and dissipation energy densities with respect to the damage variable.
 The inequality ~\eqref{eq:variational_equilibrium}.2 identifies the domains of admissible strains (and, by duality, of stresses) for homogeneous solutions as
-$\mathcal{R}(\alpha):=\{\epsilon\in R^{2\times 2}_{sym}: \Youngfilm \epsilon^2 \leq -\frac{2 \mathsf{w}'(\alpha)}{\mathsf{a}'(\alpha)}\},$ and $
-    \mathcal{R}^*(\alpha):=\{\sigma\in R^{2\times 2}_{sym}: \frac{\sigma^2}{\Youngfilm} \leq \frac{2 \mathsf{w}'(\alpha)}{\mathsf{s}'(\alpha)}\}$, respectively.
+$\mathcal{R}(\alpha):=\{\epsilon\in \mathbb R^{2\times 2}_{sym}: \Youngfilm \epsilon^2 \leq -\frac{2 \mathsf{w}'(\alpha)}{\mathsf{a}'(\alpha)}\},$ and $
+    \mathcal{R}^*(\alpha):=\{\sigma\in \mathbb R^{2\times 2}_{sym}: \frac{\sigma^2}{\Youngfilm} \leq \frac{2 \mathsf{w}'(\alpha)}{\mathsf{s}'(\alpha)}\}$, respectively.
 % 
 % The inequality $-\phi_t(\alpha_t) \leq 0$ 
 As a first order optimality condition,~\eqref{eq:variational_equilibrium}.2 states that the local elastic energy release is either smaller than or equal to the (marginal) cost of damage, whereas the complementarity condition $\phi_t(\alpha_t)\dot \alpha_t = 0$ ensures that the damage field evolves only if the energy release rate is critical.
