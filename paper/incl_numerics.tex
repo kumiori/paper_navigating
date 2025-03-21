@@ -8,7 +8,7 @@
 We now turn our attention to the solutions beyond the trivial homogeneous branch to identify all the equilibrium branches corresponding to the inhomogeneous \albadd{localised} solutions. Our goal is to construct an \emph{equilibrium map} that represents all stable and unstable equilibrium states as a function of the external load~\cite{Pattamatta2014-pn}.
 % \comment[]{REV: how is the $0\leq \alpha\leq 1$ enforced?!}
 To do so, we use the pseudo-arclength continuation technique implemented in the software AUTO~\cite{Doedel1981-sa}, see also \cite{Pattamatta2014-pn}.
-It uses collocation with Lagrange polynomials to discretize the boundary-value problem, in our simulations we had $300$ mesh points with $5$ collocation nodes and activated mesh adaptation.
+It uses collocation with Lagrange polynomials to discretise the boundary-value problem, in our simulations we had $300$ mesh points with $5$ collocation nodes and activated mesh adaptation.
 \albadd{Then, } it solves the nonlinear equations \ref{auto1} (and \ref{auto2} in the compliant case), with the \albreplace{load}{end displacement} $\bar\epsilon_t$ treated as a continuation parameter.
 \begin{figure}
     \centering
@@ -17,9 +17,10 @@ It uses collocation with Lagrange polynomials to discretize the boundary-value p
     \includegraphics[align=c, width=.4\textwidth]{../images/model_stiff_fields.pdf}
     % \includegraphics[align=c,width=.8\textwidth]{../images/bifurcations_model1.pdf}
     \includegraphics[align=c,width=.8\textwidth]{../images/bifurcations_model1_annotated.pdf}
-    \caption{
-        % \todo[inline]{Add marker for $\ep_c$ in a), }
-        Equilibrium branches for phase-field thin film model of an elastic membrane on a compliant elastic foundation. Left, the energy difference $\Delta \Estiff$ between the current and the homogeneous configurations, for the same load. Stability of solutions is color-coded: blue denotes stability while orange indicates instability, by numerical evaluation of the smallest eigenvalue of the stiffness matrix $\stiffmat$. Equilibrium branches are parametrised by an integer $n$ and rrows indicate branch switching events associated with the loss of stability; Right, damage and strain profiles of the minimum energy configurations on each branch.}
+    % \caption{
+    %     % \todo[inline]{Add marker for $\ep_c$ in a), }
+    %     Equilibrium branches for phase-field thin film model of an elastic membrane on a compliant elastic foundation. Left, the energy difference $\Delta \Estiff$ between the current and the homogeneous configurations, for the same load. Stability of solutions is color-coded: blue denotes stability while orange indicates instability, by numerical evaluation of the smallest eigenvalue of the stiffness matrix $\stiffmat$. Equilibrium branches are parametrised by an integer $n$ and rrows indicate branch switching events associated with the loss of stability; Right, damage and strain profiles of the minimum energy configurations on each branch.}
+    \caption{\added[id=OUS]{Equilibrium branches for phase-field thin film model on rigid elastic foundation. Left: energy difference $\Delta\Psi$ between current and homogeneous configurations at equal load. Stability color-coded: blue (stable), orange (unstable) based on smallest eigenvalue of stiffness matrix $H$. Branches parametrised by integer $n$; arrows indicate branch switching at stability loss. Right: damage and strain profiles of minimum energy configurations on each branch. Bottom: bifurcation and stability map.}}
     \label{fig:branches-stiff}
 \end{figure}
 
@@ -64,6 +65,11 @@ For quadratic one-dimensional finite elements with 3 nodes, shape functions   ${
 $\stiffmat$ and $\widetilde\stiffmat$, \albadd{which are real, symmetric, block matrices of dimensions ${n_u-2 + n_\alpha}$ and ${2(n_u-2) + n_\alpha}$, respectively}. The explicit form of the stiffness matrix for the stiff substrate model is given by
 \begin{equation}
     \stiffmat =
+    \begin{bmatrix}
+        \stiffmat_{uu}       & \stiffmat_{u\alpha}      \\
+        \stiffmat_{\alpha u} & \stiffmat_{\alpha\alpha}
+    \end{bmatrix}
+    =
     % \stiffmat^1=
     \begin{bmatrix}
         \int_0^1[ \frac{1}{\Lambda^2}{\mathcal N}_i{\mathcal N}_j + (1-\alpha)^2{\mathcal N}'_i{\mathcal N}'_j
@@ -78,20 +84,25 @@ $\stiffmat$ and $\widetilde\stiffmat$, \albadd{which are real, symmetric, block 
 whereas for the compliant substrate model it reads
 \begin{equation}
     \stiffmatcompl=
+    \begin{bmatrix}
+        \stiffmatcompl_{uu}       & \stiffmatcompl_{u\alpha}      & \stiffmatcompl_{uv}       \\
+        \stiffmatcompl_{\alpha u} & \stiffmatcompl_{\alpha\alpha} & \stiffmatcompl_{\alpha v} \\
+        \stiffmatcompl_{vu}       & \stiffmatcompl_{v\alpha}      & \stiffmatcompl_{vv}
+    \end{bmatrix}
+    =
     % /\stiffmat^2=
     \begin{bmatrix}
-        \int_0^1[ \frac{1}{\Lambda^2}{\mathcal N}_i{\mathcal N}_j + (1-\alpha)^2{\mathcal N}'_i{\mathcal N}'_j] dx &
-        -2\int_0^1(1-\alpha)u' {\mathcal N}'_i {\mathcal N}_j  dx                                                  &
-        -\int_0^1[\frac{1}{\Lambda^2}{\mathcal N}_i {\mathcal N}_j]  dx                                                                                                                                              \\
-        -2\int_0^1(1-\alpha)u' {\mathcal N}_i {\mathcal N}'_j dx                                                   &
-        \int_0^1 [ (2+u'^2){\mathcal N}_i{\mathcal N}_j +\damagell^2{\mathcal N}'_i{\mathcal N}'_j] dx             &
-        0                                                                                                                                                                                                            \\
-        -\int_0^1[\frac{1}{\Lambda^2}{\mathcal N}_i{\mathcal N}_j ] dx
-                                                                                                                   & 0
-                                                                                                                   & \int_0^1\frac{1}{\Lambda^2}{\mathcal N}_i {\mathcal N}_j+r_s{\mathcal N}'_i {\mathcal N}'_j  dx
-    \end{bmatrix}.
+        \int_0^1[ \frac{1}{\Lambda^2}{\mathcal N}_i{\mathcal N}_j + (1-\alpha)^2{\mathcal N}'_i{\mathcal N}'_j] dx                                     &
+        -2\int_0^1(1-\alpha)u' {\mathcal N}'_i {\mathcal N}_{\albadd{j'}}  dx                                                                          &
+        -\int_0^1[\frac{1}{\Lambda^2}{\mathcal N}_i {\mathcal N}_{\albadd{k}}]  dx                                                                                                                                               \\
+        -2\int_0^1(1-\alpha)u' {\mathcal N}_{\albadd{i'}} {\mathcal N}'_j dx                                                                           &
+        \int_0^1 [ (2+u'^2){\mathcal N}_{\albadd{i'}}{\mathcal N}_{\albadd{j'}} +\damagell^2{\mathcal N}'_{\albadd{i'}}{\mathcal N}'_{\albadd{j'}}] dx &
+        0                                                                                                                                                                                                                        \\
+        -\int_0^1[\frac{1}{\Lambda^2}{\mathcal N}_{\albadd{l}}{\mathcal N}_j ] dx                                                                      & 0 & \int_0^1 \rho {\mathcal N}_{\albadd{k}}{\mathcal N}_{\albadd{l}} dx
+    \end{bmatrix},
     \label{eq:stifness2}
 \end{equation}
+\albadd{where $i, j = 0,\dots, n_u; i', j' = 0,\dots, n_\alpha, $ and $k, l = 0,\dots, n_v$ are the degrees of freedom indices for the film displacement, damage, and foundation displacement, respectively.}
 Our objective is to establish a branch switching strategy that,
 as the external loading parameter monotonically increases, allows equilibrium branch transitions when the current branch ceases to be stable or to exist.
 % as part of our model's energetic definition. 
@@ -99,30 +110,15 @@ This strategy must ensure the system's re-stabilization following an instability
 \begin{figure}
     \centering
     \hspace*{-.3cm}
-    \includegraphics[align=c,width=.6\textwidth]{../images/model_compliant_energy.pdf}
-    \includegraphics[align=c,width=.4\textwidth]{../images/model_compliant_fields.pdf}
+    \includegraphics[align=c,width=.7\textwidth]{../images/model_compliant_energy.pdf}
+    \includegraphics[align=c,width=.3\textwidth]{../images/model_compliant_fields.pdf}
     \includegraphics[align=c,width=.8\textwidth]{../images/bifurcations_model2_annotated.pdf}
-    \caption{
-        Equilibrium branches for phase-field thin film model of an elastic membrane on a compliant elastic foundation. Left, the energy difference $\Delta \Ecompl$ between the current and the homogeneous configurations, for the same load. Stability of solutions is color-coded: blue denotes stability while orange indicates instability, by numerical evaluation of the smallest eigenvalue of the stiffness matrix $\stiffmatcompl$. Equilibrium branches are parametrised by an integer $n$; Right, damage and strain profiles of the minimum energy configurations on each branch.}
-    \albadd{add caption}
+    % \caption{
+    %     Equilibrium branches for phase-field thin film model of an elastic membrane on a compliant elastic foundation. Left, the energy difference $\Delta \Ecompl$ between the current and the homogeneous configurations, for the same load. Stability of solutions is color-coded: blue denotes stability while orange indicates instability, by numerical evaluation of the smallest eigenvalue of the stiffness matrix $\stiffmatcompl$. Equilibrium branches are parametrised by an integer $n$; Right, damage and strain profiles of the minimum energy configurations on each branch.}
+    % \albadd{add caption}
+    \caption{\added[id=OUS]{Equilibrium branches for phase-field thin film model on compliant elastic foundation. Left: energy difference $\Delta\Psi$ between current and homogeneous configurations at equal load. Stability color-coded: blue (stable), orange (unstable) based on smallest eigenvalue of stiffness matrix $H$. Branches parametrised by integer $n$; arrows indicate branch switching at stability loss. Right: damage and strain profiles of minimum energy configurations on each branch. Bottom: bifurcation and stability map.}}
     \label{fig:branches-compliant}
 
-\end{figure}
-\begin{figure}[htbp]
-    \centering
-    \begin{minipage}{0.6\textwidth}
-        \centering
-        \includegraphics[align=c,width=\linewidth]{../images/model_compliant_energy.pdf}
-        \caption{First stacked figure}
-        \vspace{5pt} % Space between the two stacked figures
-        \includegraphics[align=c,width=\linewidth]{../images/bifurcations_model2_annotated.pdf}
-        \caption{Second stacked figure}
-    \end{minipage}
-    \begin{minipage}{0.35\textwidth}
-        \centering
-        \includegraphics[align=c,width=\linewidth]{../images/model_compliant_fields.pdf}
-        \caption{Tall figure in second column}
-    \end{minipage}
 \end{figure}
 
 Fig.~\ref{fig:branches-stiff},~\ref{fig:branches-compliant} show equilibrium branches that solve the nonlinear equations~\ref{auto1} and ~\ref{auto2}. These branches are represented in \albadd{the top-left subfigure} by plotting the energy difference $\Delta \Psi$ between the energy of the current solution and the energy of the homogeneous solution $\Estiffhom(\bar{\epsilon}_t)$ at the current value of the loading parameter $\bar\epsilon_t$.
@@ -132,7 +128,7 @@ Because eigenvalues represent the local curvatures of the energy functional, the
 
 
 Under the LEM protocol, the system explores the fundamental branch where the homogeneous solution is stable until
-$\bar\epsilon_1$, identified using linear stability analysis, see Figure~\ref{fig:branches-stiff}. At the critical load on the homogeneous branch  at point $H$, a first instability determines a branch switching transition, from the trivial branch with wavenumber $n = 0$ to the nontrivial equilibrium branch with $n = 3$. The ensuing non-homogeneous configuration is linearly stable, as seen in Fig. \ref{fig:branches-stiff}. We depict the lowest energy configuration on this equilibrium branch in Fig.~\ref{fig:branches-stiff} at point $A$, consisting of two simultaneously nucleated localized cracks, one inside the domain and one on the boundary.
+$\bar\epsilon_1$, identified using linear stability analysis, see Figure~\ref{fig:branches-stiff}. At the critical load on the homogeneous branch  at point $H$, a first instability determines a branch switching transition, from the trivial branch with wavenumber $n = 0$ to the nontrivial equilibrium branch with $n = 3$. The ensuing non-homogeneous configuration is linearly stable, as seen in Fig. \ref{fig:branches-stiff}. We depict the lowest energy configuration on this equilibrium branch in Fig.~\ref{fig:branches-stiff} at point $A$, consisting of two simultaneously nucleated localised cracks, one inside the domain and one on the boundary.
 
 When the loading parameter $\bar{\epsilon}_t$ is further increased, the equilibrium configuration with $n=3$ loses linear stability at point $A'$. In Fig. \ref{fig:branches-stiff} we represent state transitions according to the LEM protocol by arrows. It can be observed that under this protocol, the only available transition from point $A'$ is to the branch with $n=4$, which is locally stable within at the corresponding applied strain $\bar{\epsilon}_2$. The minimum energy configuration on the branch with $n=4$ is depicted in Fig.~\ref{fig:branches-stiff}-right at point $B$, consisting of two cracks: one inside the domain and two on the right and left boundaries.
 
@@ -148,7 +144,6 @@ The choice of the subsequent branch transition at point $A'$ will dictate the en
 
 
 \albadd{
-    ========================
     Diagrams~\ref{fig:branches-stiff}.bottom and~\ref{fig:branches-compliant}.bottom (for the compliant system) offers further qualitative insight of the bifurcation behaviour of the system.
     With reference to the stiff system (considerations in the compliant case are, at first order, analogous),
     the system evolves starting from the zero state along the stable homogeneous branch, exhibiting a subcritical pitchfork bifurcation at load $\epsilon_1$ (indicated as point $H$).
@@ -180,7 +175,6 @@ The choice of the subsequent branch transition at point $A'$ will dictate the en
     % 
 }
 
-
 For the current choice of material parameters, the compliant substrate model shows more branch switching events and \albadd{notably,} non-uniqueness of the global response.
 Indeed, \albadd{differently from} the stiff substrate model \albadd{where} the LEM strategy identifies a unique evolution path, \albdelete{while} in the compliant substrate model the system can follow \emph{eight} different trajectories in phase-space, given by the various available path-bifurcation choices.
 This additional richness provides a good test case for numerical optimization methods, which we will discuss in the following.
@@ -199,13 +193,15 @@ Our primary objective is not to provide a comprehensive assessment of quasi-Newt
     % \includegraphics[scale=0.13]{./final_images/fig4.pdf}
     \includegraphics[width=.6\textwidth]{../images/model_stiff_energy_kick.pdf}
     \includegraphics[width=.4\textwidth]{../images/model_stiff_profiles.pdf}
-    \caption{
-        % \todo[inline]{Add marker for $\ep_c, H$ in Fig (a) and (b)}
-        Stiff substrate. Quasi-static loading simulations with L-BFGS: (a) the energy difference $\Delta \Estiff$, between the quasi-Newton solutions and the homogeneous solutions are superimposed onto equilibrium branches (light blue: stable; orange: unstable). Bottom, the smallest eigenvalue $\lambda_t$ of the second variation $\Estiff''$ as a function of the loading parameter $\bar\epsilon$. In red, indicated the unstable region $\lambda_t<0$, where the equilibrium solution returned by the solver does not satisfy the evolution law; Right, damage profiles referring to the transition endstates.}
+    % \caption{
+    %     % \todo[inline]{Add marker for $\ep_c, H$ in Fig (a) and (b)}
+    %     Stiff substrate. Quasi-static loading simulations with L-BFGS: (a) the energy difference $\Delta \Estiff$, between the quasi-Newton solutions and the homogeneous solutions are superimposed onto equilibrium branches (light blue: stable; orange: unstable). Bottom, the smallest eigenvalue $\lambda_t$ of the second variation $\Estiff''$ as a function of the loading parameter $\bar\epsilon$. In red, indicated the unstable region $\lambda_t<0$, where the equilibrium solution returned by the solver does not satisfy the evolution law; Right, damage profiles referring to the transition endstates.}
+    \caption{\added[id=OUS]{Stiff substrate. Quasi-static L-BFGS simulations: (a) energy difference $\Delta\Psi$ between quasi-Newton and homogeneous solutions superimposed on equilibrium branches (light blue: stable; orange: unstable). Bottom: smallest eigenvalue $\lambda_t$ of second variation $\Psi''$ vs.\ loading parameter $\bar{\epsilon}$. Red indicates unstable region ($\lambda_t < 0$) where solver solutions violate evolution law. Right: damage profiles at transition endstates.}
+    }
     \label{fig:tempo1}
 \end{figure}
 
-Recall that quasi-Newton algorithms only evaluate the function value and its gradient to reach equilibrium configurations. This implies that in our case, we need to evaluate integrals \eqref{def:energy_stiff} and \eqref{def:energy_compliant}, along with their first variations given by \eqref{firstvar1} and \eqref{firstvar}, in the stiff and compliant models, respectively. We   discretized the integrals \eqref{firstvar1} and \eqref{firstvar} to construct the residuals vectors using finite elements to obtain
+Recall that quasi-Newton algorithms only evaluate the function value and its gradient to reach equilibrium configurations. This implies that in our case, we need to evaluate integrals \eqref{def:energy_stiff} and \eqref{def:energy_compliant}, along with their first variations given by \eqref{firstvar1} and \eqref{firstvar}, in the stiff and compliant models, respectively. We   discretised the integrals \eqref{firstvar1} and \eqref{firstvar} to construct the residuals vectors using finite elements to obtain
 % \begin{equation}
 %     {\bf R} =
 %     %  {\bf R}^1=
@@ -272,7 +268,7 @@ in the stiff model and
 where $i, k= 1, \dots, n_u-1$, and $j = 0,\dots, n_\alpha$
 in the compliant substrate model.
 
-Among iterative methods for large-scale unconstrained optimization, particularly when dealing with possibly dense Hessian matrices,  quasi-Newton methods often emerge as preferable alternatives to the widely-used Newton-Raphson (NR) algorithm. The NR algorithm, conventionally utilized for solving linear equations to determine the correction $\Delta \mathbf{X}^{(k)}$ from the current estimate $\mathbf{X}^{(k)} = (\mathbf{u}^{(k)}, \boldsymbol{\alpha}^{(k)})$ at iteration $k$, is expressed in our context as:
+Among iterative methods for large-scale unconstrained optimization, particularly when dealing with possibly dense Hessian matrices,  quasi-Newton methods often emerge as preferable alternatives to the widely-used Newton-Raphson (NR) algorithm. The NR algorithm, conventionally utilised for solving linear equations to determine the correction $\Delta \mathbf{X}^{(k)}$ from the current estimate $\mathbf{X}^{(k)} = (\mathbf{u}^{(k)}, \boldsymbol{\alpha}^{(k)})$ at iteration $k$, is expressed in our context as:
 \begin{equation}
     K_{ij} \Delta X_j^{(k)} + R_i = 0,
     \label{Eq:NR}
@@ -287,7 +283,7 @@ with
 \begin{equation}
     \mathbf{p}^{(k)}=-(\mathbf{B}^{(k)})^{-1}{\bf R},
 \end{equation}
-where $(\mathbf{B}^{(k)})^{-1}$ approximates the inverse of the Hessian matrix  $\mathbf{H}$ and $h^{(k)}$ represents a step length. Particularly, instead of computing $(\mathbf{B}^{(k)})^{-1}$  at each iteration $k$, these methods update $(\mathbf{B}^{(k)})^{-1}$ in a straightforward manner to obtain the new approximation $(\mathbf{B}^{(k+1)})^{-1}$  for the subsequent iteration. Additionally, rather than storing full dense $N \times N$ approximations, they only retain a few vectors of length $N=n_\alpha + n_u$, enabling implicit representation of the approximations. Moreover, the choice of the step length $h^{(k)}$ is carried out through a line search to minimize a function $f(h) = f(\mathbf{X}^{(k)} + h \mathbf{p}^{(k)})$ in order to find an acceptable step size $h^{(k)}$ such that $h^{(k)} \in \arg \min_{h} f$.
+where $(\mathbf{B}^{(k)})^{-1}$ approximates the inverse of the Hessian matrix  $\mathbf{H}$ and $h^{(k)}$ represents a step length. Particularly, instead of computing $(\mathbf{B}^{(k)})^{-1}$  at each iteration $k$, these methods update $(\mathbf{B}^{(k)})^{-1}$ in a straightforward manner to obtain the new approximation $(\mathbf{B}^{(k+1)})^{-1}$  for the subsequent iteration. Additionally, rather than storing full dense $N \times N$ approximations, they only retain a few vectors of length $N=n_\alpha + n_u$, enabling implicit representation of the approximations. Moreover, the choice of the step length $h^{(k)}$ is carried out through a line search to minimise a function $f(h) = f(\mathbf{X}^{(k)} + h \mathbf{p}^{(k)})$ in order to find an acceptable step sise $h^{(k)}$ such that $h^{(k)} \in \arg \min_{h} f$.
 
 Among quasi-Newton schemes, the L-BFGS method is widely regarded as one of the most efficient and well-suited for large-scale problems due to its limited and user-controlled storage requirements. This method relies on constructing an approximation of the inverse Hessian matrix, leveraging curvature information solely from recent iterations. Note also that the update formula for the approximative in successive minimization steps depends on the adapted algorithm. These algorithms are extensively used in the literature, and we refer the reader to the references for a more detailed description~\cite{Matthies1979-gl,Xu2001-ax,Nocedal1999-zr,Nocedal2006-qh,Simone2012-tx,Lewis2013-eu,Curtis2015-wp}. However, quasi-Newton methods do present certain drawbacks, notably slow convergence for ill-conditioned problems, particularly when the eigenvalues of the Hessian matrix are widely dispersed~\cite{Simone2012-tx}.
 \begin{figure}
@@ -295,13 +291,14 @@ Among quasi-Newton schemes, the L-BFGS method is widely regarded as one of the m
     \hspace*{-.3cm}
     \includegraphics[width=.6\textwidth]{../images/model_compliant_energy_kick.pdf}
     \includegraphics[width=.4\textwidth]{../images/model_compliant_profiles.pdf}
-    \caption{
-        Compliant substrate. Quasi-static loading simulations with L-BFGS: (a) the energy difference $\Delta \Ecompl$, between the quasi-Newton solutions and the homogeneous solutions are superimposed onto equilibrium branches (light blue: stable; orange: unstable). Bottom, the smallest eigenvalue $\lambda_t$ of the second variation $\Ecompl''$ as a function of the loading parameter $\bar\epsilon$. In red, indicated the unstable region $\lambda_t<0$ for the equilibrium solution; Right, damage profiles referring to the transition endstates.}
+    % \caption{
+    %     Compliant substrate. Quasi-static loading simulations with L-BFGS: (a) the energy difference $\Delta \Ecompl$, between the quasi-Newton solutions and the homogeneous solutions are superimposed onto equilibrium branches (light blue: stable; orange: unstable). Bottom, the smallest eigenvalue $\lambda_t$ of the second variation $\Ecompl''$ as a function of the loading parameter $\bar\epsilon$. In red, indicated the unstable region $\lambda_t<0$ for the equilibrium solution; Right, damage profiles referring to the transition endstates.}
+    \caption{\added[id=OUS]{Compliant substrate. Quasi-static L-BFGS simulations: (a) energy difference $\Delta\Psi$ between quasi-Newton and homogeneous solutions superimposed on equilibrium branches (light blue: stable; orange: unstable). Bottom: smallest eigenvalue $\lambda_t$ of second variation $\Psi''$ vs.\ loading parameter $\bar{\epsilon}$. Red indicates unstable region ($\lambda_t < 0$) for equilibrium solution. Right: damage profiles at transition endstates.}}
     \label{fig:tempo2}
 \end{figure}
 
 
-In our numerical experiments, we employ the BFGS and L-BFGS solvers from the Python SciPy library~\cite{2020SciPy-NMeth} and the Alglib library~\cite{Bochkanov2013-lk}. These solvers utilize the residual vectors (see \ref{residual1} and \ref{residual2}) at each finite element node, alongside the values of integrals \eqref{def:energy_stiff} and \eqref{def:energy_compliant}.
+In our numerical experiments, we employ the BFGS and L-BFGS solvers from the Python SciPy library~\cite{2020SciPy-NMeth} and the Alglib library~\cite{Bochkanov2013-lk}. These solvers utilise the residual vectors (see \ref{residual1} and \ref{residual2}) at each finite element node, alongside the values of integrals \eqref{def:energy_stiff} and \eqref{def:energy_compliant}.
 The following results were obtained using the Alglib library~\cite{Bochkanov2013-lk}; however, our findings remain consistent across the other libraries mentioned.
 
 
@@ -310,8 +307,9 @@ The following results were obtained using the Alglib library~\cite{Bochkanov2013
     \centering
     \includegraphics*[align=c,width=.45\textwidth]{../images/model_stiff_kick_profiles-1.pdf}
     \includegraphics*[align=c,width=.45\textwidth]{../images/model_compliant_kick_profiles-1.pdf}
-    \caption{
-        Profiles of damage fields and perturbations showing the effect of the kick algorithm in state transitions (from unstable to stable). Branch switching events correspond to load values indicated by $\bar \epsilon_i$ with $i\in \mathbb N$ in {Fig.~\ref{fig:tempo1} and ~\ref{fig:tempo2}}. The stiff substrate model is in the left column, the compliant substrate model on the right and  the light (orange) line indicates the unstable damage field $\alpha^*$, the eigenvector associated with  the smallest eigenvalue, $p$, is displayed in green highlighting its positive and negative values. The dashed line represents the perturbed damage field  $\alpha^*+p$ used as initial guess for the state transition, the solid black line displays the solution $\alpha_t$ returned after first-order convergence.}
+    % \caption{
+    %     Profiles of damage fields and perturbations showing the effect of the kick algorithm in state transitions (from unstable to stable). Branch switching events correspond to load values indicated by $\bar \epsilon_i$ with $i\in \mathbb N$ in {Fig.~\ref{fig:tempo1} and ~\ref{fig:tempo2}}. The stiff substrate model is in the left column, the compliant substrate model on the right and  the light (orange) line indicates the unstable damage field $\alpha^*$, the eigenvector associated with  the smallest eigenvalue, $p$, is displayed in green highlighting its positive and negative values. The dashed line represents the perturbed damage field  $\alpha^*+p$ used as initial guess for the state transition, the solid black line displays the solution $\alpha_t$ returned after first-order convergence.}
+    \caption{\added[id=OUS]{Profiles of damage fields and perturbations showing kick algorithm effect in state transitions (unstable to stable). Branch switching events correspond to load values $\bar{\epsilon}_i$ with $i \in \mathbb{N}$ in Figs.~7-8. Left column: stiff substrate model; right column: compliant substrate model. Orange line: unstable damage field $\alpha^*$; green line: eigenvector $p$ associated with smallest eigenvalue (positive/negative values highlighted). Dashed line: perturbed damage field $\alpha^* + p$ used as initial guess; solid black line: solution $\alpha_t$ after first-order convergence.}}
     \label{fig:kick}
 \end{figure}
 
@@ -352,10 +350,10 @@ To address this challenge, we introduce a hybrid approach {that explicitly takes
 
 When this eigenvalue significantly diminishes, indicating potential instability, first, we perform a full Newton-Raphson refinement using the solution returned from the quasi-Newton algorithm as an initial guess and obtain the fully homogeneous solution. Then we calculate the corresponding eigenvector \(\femperturb\), normalised such that $\|\textbf{p}\|=1$.
 We then use this eigenvector to perturb the current solution $\femcurrentstate$. This perturbation sets the initial guess for the next minimization step in the quasi-Newton algorithm as $\mathbf{\tilde X}^{(0)} = \femcurrentstate + \eta \femperturb,
-$ where \(\eta\) is the step size.
+$ where \(\eta\) is the step sise.
 % \comment[id=ALB]{}
 % \comment[id=ALB]{Does $k$ refer to the quasi-Newton iteration number? I think it can be removed}
-This step size can be determined through a line-search algorithm by minimizing the one-dimensional energy slices along the energy descent mode given by the function
+This step sise can be determined through a line-search algorithm by minimizing the one-dimensional energy slices along the energy descent mode given by the function
 \begin{equation}
     f(\eta) = \Psi(\femstate + \eta \femperturb),
     \label{eqn:energy-slice}
@@ -374,26 +372,27 @@ Despite the quasi-Newton algorithm was able to reproduce one of the possible pat
 
 
 
-The system's response under the hybrid algorithm is depicted in Fig. \ref{fig:kick}(d-g). The first column displays the perturbed damage profiles, while the second column shows the outcomes of the energy minimization process starting from  this perturbed state. A stable state with two nucleated boundary cracks (branch \( n=2 \)) is achieved following the destabilization of the trivial branch, as illustrated in Fig. \ref{fig:kick}(d). Subsequently, an interior crack nucleates in the middle of the system (branch \( n=4 \)), as shown in Fig. \ref{fig:kick}(e). The third event involves a transition from branch \( n=3 \) to branch \( n=5 \). The  event depicted in Fig. \ref{fig:kick}(f) is the transition to branch \( n=6 \). The last event before reconnecting to the trivial branch is the transition from branch \( n=6 \) to branch \( n=7 \), the only  branch available to the system at this load, see in Fig. \ref{fig:kick}(f). To summarize, the branches selected by the hybrid algorithm follow the sequence
+The system's response under the hybrid algorithm is depicted in Fig. \ref{fig:kick}(d-g). The first column displays the perturbed damage profiles, while the second column shows the outcomes of the energy minimization process starting from  this perturbed state. A stable state with two nucleated boundary cracks (branch \( n=2 \)) is achieved following the destabilization of the trivial branch, as illustrated in Fig. \ref{fig:kick}(d). Subsequently, an interior crack nucleates in the middle of the system (branch \( n=4 \)), as shown in Fig. \ref{fig:kick}(e). The third event involves a transition from branch \( n=3 \) to branch \( n=5 \). The  event depicted in Fig. \ref{fig:kick}(f) is the transition to branch \( n=6 \). The last event before reconnecting to the trivial branch is the transition from branch \( n=6 \) to branch \( n=7 \), the only  branch available to the system at this load, see in Fig. \ref{fig:kick}(f). To summarise, the branches selected by the hybrid algorithm follow the sequence
 \( 0 \rightarrow 2 \rightarrow 3 \rightarrow 5 \rightarrow 6 \rightarrow 0 \),
 which differs from the sequence
 \( 0 \rightarrow 2 \rightarrow 3 \rightarrow 6 \rightarrow 0 \)
 followed by the quasi-Newton algorithm.
 
 Our numerical findings suggest that equilibria close to the Hessian degeneracy (i.e. with small but positive eigenvalues) are robust in the sense that they are insensitive to perturbations. This is highlighed by the fact that running the quasi-Newton solver on a perturbed state close to the Hessian sign transition yields, after convergence, the same equilibrium state prior to perturbation.
-On the other hand, when the smallest eigenvalue of the system's Hessian is small and negative, the step size \( \eta \) obtained by minimization of \eqref{eqn:energy-slice} is sufficient for the quasi-Newton algorithm to effectively escape the flat region of the energy landscape.
+On the other hand, when the smallest eigenvalue of the system's Hessian is small and negative, the step sise \( \eta \) obtained by minimization of \eqref{eqn:energy-slice} is sufficient for the quasi-Newton algorithm to effectively escape the flat region of the energy landscape.
 
-% The quasi-Newton solver starting from the perturbed state seeks a direction that will always be a descent direction. Therefore, a perturbed state obtained by taking a large step-size moves the system away from the flat region, allowing the quasi-Newton algorithm to find the next lower energy branch. It remains to be seen if this choice will work in other models or a more elaborated algorithm has to be implemented as suggested above, which will be the subject of future work.
+% The quasi-Newton solver starting from the perturbed state seeks a direction that will always be a descent direction. Therefore, a perturbed state obtained by taking a large step-sise moves the system away from the flat region, allowing the quasi-Newton algorithm to find the next lower energy branch. It remains to be seen if this choice will work in other models or a more elaborated algorithm has to be implemented as suggested above, which will be the subject of future work.
 
 \begin{figure}
     %\centering
     \hspace*{-.3cm}
     \includegraphics[width=.5\textwidth]{../images/model_stiff_energy_kick_algo.pdf}
     \includegraphics[width=.5\textwidth]{../images/model_compliant_energy_kick_algo.pdf}
-    \caption{
-        {Quasi-static loading simulations with L-BFGS: the energy difference $\Delta \Estiff$ (left) and $\Delta\Ecompl$ (right), between the quasi-Newton solutions and the homogeneous solutions are superimposed onto equilibrium branches. The bottom plot shows the smallest eigenvalue of the second variation as a function of the loading parameter $\bar\epsilon$.} The positivity of the smallest eigenvalue indicates that the solution (and the evolution as a whole) is stable.
-        \albadd{The caption is duplicated/not clear.}
-    }
+    % \caption{
+    %     {Quasi-static loading simulations with L-BFGS: the energy difference $\Delta \Estiff$ (left) and $\Delta\Ecompl$ (right), between the quasi-Newton solutions and the homogeneous solutions are superimposed onto equilibrium branches. The bottom plot shows the smallest eigenvalue of the second variation as a function of the loading parameter $\bar\epsilon$.} The positivity of the smallest eigenvalue indicates that the solution (and the evolution as a whole) is stable.
+    %     \albadd{The caption is duplicated/not clear.}
+    % }
+    \caption{\added[id=OUS]{Quasi-static L-BFGS simulations: energy difference $\Delta\Psi$ between quasi-Newton and homogeneous solutions superimposed on equilibrium branches (left and right panels). Bottom: smallest eigenvalue of second variation vs.\ loading parameter $\bar{\epsilon}$. Positive eigenvalues indicate solution and overall evolution stability.}}
     \label{fig:tempostable}
 \end{figure}
 
@@ -407,18 +406,20 @@ On the other hand, when the smallest eigenvalue of the system's Hessian is small
 To highlight the role of constraints on the determination of the evolution and its consequences on the space of perturbations, we discuss the full stability problem inequality~\eqref{eq:variational_stability} in our simplified one-dimensional setting through an illustrative numerical computation.
 % 
 Irreversibility manifests both as a pointwise constraint and as a global nonlinearity in the perturbation space.
-Firstly, it rules out transitions between branches that require a local decrease of damage in favour of a global decrease of energy (e.g. between $n=3$ to $n=4$, see profiles in the Fig.~\ref{fig:kick}(left) of the transition (a)$\mapsto$(b)).
+Firstly, it rules out transitions between branches that require a local decrease of damage in favour of a global decrease of energy (e.g. from branche $n=3$ to branch $n=4$, see profiles in the Fig.~\ref{fig:kick}(left) of the transition (a)$\mapsto$(b)).
 On the other hand, irreversibility is a global constraint that changes the structure of the perturbation space, by only allowing positive perturbations in the damage field.
-
+% 
 Consequently, irreversible evolutions are qualitatively different from the unconstrained case.
-The following example illustrates the subtle scenario in which two stable irreversible solutions are computed, one of which branches off the homoogeneous solution at a bifurcation point without any instability.
-Despite allowing potential bifurcations, the second computation shows that the system can robustly navigate a purely homogeneous branch, satisfying a sufficient condition for stability (hence for observability) of the computed trajectory.
+
+The following example illustrates the subtle scenario in which two stable irreversible solutions are computed, one of which branches off the homogeneous solution at a bifurcation point without any instability.
+Despite allowing potential bifurcations, the second computation shows that the system can robustly navigate the purely homogeneous branch, satisfying a sufficient condition for stability (hence for observability) of the computed trajectory.
 This juxtaposition underscores a critical sensitivity in that the numerical bifurcation induced by the solver may not reflect an actual instability transition of the physical system, but rather an artifact of the computational method.
 
---------
-
 \albadd{
-    The numerical solution of first order optimality conditions with irreversibility constraints is tackled leveraging the minbleic subpackage of the Alglib library~\cite{Bochkanov2013-lk}, via an active set method that handles inequality constraints in the first order equilibrium (or criticality) problem, encoded by inequality~\eqref{eq:eq_variational_inequality_full}.
+    We compute an irreversible evolution using the same parameters as in the experiment in Figure~\ref{fig:hessian1}(a) for the rigid substrate model,
+    using two different numerical methods: first, the quasi-Newton L-BFGS/CG method (via ALGLIB) and second, a Newton solver~\cite{} based on PETSc's reduced-space (active set) algorithms for variational inequalities (via SNES).
+    % 
+    In the first case, the numerical solution of first order optimality conditions with irreversibility constraints is tackled leveraging the minbleic subpackage of the Alglib library~\cite{Bochkanov2013-lk}, via an active set method that handles inequality constraints in the first order equilibrium (or criticality) problem, encoded by inequality~\eqref{eq:eq_variational_inequality_full}.
     % 
     Active inequality constraints correspond nodes where damage necessarily evolves. Indeed, owing to the complementarity conditions~\eqref{eq:complementarity}.3, damage evolves (\eqref{eq:complementarity}.1 holds with a strict inequality) in the regions where the system satisfies first order optimality conditions~\eqref{eq:complementarity}.2 with an equality.
     At first order, this is handled by projecting the energy gradient onto the subspace orthogonal to the set of active constraints, ensuring the solver proceeds in directions that respect irreversibility.
@@ -439,25 +440,22 @@ This juxtaposition underscores a critical sensitivity in that the numerical bifu
 --------
 
 
-To solve the second-order cone-constrained inequality~\eqref{eq:variational_stability}, we employ a numerical method based on the orthogonal decomposition of the Hilbert space  $X_0$  according to two mutually polar cones  $K^+_0$  and  $K^*$, cf. \cite{Moreau1962-fz}. Given an element  $z$  in  $X_0$ , \albdelete{it can be shown that} there exists a unique decomposition into two orthogonal components,  $x \in K^+_0$  and  $y \in K^*$ , where  $x$  and  $y$  are the closest elements to  $z$ in  $K^+_0$  and  $K^*$, respectively.
+To solve the second-order cone-constrained inequality~\eqref{eq:variational_stability}, \albadd{both our solvers} employ a numerical method based on the orthogonal decomposition of the Hilbert space  $X_0$  according to two mutually polar cones  $K^+_0$  and  $K^*$, cf. \cite{Moreau1962-fz}. Given an element  $z$  in  $X_0$ , \albdelete{it can be shown that} there exists a unique decomposition into two orthogonal components,  $x \in K^+_0$  and  $y \in K^*$ , where  $x$  and  $y$  are the closest elements to  $z$ in  $K^+_0$  and  $K^*$, respectively.
 
 This decomposition allows us to project the second order problem into the cone and ensure that the eigen-solution satisfies the constraints imposed by irreversibility. This approach is particularly useful in mechanics and physics when dealing with unilateral constraints or problems where the solution space is naturally bounded by physical considerations (e.g., non-negative stress, plastic deformations, etc.)
 
-More in particular, we implement a simple iterative Scaling-and-Projection algorithm~\cite{Pinto_da_Costa2010-qv} which depends upon one numerical parameter, a scaling factor $\eta>0$. Given a convex cone  $K$ and an initial guess $z_0$ (not necessarily in the convex cone), the algorithm operates by first projecting the vector in the cone, $x^{(k=0)}= \operatorname{P_K}(z_0)$, then, the iterative estimate for the eigenvalue can be computed using the Rayleigh quotient
+More in particular, we implement a simple iterative Scaling-and-Projection algorithm~\cite{Pinto_da_Costa2010-qv} which depends upon one numerical parameter, a scaling factor $\eta>0$, \albadd{and an initial guess}. Given a convex cone  $K$ and an initial guess $z_0$ (not necessarily in the cone), the algorithm operates by first projecting the vector in the cone, $x^{(k=0)}= \operatorname{P_K}(z_0)$, then, the iterative estimate for the eigenvalue can be computed using the Rayleigh quotient
 \begin{equation}
     \lambda^{(k)} = \frac{{x^{(k)}}^T H x^{(k)}}{||x^{(k)}||},
 \end{equation}
 where $H$ is the \albadd{(projected)} Hessian operator. Then, we compute the residual vector $y^{(k)} = H x^{(k)} - \lambda^{(k)} x^{(k)}$ and obtain the next iterate $x^{(k+1)} = v^{(k)}/||v^{(k)}||$ where
 $v^{(k)} =\operatorname{P_K} (x^{(k)} + \eta y^{(k)})$.
-The algorithm is repeated until convergence is achieved. Note that, in the cone-constrained case, the residual vector $y^{(k)}$ need not be zero at convergence.
+The algorithm is repeated until convergence is achieved \albadd{on $x^(k)$}. Note that, in the cone-constrained case, the residual vector $y^{(k)}$ need not be zero at convergence.
 
-We compute an irreversible evolution using the same parameters as in the experiment in Figure~\ref{fig:hessian1}(a) for the rigid substrate model,
-using two different numerical methods: the L-BFGS/CG method (via ALGLIB) and a second solver based on PETSc's reduced-space (active set) algorithms for variational inequalities (via SNES).
-
--------------------
 
 \albadd{
     In Figure~\ref{fig:shouldnt}.left, we show the evolution of the damage field under the irreversibility constraint.
+    Corresponding spectra are displayed in Figure~\ref{fig:shouldnt}.right where coloured markers represent a stable solution that bifurcates, computed with ALGLIB/L-BFGS, and circle-marked eigenvalues correspond to a uniformly stable homogeneous solution computed with PETSc/SNES.
     Starting from zero damage at zero load, damage uniformly increases as the solution evolves along the homogeneous branch, matching the theoretical prediction that the evolution is unique below the critical (bifurcation) load.
     As soon as the load approaches this threshold, a small oscillation emerges before the theoretical bifurcation point,
     reminiscent of the eigenmode ($n=3$) computed by Fourier series, {cf.~Fig~\ref{fig:kick}(a).}
@@ -465,13 +463,13 @@ using two different numerical methods: the L-BFGS/CG method (via ALGLIB) and a s
     A small perturbation is observed in the damage field before the bifurcation point, which is not consistent with the theoretical predictions, highlighted in the inset showing the $L^2$ norm of the damage gradient.
     Following loading, the numerical solver switches from the homogeneous solution to a localised pattern. The corresponding trajectory is shown in the equilibrium map in Figure~\ref{fig:branches-stiff}. The irreversible homogeneous and localised branches, both stable, are displayed with black dashed and black solid lines, respectively.
     % 
-    Figure~\ref{fig:shouldnt}.right displays the irreversible constrained spectra associated to both evolutions, representing the uniqueness and stability of the corresponding solution trajectories.
+    Figure~\ref{fig:shouldnt}.right displays the irreversible constrained spectra associated to both evolutions, informing on the uniqueness and stability of the corresponding solution trajectories.
     % Namely, the L-BFGS/CG method and a second solver based on PETSc's reduced-space (active set) algorithms for variational inequalities.
     % The former method exhibits a spurious bifurcation near the bifurcation point, underscoring the sensitivity of the problem.
     % 
     Both solvers agree on the critical load for bifurcation,
     yet differ in the computed evolution path, reinforcing the need for thorough stability and bifurcation analyses in the irreversible case and the choice of a solution strategy that is robust and efficient in not inducing purely numerical instabilities.
-    Indeed, the L-BFGS/CG method shifts the homogeneous solution to a distinct trajectory that diverges from the homogeneous path even before the bifurcation load, despite the stability of the homogeneous branch,  exhibiting a spurious bifurcation not associated with a stability transition.    % Indeed, despite the stability spectrum undergoes an abrupt change at the bifurcation load, the state is therein stable.
+    Indeed, the L-BFGS/CG method shifts the homogeneous solution to a distinct trajectory that diverges from the homogeneous path even before the bifurcation load, despite the stability of the homogeneous branch thus  exhibiting a spurious bifurcation not associated with a stability transition.    % Indeed, despite the stability spectrum undergoes an abrupt change at the bifurcation load, the state is therein stable.
     Contrarily, the second solver correctly identifies the loss of uniqueness of the homogeneous solution, and remains on the homogeneous branch showing continuous (positive) cone-eigenvalues across the bifurcation point.
     Indeed, the homogeneous solution should remain observable until, if ever, loss of stability is reached.
     % 
@@ -479,36 +477,35 @@ using two different numerical methods: the L-BFGS/CG method (via ALGLIB) and a s
     Conversely, the cone spectrum differs from the ball spectrum in that it is piecewise smooth but globally discontinuous.
     %  
     Our numerical experience hints at the sensitivity of the cone-constrained eigenvalue problem to the initial guess. This can be seen in the bifurcation spectra for small loads, where the first eigenmode of the bifurcation problem -used to initialise the cone-solver- has a definite sign.
-    In these conditions, when the stability solver is initialised with an initial guess that is orthogonal to the cone (i.e. negative definite), it Scaling and Projection algorithm effectively starts from a zero initial condition.
+    In these conditions, when the stability solver is initialised with an initial guess that is orthogonal to the cone (i.e. negative definite), it Scaling-and-Projection algorithm effectively starts from a zero initial condition.
     This turns out to be suboptimal, leading to an over estimation of the constrained eigenvalue. This can be observed in branches \emph{a} and \emph{b} in Figure~\ref{fig:shouldnt}.right at small loads.
-    At higher loads on the contrary, the initial condition is a nontrivial perturbation mode close to the optimal constrined mode, leading to a more accurate estimation of the stability threshold.
+    At higher loads on the contrary, the initial condition is a nontrivial perturbation mode close to the optimal constrined mode, leading to a more accurate estimation of the stability threshold associated to the infimum of the constrained spectrum.
     % 
-    In Fig.~\ref{fig:irreversibility-profiles}.left (resp., right) we plot the damage state $\alpha$ and corresponding bifurcation eigenmode $p$ (corresponding to point A in Figure~\ref{fig:shouldnt}.right) and stability eigenmodes $p^+$ (corresponding to point B in \ref{fig:shouldnt}.right) at the bifurcation loading step $\bar \epsilon_b$, namely point $H$ in the energy diagram Fig.~\ref{fig:branches-stiff}.
+    In Fig.~\ref{fig:irreversibility-profiles}.left (resp., right) we plot the damage state $\alpha$ and corresponding bifurcation eigenmode $p$ (associated to point A in Figure~\ref{fig:shouldnt}.right) and stability eigenmodes $p^+$ (associated to point B in \ref{fig:shouldnt}.right) at the bifurcation loading step $\bar \epsilon_b$, namely point $H$ in the energy diagram Fig.~\ref{fig:branches-stiff}.
     This analysis highlights the delicate interplay between numerical methods, the variational structure of the problem, and the underlying physical systems, emphasising that observed numerical bifurcations under these conditions may be interpreted with caution to avoid potential numerical artifacts.
 }
 
 
-\albadd{
-    % The spectra computed for the irreversible evolution reveal several nuanced behaviors in our numerical bifurcation analysis.
-    % 
-    % Key Observations:
-    % •	Bifurcation vs. Stability Spectra:
-    % We display in Figure~\ref{fig:shouldnt}.right two solution curves. The coloured markers represent a stable solution that bifurcates, computed with ALGLIB/L-BFG. It localises even though the homogeneous state remains stable at the bifurcation load  $\bar{\epsilon}_b$.
-    % In contrast, the circle-marked curves correspond to a stable homogeneous solution, computed with PETSc/SNES, that remains uniform because it is robustly stable.
-    % •	Piecewise Continuity vs. Discontinuity:
-    % On the other hand, the computed cone eigenvalues—which are used in the stability analysis—exhibit discontinuities. 
-    % 
-    % , the bifurcation eigenvalue has a well-defined sign; however, the solver sometimes returns alternative signs. 
-    % This alternating behavior affects the initialisation of the stability solver (observable in branches a vs. b for small loads).
-    % •	Solver Initialisation Issues:
-    % When the stability solver is initialised with an initial guess that is orthogonal to the cone (i.e. its projection is zero), it effectively starts from a zero initial condition.
-    % This is suboptimal because it does not capture the optimal perturbation direction and magnitude, leading to an over estimation of the stability threshold.
-    % •	Notable Points in the Spectra:
-    % Global insights from the spectral analysis indicate that while our irreversible phase-field model maintains physical stability across the homogeneous branch, the numerical approximations (especially those arising from L-BFGS/CG iterations) can perturb the spectrum near bifurcation points. The piecewise continuous nature of the bifurcation eigenvalues contrasts with the discontinuous cone-eigenvalues, leading to alternative sign choices and suboptimal initialisation in the stability solver.
-    % 
-}
+% \albadd{
+%     % The spectra computed for the irreversible evolution reveal several nuanced behaviors in our numerical bifurcation analysis.
+%     % 
+%     % Key Observations:
+%     % •	Bifurcation vs. Stability Spectra:
+%     % We display in Figure~\ref{fig:shouldnt}.right two solution curves. The coloured markers represent a stable solution that bifurcates, computed with ALGLIB/L-BFG. It localises even though the homogeneous state remains stable at the bifurcation load  $\bar{\epsilon}_b$.
+%     % In contrast, the circle-marked curves correspond to a stable homogeneous solution, computed with PETSc/SNES, that remains uniform because it is robustly stable.
+%     % •	Piecewise Continuity vs. Discontinuity:
+%     % On the other hand, the computed cone eigenvalues—which are used in the stability analysis—exhibit discontinuities. 
+%     % 
+%     % , the bifurcation eigenvalue has a well-defined sign; however, the solver sometimes returns alternative signs. 
+%     % This alternating behavior affects the initialisation of the stability solver (observable in branches a vs. b for small loads).
+%     % •	Solver Initialisation Issues:
+%     % When the stability solver is initialised with an initial guess that is orthogonal to the cone (i.e. its projection is zero), it effectively starts from a zero initial condition.
+%     % This is suboptimal because it does not capture the optimal perturbation direction and magnitude, leading to an over estimation of the stability threshold.
+%     % •	Notable Points in the Spectra:
+%     % Global insights from the spectral analysis indicate that while our irreversible phase-field model maintains physical stability across the homogeneous branch, the numerical approximations (especially those arising from L-BFGS/CG iterations) can perturb the spectrum near bifurcation points. The piecewise continuous nature of the bifurcation eigenvalues contrasts with the discontinuous cone-eigenvalues, leading to alternative sign choices and suboptimal initialisation in the stability solver.
+%     % 
+% }
 
----------------------
 
 % The homogeneous damage field $\alpha_h$ and the profiles of the damage eigenfunctions associated with  the minimal eigenvalue for the second order bifurcation problem inequality~\eqref{eq:variational_bifurcation} (left panel) coincide with the damage solution and eigenmode ($n=3$) computed by Fourier series, {cf.~Fig~\ref{fig:kick}(a).}
 % On the other hand, the eigenmode for the full nonlinear stability problem inequality~\eqref{eq:variational_stability} is plotted in the right panel.
@@ -528,23 +525,25 @@ In the illustrative example at hand, despite the occurrence of negative eigenval
     \centering
     \includegraphics*[width=.95\textwidth]{../images/profiles-bif-stab-7f4361886184f3c6791fe16bf4f4b3f2.pdf}
 
-    \caption{Profiles of the damage field (blue) and of the inf-eigenvectors (green)  at the bifurcation load $\bar \epsilon_b$, for the bifurcation problem (left) and the stability problem (right).
-        At bifurcation, the damage is constant (homogeneous).
-        The bifurcation mode is the eigenmode on the branch $n=4$, cf.\ref{fig:branches-stiff}-right.
-        % Its associated eigenvalue is $\lambda_{b} = -9\cdot 10^{-4}$. 
-        The inf-eigenvector for the stability problem (right, green) corresponds to $\lambda_b=2\cdot 10^{-2}$.}
+    % \caption{Profiles of the damage field (blue) and of the inf-eigenvectors (green)  at the bifurcation load $\bar \epsilon_b$, for the bifurcation problem (left) and the stability problem (right).
+    %     At bifurcation, the damage is constant (homogeneous).
+    %     The bifurcation mode is the eigenmode on the branch $n=4$, cf.\ref{fig:branches-stiff}-right.
+    %     % Its associated eigenvalue is $\lambda_{b} = -9\cdot 10^{-4}$. 
+    %     The inf-eigenvector for the stability problem (right, green) corresponds to $\lambda_b=2\cdot 10^{-2}$.}
+    \caption{\added[id=OUS]{Damage field profiles (blue) and inf-eigenvectors (green) at bifurcation load $\bar{\epsilon}_b$ for bifurcation problem (left) and stability problem (right). At bifurcation, damage is homogeneous. Bifurcation mode is eigenmode on branch $n = 4$ (cf.~Fig.~2-right). Stability problem inf-eigenvector (right, green) corresponds to $\lambda_b = 2 \cdot 10^{-2}$.}}
     \label{fig:irreversibility-profiles}
 \end{figure}
 \begin{figure}[htbp]
     \centering
+    \includegraphics*[width=.47\textwidth]{../images/spectra_irrev_annotated.pdf}
     \includegraphics*[width=.47\textwidth]{../images/irreversibility_alpha_evo_annotated.pdf}
     % \includegraphics*[width=.47\textwidth]{../images/irreversibility_inf_eig.png}
     % \includegraphics*[width=.47\textwidth]{../images/eigenvalues_vs_load.pdf}
-    \includegraphics*[width=.47\textwidth]{../images/spectra_irrev_annotated.pdf}
     % 
-    \caption{Crack nucleation should not occcur in this scenario.
-        Lower bound of the Hessian spectra for the bifurcation problem  (orange line) and the stability problem (blue circles), along the homogeneous evolution. The bifurcation spectrum indicates  that the evolution path is unique until $\bar \epsilon_b$. Then, despite multiple solution exists, the homogeneous solution is stable. Notice that the observable $\lambda_t$ (inf-eig cone) for stability is \emph{discontinuous}.
-        % The right solver should'nt give you a crack.
-    }
+    % \caption{Crack nucleation should not occcur in this scenario.
+    %     Lower bound of the Hessian spectra for the bifurcation problem  (orange line) and the stability problem (blue circles), along the homogeneous evolution. The bifurcation spectrum indicates  that the evolution path is unique until $\bar \epsilon_b$. Then, despite multiple solution exists, the homogeneous solution is stable. Notice that the observable $\lambda_t$ (inf-eig cone) for stability is \emph{discontinuous}.
+    %     % The right solver should'nt give you a crack.
+    % }
+    \caption{\added[id=OUS]{Left: Hessian spectra lower bounds for bifurcation (orange line) and stability problems (blue circles) along homogeneous evolution. Evolution path remains unique until $\bar{\epsilon}_b$, after which homogeneous solution stays stable despite multiple solutions existing, preventing crack nucleation with active irreversibility constraint. Note $\lambda_t$ (inf-eigenvalue cone) discontinuity. Right: Quasi-Newton solver solutions showing slow damage evolution due to numerical errors.}}
     \label{fig:shouldnt}
 \end{figure}
