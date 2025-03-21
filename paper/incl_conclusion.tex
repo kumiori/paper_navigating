@@ -10,25 +10,25 @@ In practice, without such information, critical loads for equilibrium transition
 
 Our evidence is that certain numerical methods can introduce non-physical artifacts which should be distinguished from genuine physical phenomena. Our ongoing work aims to refine numerical techniques to provide more reliable algorithms for analysing irreversible processes in variational evolutionary problems with multiple local minima and a high number of degrees of freedom.
 
-From our numerical experience, first order solutions to strongly nonlinear, nonconvex, and singular problems, like those of interest in the applications exhibit strong sensitivity to numerical errors, possibly leading to spurious bifurcations and artificial state transitions. On the other hand, solutions which inegrate second order information are robust and their observability can be fully characterised.
+From our numerical experience, first order solutions to strongly nonlinear, nonconvex, and singular problems, like those of interest in the applications exhibit strong sensitivity to numerical errors, possibly leading to spurious bifurcations and artificial state transitions. On the other hand, solutions which integrate second order information are robust and their observability can be fully characterised.
 
 More than numerical perturbations (which can always arise,) the use of numerical methods relying only on (conjugate) gradients (in lieu of exact Hessians) is prone to introducing non-physical crack nucleation.
 \albadd{Our analysis shows that while quasi-Newton algorithms accelerate convergence, this comes at the cost of introducing unphysical effects. In particular, the approximations inherent in quasi-Newton updates may lead to solutions that appear physical yet are driven by numerical disorder rather than the governing equations.
-    This sensitivity indicates that when irreversibility constraints are critical, a full Hessian approach is often necessary to accurately capture the stability and bifurcation behavior.
-    Ultimately, practitioners must carefully balance the computational efficiency of quasi-Newton methods against the increased reliability (and potential cost) of employing the full Hessian.}
+      This sensitivity indicates that when irreversibility constraints are critical, a full Hessian approach is  necessary to accurately capture the stability and bifurcation behavior.
+      Ultimately, practitioners must carefully balance the computational efficiency of quasi-Newton methods against the increased reliability (and potential cost) of employing the full Hessian.}
 This is an important observation, which highlights the need for a thorough investigation of the stability of solutions.
 If only physical factors are considered, an energetic selection mechanism is already encapsulated in the stability statement in the evolution law. As a consequence, equilibrium solutions under increasing load should be maintained as observable if stable, assuming that no nucleation should occur otherwise.
 
 We present two main options for discussing these considerations in view of the importance of using accurate and robust algorithms in real scenarios:
 
 \begin{enumerate}
-    \item
-          Ignore the Numerical Artifact: focussing solely on first order considerations and acknowledging that the observed computed nucleations may be purely numerical and should not be considered in physical terms.
-    \item
-          Highlight the Numerical Artifact: Alternatively, emphasizing that homogeneous solutions should be observable, despite
-          the sensitivity to numerical parameters (artifacts, in the quasi-Newton approach) and the abundance of admissible solutions (in the nonconvex scenario), or
-    \item
-          Otherwise.
+      \item
+            Ignore the Numerical Artifact: focussing solely on first order considerations and acknowledging that the observed computed nucleations may be purely numerical and should not be considered in physical terms.
+      \item
+            Highlight the Numerical Artifact: Alternatively, emphasizing that homogeneous solutions should be observable, despite
+            the sensitivity to numerical parameters (artifacts, in the quasi-Newton approach) and the abundance of admissible solutions (in the nonconvex scenario), or
+      \item
+            Otherwise.
 \end{enumerate}
 
 Suggesting that state transitions in complex scenarios should be carefully interpreted, the connection between observability and stability is functional to understanding real patterns that emerge, e.g., in higher dimensions or in other physical systems.
