@@ -2,7 +2,7 @@
 
 \begin{table}[h!]
     \centering
-    \begin{tabular}{  m{6.5cm}  m{3cm}  m{5cm}  }
+    \begin{tabular}{  m{6.cm}  m{3cm}  m{5.5cm}  }
         \hline
         \textbf{Description}                & \textbf{Symbol}                                    & \textbf{Remarks}                                                                \\
         \hline
@@ -13,7 +13,7 @@
         Homogeneous energy, stiff           & $\Estiffhom$                                       &                                                                                 \\
         Homogeneous energy, compliant       & $\Ecomplhom$                                       &                                                                                 \\
         Material functions                  & $\mathsf E(\alpha), \homogdiss(\alpha)$            &                                                                                 \\
-        Internal damage length              & $\bar\damagell$                                    & dimensional, [m]                                                                \\
+        Internal damage length              & $\bar\damagell$, \albadd{($\ell$)}                 & dimensional, [m] (resp. nondimensional)                                         \\
         Film thickness                      & $h$                                                & dimensional, [m]                                                                \\
         Characteristic size                 & $L$                                                & dimensional, [m]                                                                \\
         Young modulus, substrate            & $\Youngsubs$                                       &                                                                                 \\
@@ -87,22 +87,26 @@ Stability is a conceptually different notion when constraints play a role.
 The loss of such a property for a stationary points of an energy functional is of paramount importance in materials science and engineering. Illustrative in this sense are Euler buckling~\cite{Bettiol2020-ey}, wrinkling in thin films~\cite{Hutchinson2013-jk}, homogeneous nucleation of dislocations in a crystal~\cite{Carpio2005-bv,Plans2007-cx,Baggio2019-rs,Mayer2022-km,Baggio2023-qu}, buckling of lattice structures~\cite{Combescure2016-dy,Bertoldi2008-au}, nucleation of cracks in soft solids or in pantographic structures \cite{Riccobelli2023-fc,Salman2021-mn}, plastic  avalanches in crystals or amorphous materials \cite{Zhang2020-ax,Weiss2021-db,Yang2020-zm}.
 
 The absence of analytical solutions in strongly non-linear settings requires resorting to numerical methods for computing and predicting equilibrium configurations that correspond to the minima of an energy functional. The minimization process involves discretizing the continuum fields onto a computational grid using methods such as finite elements, finite differences, or spectral techniques~\cite{Salman2009-qv,Liu2013-sj,Hu2021-mq}. Afterwards, an iterative solver is employed to seek equilibrium energy states, with options including the Newton-Raphson method~\cite{Wick2017-bo}, fixed-point iteration~\cite{Chen2019-mn,Kirkesaether_Brun2020-wa,Storvik2021-cd}, line-search-based descent algorithms like steepest descent or conjugate gradient~\cite{Stiefel1952-fw,Dai1999-hz}, quasi-Newton methods such as the highly-efficient Limited-memory Broyden-Fletcher-Goldfarb-Shanno (\textsc{L-BFGS}) approach~\cite{Liu1989-kl} which involves approximating the Hessian matrix, or more recent advancements like the fast inertial relaxation engine (\textsc{FIRE})~\cite{Guenole2020-tc}.
-\added[id=OUS]{
-    Recently, several authors~\cite{bharali:2022, najmeddine:2024, wu:2020} demonstrated the efficiency of the quasi-Newton BFGS
-    method for the fully coupled phase-field fracture problem. In particular, \cite{najmeddine:2024} reported reduction of computation
-    times by several orders of magnitude with the BFGS method, and the number of load iterations required by a staggered solution scheme as 3000 times higher than the number of iterations required by the BFGS method.
+{
+Recently, several authors~\cite{bharali:2022, najmeddine:2024, wu:2020} demonstrated the efficiency of the quasi-Newton BFGS
+method for the fully coupled phase-field fracture problem. In particular, \cite{najmeddine:2024} reported reduction of computation
+times by several orders of magnitude with the BFGS method, and the number of load iterations required by a staggered solution scheme as 3000 times higher than the number of iterations required by the BFGS method.
 }
 These solvers iteratively refine solutions starting from an initial guess provided as part of the solution procedure. Despite their widespread application, there remains a lack of clear understanding regarding the performance of these algorithms and their effectiveness in locating local minima.
 
-% This work. 
-% Notably, in the phase-field theory of fracture, the initiation of a crack is preceded by a localization of the damage field, .
+    % This work. 
+    % Notably, in the phase-field theory of fracture, the initiation of a crack is preceded by a localization of the damage field, .
 
 
-\albadd{We build upon the work of~\cite{Baldelli2021-gc}
-    providing a proof of concept for the numerical computation of stable solutions of phase-field fracture evolutionary models, extending the analysis beyond the second order bifurcation problem and addressing the full nonlinear stability of the solutions.
-    Our investigation starts from the unconstrained case where damage and cracks can heal (without energy expense), which is unrealistic in the applications but allows to thorougly investigate the system's bifurcations and to highlight the main mathematical differences between the reversible and irreversible cases.
-    To this end,
+    {We build upon the work of~\cite{Baldelli2021-gc}
+        providing a proof of concept for the numerical computation of stable solutions of phase-field fracture evolutionary models, extending the analysis beyond the second order bifurcation problem and addressing the full nonlinear stability of the solutions.
+        Our investigation starts from the unconstrained case where damage and cracks can heal (without energy expense), which is unrealistic in the applications but allows to thorougly investigate the system's bifurcations and to highlight the main mathematical differences between the reversible and irreversible cases.
+    }
+\albadd{
+    Our primary objective here is to study the interaction between numerical methods and variational structure in irreversibly-constrained systems, using a physically motivated example that is both analytically tractable and rich in bifurcation behaviour. The brittle thin film on an elastic foundation provides a minimal yet non-trivial benchmark that captures the essential phenomenology—homogeneous to localised transitions, constraint activation, and numerical sensitivity—without requiring additional complexity from higher dimensions.
+    Its `tractability' stems from its dimensional simplicity (1d implies a constant stress), while its complexity arises from the elastic foundation, which introduces a lower-order perturbation in the energy landscape and enables a rich bifurcation structure.
 }
+To this end,
 % centered on the numerical computation of evolutionary solutions for phase-field fracture models, 
 we consider two one-dimensional phase-field fracture models of a brittle membrane on two types of substrates: one stiff, one compliant. The first model describes a brittle thin film deposited on a stiff (rigid) substrate, while the second model involves a compliant yet unbreakable substrate that can undergo non-uniform deformations. The finite stiffness of the substrate in the second scenario leads to nontrivial qualitative differences in terms of uniqueness of the evolution path, associated with  the loss of stability of the unfractured solution~\cite{Baldelli2014-ho,Kuhn2015-rt,Baldelli2021-gc,Harandi2023-cd,zolesi:2024}.
 
