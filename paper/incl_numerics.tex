@@ -64,26 +64,27 @@ $\stiffmat$ and $\widetilde\stiffmat$, \albadd{which are real, symmetric, block 
     \label{eq:stifness1}
 \end{equation}
 whereas for the compliant substrate model it reads
-\begin{equation}
+% \begin{equation}
+\begin{multline}
     \stiffmatcompl=
     \begin{bmatrix}
         \stiffmatcompl_{uu}       & \stiffmatcompl_{u\alpha}      & \stiffmatcompl_{uv} \\
         \stiffmatcompl_{\alpha u} & \stiffmatcompl_{\alpha\alpha} & \textbf{0}          \\
         \stiffmatcompl_{vu}       & \textbf{0}                    & \stiffmatcompl_{vv}
     \end{bmatrix}
-    =
-    % /\stiffmat^2=
+    \\=
     \begin{bmatrix}
         \int_0^1[ \frac{1}{\Lambda^2}{\mathcal N}_i{\mathcal N}_j + (1-\alpha)^2{\mathcal N}'_i{\mathcal N}'_j] dx                                     &
         -2\int_0^1(1-\alpha)u' {\mathcal N}'_i {\mathcal N}_{\albadd{j'}}  dx                                                                          &
-        -\int_0^1[\frac{1}{\Lambda^2}{\mathcal N}_i {\mathcal N}_{\albadd{k}}]  dx                                                                                                                                               \\
+        -\int_0^1[\frac{1}{\Lambda^2}{\mathcal N}_i {\mathcal N}_{\albadd{k}}]  dx                                                                                                                                                        \\
         -2\int_0^1(1-\alpha)u' {\mathcal N}_{\albadd{i'}} {\mathcal N}'_j dx                                                                           &
         \int_0^1 [ (2+u'^2){\mathcal N}_{\albadd{i'}}{\mathcal N}_{\albadd{j'}} +\damagell^2{\mathcal N}'_{\albadd{i'}}{\mathcal N}'_{\albadd{j'}}] dx &
-        0                                                                                                                                                                                                                        \\
-        -\int_0^1[\frac{1}{\Lambda^2}{\mathcal N}_{\albadd{l}}{\mathcal N}_j ] dx                                                                      & 0 & \int_0^1 \rho {\mathcal N}_{\albadd{k}}{\mathcal N}_{\albadd{l}} dx
+        \textbf{0}                                                                                                                                                                                                                        \\
+        -\int_0^1[\frac{1}{\Lambda^2}{\mathcal N}_{\albadd{l}}{\mathcal N}_j ] dx                                                                      & \textbf{0} & \int_0^1 \rho {\mathcal N}_{\albadd{k}}{\mathcal N}_{\albadd{l}} dx
     \end{bmatrix},
     \label{eq:stifness2}
-\end{equation}
+\end{multline}
+% \end{equation}
 \albadd{where $i, j = 0,\dots, n_u; i', j' = 0,\dots, n_\alpha, $ and $k, l = 0,\dots, n_v$ are the degrees of freedom indices for the film displacement, damage, and foundation displacement, respectively.}
 Our objective is to establish a branch switching strategy that,
 as the external loading parameter monotonically increases, allows equilibrium branch transitions when the current branch ceases to be stable or to exist.
@@ -95,19 +96,14 @@ This strategy must ensure the system's re-stabilization following an instability
     \includegraphics[align=c,width=.7\textwidth]{../images/model_compliant_energy.pdf}
     \includegraphics[align=c,width=.3\textwidth]{../images/model_compliant_fields.pdf}
     \includegraphics[align=c,width=.8\textwidth]{../images/bifurcations_model2_annotated.pdf}
-    % \caption{
-    %     Equilibrium branches for phase-field thin film model of an elastic membrane on a compliant elastic foundation. Left, the energy difference $\Delta \Ecompl$ between the current and the homogeneous configurations, for the same load. Stability of solutions is color-coded: blue denotes stability while orange indicates instability, by numerical evaluation of the smallest eigenvalue of the stiffness matrix $\stiffmatcompl$. Equilibrium branches are parametrised by an integer $n$; Right, damage and strain profiles of the minimum energy configurations on each branch.}
-    % \albadd{add caption}
     \caption{\added[id=OUS]{Equilibrium branches for phase-field thin film model on compliant elastic foundation. Left: energy difference $\Delta\Psi$ between current and homogeneous configurations at equal load. Stability color-coded: blue (stable), orange (unstable) based on smallest eigenvalue of stiffness matrix $H$. Branches parametrised by integer $n$; arrows indicate branch switching at stability loss. Right: damage and strain profiles of minimum energy configurations on each branch. Bottom: bifurcation and stability map. Subcritical bifurcation and primary fold in the presence of a compliant substrate, introducing additional complexity and multiple secondary folds and bifurcations (not investigated). See also the caption of Figure~\ref{fig:branches-stiff}.}}
     \label{fig:branches-compliant}
-
 \end{figure}
 
-Fig.~\ref{fig:branches-stiff},~\ref{fig:branches-compliant} show equilibrium branches that solve the nonlinear equations~\ref{auto1} and ~\ref{auto2}. These branches are represented in \albadd{the top-left subfigure} by plotting the energy difference $\Delta \Psi$ between the energy of the current solution and the energy of the homogeneous solution $\Estiffhom(\bar{\epsilon}_t)$ at the current value of the loading parameter $\bar\epsilon_t$.
+Figures~\ref{fig:branches-stiff},~\ref{fig:branches-compliant} show equilibrium branches that solve the nonlinear equations~\ref{auto1} and ~\ref{auto2}. These branches are represented in \albadd{the top-left subfigure} by plotting the energy difference $\Delta \Psi$ between the energy of the current solution and the energy of the homogeneous solution $\Estiffhom(\bar{\epsilon}_t)$ at the current value of the loading parameter $\bar\epsilon_t$.
 The stability of solutions is color-coded, light blue and orange representing stable and unstable solutions, respectively.
 Stability is discerned through numerical evaluation of the smallest eigenvalue $\lambda_t$ of the stiffness matrix $\stiffmat$ (and $\stiffmatcompl$) defined in \eqref{eq:stifness1} (respectively, in \eqref{eq:stifness2}).
 Because eigenvalues represent the local curvatures of the energy functional, the sign of the smallest  $\lambda_t$ determines the stability of the solution, with \albadd{${\inf}\lambda_t > 0$} indicating stability and $\inf\lambda_t < 0$ indicating instability.\comment[id=ALB]{check notation, maybe $\inf_i \lambda_t^{(i)}, {\lambda_t}_{i}, {\lambda_i}_{t}$}
-
 
 Under the LEM protocol, the system explores the fundamental branch where the homogeneous solution is stable until
 $\bar\epsilon_1$, identified using linear stability analysis, see Figure~\ref{fig:branches-stiff}. At the critical load on the homogeneous branch  at point $H$, a first instability determines a branch switching transition, from the trivial branch with wavenumber $n = 0$ to the nontrivial equilibrium branch with $n = 3$. The ensuing non-homogeneous configuration is linearly stable, as seen in Fig. \ref{fig:branches-stiff}. We depict the lowest energy configuration on this equilibrium branch in Fig.~\ref{fig:branches-stiff} at point $A$, consisting of two simultaneously nucleated localised cracks, one inside the domain and one on the boundary.
@@ -374,7 +370,7 @@ This juxtaposition underscores a critical sensitivity in that the numerical bifu
 
 \albadd{
     We compute an irreversible evolution using the same parameters as in the experiment in Figure~\ref{fig:hessian1}(a) for the rigid substrate model,
-    using two different numerical methods: first, the quasi-Newton L-BFGS/CG method (via ALGLIB) and second, a Newton solver based on PETSc's reduced-space (active set) algorithms for variational inequalities (via SNES).
+    using two different numerical methods: first, the quasi-Newton L-BFGS/CG method (via ALGLIB) and second, a Newton solver based on PETSc's reduced-space (active set) algorithms for variational inequalities (via SNES), \cite{petsc-user-ref, petsc-efficient}.
     % 
     In the first case, the numerical solution of first order optimality conditions with irreversibility constraints is tackled leveraging the minbleic subpackage of the Alglib library~\cite{Bochkanov2013-lk}, via an active set method that handles inequality constraints in the first order equilibrium (or criticality) problem, encoded by inequality~\eqref{eq:eq_variational_inequality_full}.
     % 

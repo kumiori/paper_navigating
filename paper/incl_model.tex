@@ -1,9 +1,7 @@
 %!TEX root = main.tex
 \section{Material, Structure, and Evolution}
 \label{sec:rigid}
-
 Two one-dimensional fracture models of brittle thin films bonded to substrates with different mechanical properties provide a framework to investigate the evolution and stability of crack patterns under external loading, in a  simple scenario where multiplicity of solutions, equilibrium bifurcations, and stability transitions interplay.
-
 
 \paragraph{Material Model}
 We consider a one-dimensional isotropic and homogeneous brittle material modelled by a state function $W(e, \alpha, \alpha')$ which, at any point $x$,
@@ -59,8 +57,7 @@ the total energy of the structure is a functional $\Estiff$ constructed by consi
         + \homogdiss(\alpha) + \frac{\damagell^2}{2}(\alpha')^2
         \right] dx,
 \end{equation}
-where $\Lambda^2 = \albadd{\frac{\mathsf E_{\text{eff}}}{\mathsf{K}}}$, $E_{\text{eff}}$ being the effective stiffness of the \albreplace{one}{two} dimensional \albreplace{film}{membrane}
-\albadd{and spatial variables as well as physical displacements are respectively normalized with respect to the film's length $L$ and the displacement scale $u_0 := \frac{\mathsf{w_1}L}{\mathsf{K}}$}\comment[id=ALB]{double check denominator}.
+where $\Lambda^2 = \frac{\mathsf E_{\text{eff}}}{\mathsf{K}}$, $E_{\text{eff}}$ being the effective stiffness of the two dimensional {membrane} \albadd{and spatial variables as well as physical displacements are respectively normalized with respect to the film's length $L$ and the displacement scale $u_0 := \frac{\mathsf{w_1}L}{\mathsf{K}}$}.
 Our second model involves the same brittle thin film but a \emph{compliant} elastic substrate that undergoes deformation alongside the film. Unlike for the rigid substrate, the substrate's deformation is an additional unknown which affects the overall energy landscape of the system, incorporating an extra term accounting for the strain energy of the substrate.
 The state of this structure is identified by the triplet $y:=(u, \alpha, v)$, and the nondimensional energy of the compliant system  $\Ecompl( u, \alpha, v)$ reads
 
@@ -70,9 +67,6 @@ The state of this structure is identified by the triplet $y:=(u, \alpha, v)$, an
         + \frac{1}{2 \elastell^2} (u- v)^2
         + \frac{\stiffratio}{2}  (v')^2 \right] dx.
 \end{equation}
-% 
-% 
-% Dimensional parameters
 \albadd{The reduced elastic model in~\eqref{def:energy_stiff} (and~\eqref{def:energy_compliant}) can be obtained as the asymptotic vanishing thickness limit for a thin 3d elastic bilayer system of thickness  $\mathsf h = o(L)$, as shown in~\cite{Leon_Baldelli2015-rp}. Assuming a three-dimensional system where the film is attached to its substrate by the means of a thin interface layer of thickness $h'=O(\mathsf h)$ and of stiffness $\Youngsubs \ll \Youngfilm$, the nondimensional constants appearing in the expression of the reduced-dimension energies can be related to the three-dimensional parameters of a phyisical mechanical system.}
 Denoting by $\mathsf{E_\text{2d}}$ and $\mathsf h$ the two-dimensional stiffness (per unit depth) and the thickness of the film membrane, and using a prime sign to indicate the stiffness and thickness of the substrate, the nondimensional quantities appearing in the expression of the energy depend on the geometric the elastic properties of the 3d system as follows
 \begin{equation}
@@ -81,43 +75,11 @@ Denoting by $\mathsf{E_\text{2d}}$ and $\mathsf h$ the two-dimensional stiffness
     % \Lambda := \frac{\Youngfilm}{\Youngsubs}\albadd{\frac{\mathsf h \mathsf w_1}{L^2}}, \quad
     \Lambda := \frac{\Youngfilm}{\Youngsubs}\albadd{\frac{\mathsf h \mathsf h'}{L^2}}, \quad
     % \stiffratio := \frac{\Youngfilm}{\Youngsubs}\albadd{\frac{\mathsf{w_1}}{\mathsf h}}, \quad
-    \stiffratio := \frac{\Youngsubs}{\Youngfilm}\albadd{\frac{\mathsf{h'}}{\mathsf h}}, \quad
+    \stiffratio := \frac{\Youngsubs}{\Youngfilm}\albadd{\frac{\mathsf{h'}}{\mathsf h}}. \quad
 \end{equation}
-\albadd{
-    Note that the nondimensional parameter $\Lambda$ relates the effective stiffness of the film membrane undergoing planar tensile strains (i.e. $\Youngfilm h$), to the effective stiffness of the bonding layer which, to accommodate the mismatch deformation between the film and the underlying substrate, is subject to a simple shear for which the effective stiffness is inversely proportional to its thickness, namely $\Youngsubs / h'$.}
-
-% Functional setting
+Note that the nondimensional parameter $\Lambda$ relates the effective stiffness of the film membrane undergoing planar tensile strains (i.e. $\Youngfilm h$), to the effective stiffness of the bonding layer which, to accommodate the mismatch deformation between the film and the underlying substrate, is subject to a simple shear for which the effective stiffness is inversely proportional to its thickness, namely $\Youngsubs / h'$.
 
 For brevity, we denote by $y:=(u, \alpha)$ (and $y:=(u, \alpha, v)$) the mechanical state of the stiff (respectively, compliant) model system, and by $H^1(0, 1)$ the (Sobolev) space of scalar real functions defined on the unit interval which are square integrable and have square integrable first derivatives. The energy $\Estiff(y)$ is well-defined for pairs belonging in the Cartesian vector product space $V:=H^1(0,1)\times  H^1(0,1)$. Similarly, the energy $\Ecompl(y)$ is well-defined for triplets $(u, \alpha, \subsu)$ in $\widetilde V:=V\times  H^1(0,1)$.
-% The energy functionals are coercive, lower semi-continuous, and nonconvex.
-
-% \subsection{Thin Film on Stiff Substrate}
-% \label{sec:thin_film_stiff}
-
-% %  The energy functional for this system is constructed by considering the elastic energy of the thin film and the energy associated with the phase-field variable that describes the damage state of the film.
-
-
-% The total energy functional $\Estiff(\alpha, u)$ in the nondimensional form is given by:
-
-
-% where $u(x)$ is the displacement field of the brittle membrane and 
-% $\epsilon(x)=u'(x)$ the corresponding continuum strain variable, \added[id=ALB]{$\damagell, \elastell$\comment[id=ALB]{Notation: $\ell, \ell_1$} are two nondimensional lengthscales. The former identifies the peak material stress XXXXX in a one dimensional test as well as the typical scale of the damage localisation bands. The latter, quantifies the film's stiffness relative to the substrate}. 
-% We \replaced[id=ALB]{specify the material model by choosing constitutive functions}{make the standard assumptions for constitutive functions}  $\soften(\alpha) =(1-\alpha)^2$ and $\homogdiss(\alpha) =\alpha^2$ and thus our model corresponds to the  phase field fracture model referred to as the Ambrosio and Tortorelli (AT2) model in. 
-% We also choose the boundary conditions in the form: $u(0)=-\bar\epsilon_t/2$, $u(1)=\bar\epsilon_t/2$ and we impose the displacement field  of the substrate as \added[id=ALB]{a loading mode parametrized by $t$,} $\subsu(x, t)=\bar \epsilon_t/2 (2x-1)$, where $\bar \epsilon_t = \bar \epsilon t$ describes a monotonic loading history.
-
-
-
-% \added[id=ALB]{nondimensional quantities: $\elastell = , \damagell, G_c,\sigma_c, ...$}
-% \subsection{Thin Film on Compliant Substrate}
-% \label{sec:thin_film_compliant}
-
-% The total energy functional for this system is given by:
-
-% where $r_{\rm s}$\comment[id=ALB]{check notation} is the ratio between elastic constants of substrate and thin film and $ v$ is the displacement field on the deformable non-breakable substrate with $\epsilon_{\rm s}= v'(x)$ represents the deformation field of the elastic foundation. We  choose boundary conditions in the form: $u(0)=-\bar\epsilon/2$, $u(1)=\bar\epsilon/2$,  $ v(0)=-\bar\epsilon/2$, $ v(1)=\bar\epsilon/2$ and, 
-
-% in the case of the compliant substrate, the displacement of the substrate is an additional unknown field variable, elastically coupled to the film, and the energy of the structure is given by
-
-
 
 
 
@@ -142,12 +104,10 @@ In practice, given an initial condition $y_0$ at $t=0$ we seek a state $y_t:=(u,
 For definiteness, denoting by $X_t = \{v\in H^1(0, 1):v=\subsu(x, t),\text{ for } x=0\text{ and } x=1\}\times H^1(0,1)$ the affine vector space of (kinematically) admissible states for the stiff model, (respectively $\widetilde{X_t} = X_t\times H^1(0, 1)$, for the compliant model)
 we seek \albadd{stable states exploiting a notion of directional stability.}
 \albadd{The system at $y$ is directionally stable in the admissible direction $z$ if:}
-
-\albadd{\begin{equation}
-        \exists  \bar{h} > 0  \text{ such that }  \Psi(y) \leq \Psi(y + h z), \quad \forall h \in [0, \bar{h}],
-        \label{eq:variational_global_ineq}
-    \end{equation}
-}
+\begin{equation}
+    \exists  \bar{h} > 0  \text{ such that }  \Psi(y) \leq \Psi(y + h z), \quad \forall h \in [0, \bar{h}],
+    \label{eq:variational_global_ineq}
+\end{equation}
 (and similarly for the compliant model substituting $\Estiff$ with $\Ecompl$ and $X_t$ with $\widetilde{X_t}$.)
 \albadd{
     Here $z$ is any admissible perturbation direction in the tangent space $T_y X_t$. If this condition is satisfied for all admissible directions $z \in T_y X_t$, the state $y$ is considered stable.
@@ -225,12 +185,13 @@ By using standard arguments of the calculus of variations, localizing the integr
         2(1-\alpha)\alpha' u' +(1-\alpha)^2 u'' -  \frac{1}{\elastell^2}(u-\subsu) & = 0, \quad {x\in (0, 1)} \\
         -\damagell^2\alpha'' - (1-\alpha)( u')^2 + 2\alpha                         & = 0, \quad {x\in (0, 1)}
     \end{cases}
-    \albadd{,    \qquad
-        \begin{cases}
-            % u(0, t)       & = \subsu(0, t),       \\
-            u(x)       = \subsu(x, t), & x=\{0, 1\}, \forall t \\
-            \alpha'(x) = 0,            & x=\{0, 1\}, \forall t \\
-        \end{cases}}.
+    ,    \qquad
+    \begin{cases}
+        % u(0, t)       & = \subsu(0, t),       \\
+        u(x)       = \subsu(x, t), & x=\{0, 1\}, \forall t \\
+        \alpha'(x) = 0,            & x=\{0, 1\}, \forall t \\
+    \end{cases}
+    .
     \label{auto1}
 \end{eqnarray}
 Notice that the choice of boundary conditions for displacements compatible with the substrate's deformation implies that the pair $\yhom(\bar\epsilon):=(u_h(x), \alpha_h)(\bar\epsilon)$ given by $u_h(x)\equiv \subsu(x, t)$ and $\alpha_h$ a load-dependent constant to identify, is always (the unique homogenous) solution to the first order equilibrium equations. This makes it immediate to identify the fundamental homogeneous solution branch $t \mapsto \yhom$ and to decouple the elasticity problem from the  evolution of damage.
@@ -240,7 +201,7 @@ Therefore, the solution to~\eqref{auto1} such that $u''(x)=\alpha'(x)= 0, \, \fo
     u_h(x) =  \frac{\bar \epsilon_t}{2}(2x-1),\qquad\alpha_h = \frac{\Bar{\epsilon_t}^2}{2 + \Bar\epsilon_t^2}\label{eq:homo1}.
 \end{equation}
 Notice that,
-first order conditions identify the the critical load threshold that activates the damaging process. The quantity $\bar\epsilon_*^c$, the value of the load for which the undamaged elastic state becomes unstable, is determined injecting the elastic solution $u_h$ in the energy and computing $\delta \Estiff(u_h, 0)(0, \beta)=0$.
+first order conditions identify the critical load threshold that activates the damaging process. The quantity $\bar\epsilon_*^c$, the value of the load for which the undamaged elastic state becomes unstable, is determined injecting the elastic solution $u_h$ in the energy and computing $\delta \Estiff(u_h, 0)(0, \beta)=0$.
 According to our mechanical energy model, the critical load is given by
 \begin{equation}
     {{{\bar{\epsilon}^c}_*}} = \sqrt{2\frac{\homogdiss'(0)}{\soften'(0)}},
@@ -310,7 +271,7 @@ Denoting by $z:=(\utest, \beta, \subsutest)\in \widetilde{X}_0$ a test function 
 \end{equation}
 % where $v$, $\beta$ and $z$ are  test functions.
 
-\albadd{Arguing similarly to the stiff case by localization and integration by parts, for all $x \in (0, 1)$} the Euler-Lagrange equations and associated boundary conditions read
+Arguing similarly to the stiff case by localization and integration by parts, for all $x \in (0, 1)$ the Euler-Lagrange equations and associated boundary conditions read
 \begin{eqnarray}
     \label{modeld_el_1}
     \begin{cases}
@@ -318,12 +279,12 @@ Denoting by $z:=(\utest, \beta, \subsutest)\in \widetilde{X}_0$ a test function 
         -\damagell^2\alpha'' - (1-\alpha)( u')^2 + 2\alpha                         & = 0, \\
         \stiffratio  \subsu''  +  \frac{1}{\elastell^2}(u-\subsu)                  & = 0, \\
     \end{cases}
-    \albadd{,    \qquad
-        \begin{cases}
-            % u(0, t)       & = \subsu(0, t),       \\
-            u(x)       = \subsu(x, t), & x\in\{0, 1\}, \forall t \\
-            \alpha'(x) = 0,            & x\in\{0, 1\}, \forall t \\
-        \end{cases}}.
+    ,    \qquad
+    \begin{cases}
+        u(x)       = \subsu(x, t), & x\in\{0, 1\}, \forall t \\
+        \alpha'(x) = 0,            & x\in\{0, 1\}, \forall t \\
+    \end{cases}
+    .
     \label{auto2}
 \end{eqnarray}
 It is easy to show that the homogeneous solution on the trivial branch remains the same as in the case of the rigid substrate, that is $\alpha_h(\bar{\epsilon}) = \frac{\bar{\epsilon}^2}{2 + \bar{\epsilon}^2}\label{eq:homo11}$, whereas the effective elastic energy along the homogeneous branch now reads $\Ecomplhom(\bar{\epsilon}) = \frac{\bar{\epsilon}^2}{2 + \bar{\epsilon}^2} + \frac{\rho}{2}\bar{\epsilon}^2$.
@@ -374,15 +335,11 @@ Equilibrium states $y_t=(u_t, \alpha_t)$ of the irreversible system are hence go
 \end{equation}
 % 
 which has to hold for all admissible competitor states $y$ such that $v-u_t \in H^1_0(0, 1)$ and $\beta-\alpha_t\in H^1(0,1)$ with $\beta \geq \alpha_t$.
-% where $K^+_{t}:=\subsu(t) + H^1_0(0, 1)\times\{w \in H^1(0, 1): w(x) \geq \alpha_t(x) \text{ a.e. }x\in (0, 1)\}$ depends on the loading parameter $t$ both explicitly, in the definition of kinematic boundary conditions, and implicitly, through the pointwise damage irreversibility.
-% Notice tha
 By testing the elasticity problem for fixed damage, and the damage problem for a given displacement field, we obtain
 \begin{equation}
     \label{eq:variational_equilibrium}
     \delta \Estiff(y_t)(v-u_t, 0) = 0, \qquad \delta \Estiff(y_t)(0, \beta-\alpha_t) \geq 0, \qquad \forall y-y_t \in K^+_{0}.
 \end{equation}
-
-% \added[id=ALB]{
 The last two relations are, respectively, the weak form of the mechanical equilibrium conditions and the  evolution law  for the damage field.
 The former allows to compute the elastic equilibrium displacement $u_t$ which can thus be eliminated from energy, while the latter governs the evolution of the damage field.
 Upon elimination of the kinematic field, the variational inequality~\eqref{eq:variational_equilibrium}.2 takes a particularly expressive form when written as a complementarity problem. This highlights the mechanical nature of the damage criterion as a threshold law.
